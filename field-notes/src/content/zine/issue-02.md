@@ -4,7 +4,7 @@ title: Against Refinement
 theme: Process
 thesis: Why the pursuit of a refined deliverable often destroys the thinking that made the early work interesting.
 season: Spring 2025
-coverAccent: #1E6C62
+coverAccent: "#1E6C62"
 date: 2025-04-01
 status: upcoming
 ---

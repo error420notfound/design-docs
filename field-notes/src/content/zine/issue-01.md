@@ -4,7 +4,7 @@ title: The Invisible Work
 theme: Legibility
 thesis: On the things design does that can't be shown in a portfolio — and why they might be the most important things it does.
 season: Winter 2025
-coverAccent: #2F9E8F
+coverAccent: "#2F9E8F"
 date: 2025-01-01
 status: published
 ---
