@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('archive');
+  return entries.map(entry => ({
+    params: { slug: entry.slug },
+    props:  { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const typeLabels: Record<string, string> = {
+  reading: 'Reading',
+  signal: 'Signal',
+  application: 'Application',
+  calibration: 'Calibration',
+};
+
+const formatDate = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+// Get related entries
+const allEntries = await getCollection('archive');
+const related = allEntries
+  .filter(e =>
+    e.slug !== entry.slug &&
+    (e.data.type === entry.data.type || e.data.tags.some(t => entry.data.tags.includes(t)))
+  )
+  .sort(() => Math.random() - 0.5)
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.thesis}
+>
+
+  <!-- Entry header -->
+  <div class="container entry-header" id="entry-header">
+    <div class="entry-header__top">
+      <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap">
+        <a href="/archive" class="t-mono link-swap" style="opacity:0.5">← Archive</a>
+        <span class="t-mono" style="opacity:0.3">/</span>
+        <span class="tag tag--accent">{typeLabels[entry.data.type]}</span>
+        {entry.data.featured && <span class="tag">Featured</span>}
+      </div>
+      <span class="t-mono" style="opacity:0.4">{formatDate(entry.data.date)}</span>
+    </div>
+
+    <h1 class="t-h1" style="font-style:italic; margin-top:1.5rem">{entry.data.title}</h1>
+
+    <p class="t-large entry-header__thesis">{entry.data.thesis}</p>
+
+    {entry.data.source && (
+      <p class="t-mono" style="opacity:0.45; margin-top:0.75rem">
+        Source: <a href={entry.data.source} target="_blank" rel="noopener" class="link-swap">{entry.data.source}</a>
+      </p>
+    )}
+
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1.5rem">
+      {entry.data.tags.map(tag => (
+        <span class="tag tag--muted">{tag}</span>
+      ))}
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- Prose body -->
+  <div class="container entry-body" id="entry-body">
+    <article class="prose">
+      <Content />
+    </article>
+
+    <aside class="entry-sidebar">
+      <div class="entry-sidebar__inner">
+        <p class="t-label" style="opacity:0.4; margin-bottom:1rem">Entry details</p>
+        <div style="display:flex; flex-direction:column; gap:1rem">
+          <div>
+            <p class="t-mono" style="opacity:0.4; font-size:10px; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.3rem">Type</p>
+            <span class="tag tag--accent">{typeLabels[entry.data.type]}</span>
+          </div>
+          <div>
+            <p class="t-mono" style="opacity:0.4; font-size:10px; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.3rem">Date</p>
+            <p class="t-mono">{formatDate(entry.data.date)}</p>
+          </div>
+          {entry.data.tags.length > 0 && (
+            <div>
+              <p class="t-mono" style="opacity:0.4; font-size:10px; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:0.5rem">Tags</p>
+              <div style="display:flex; flex-wrap:wrap; gap:0.4rem">
+                {entry.data.tags.map(tag => (
+                  <span class="tag tag--muted">{tag}</span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <hr />
+
+  <!-- Related entries -->
+  {related.length > 0 && (
+    <section class="container section" id="related-section">
+      <div class="section-header">
+        <div>
+          <p class="t-label" style="opacity:0.4">From the archive</p>
+          <h2 class="t-h3">Related entries</h2>
+        </div>
+        <a href="/archive" class="btn btn--outline">Browse All →</a>
+      </div>
+
+      <div class="fn-related-grid">
+        {related.map(e => (
+          <a href={`/archive/${e.slug}`} class="entry-card">
+            <div class="entry-card__meta">
+              <span class="tag">{typeLabels[e.data.type]}</span>
+            </div>
+            <p class="entry-card__title">{e.data.title}</p>
+            <p class="entry-card__thesis">{e.data.thesis}</p>
+            <div class="entry-card__footer">
+              <span class="t-mono" style="opacity:0.35">{formatDate(e.data.date)}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+</BaseLayout>
+
+<style>
+  .entry-header {
+    padding-top: 3rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .entry-header__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .entry-header__thesis {
+    opacity: 0.65;
+    max-width: 60ch;
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  .entry-body {
+    padding-block: var(--space-section);
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .entry-sidebar__inner {
+    position: sticky;
+    top: 80px;
+    border: var(--border-width) solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .fn-related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-gap);
+  }
+
+  @media (max-width: 1024px) {
+    .entry-body { grid-template-columns: 1fr; }
+    .entry-sidebar { display: none; }
+    .fn-related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  import { animate } from 'motion';
+  const ease = [0.16, 1, 0.3, 1] as const;
+
+  const header = document.getElementById('entry-header');
+  const body   = document.getElementById('entry-body');
+
+  if (header) {
+    header.style.opacity = '0';
+    animate(header, { opacity:[0,1], transform:['translateY(16px)','translateY(0)'] }, { duration:0.55, easing:ease, delay:0.05 });
+  }
+  if (body) {
+    body.style.opacity = '0';
+    animate(body, { opacity:[0,1], transform:['translateY(12px)','translateY(0)'] }, { duration:0.5, easing:ease, delay:0.25 });
+  }
+</script>

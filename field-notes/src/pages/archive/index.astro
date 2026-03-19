@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allEntries = await getCollection('archive');
+const sorted     = allEntries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const types = ['all', 'reading', 'signal', 'application', 'calibration'] as const;
+
+const typeLabels: Record<string, string> = {
+  all: 'All',
+  reading: 'Reading',
+  signal: 'Signal',
+  application: 'Application',
+  calibration: 'Calibration',
+};
+
+const formatDate = (d: Date) => d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+const counts: Record<string, number> = { all: sorted.length };
+for (const t of ['reading','signal','application','calibration']) {
+  counts[t] = sorted.filter(e => e.data.type === t).length;
+}
+---
+
+<BaseLayout
+  title="Archive"
+  description="A curated repository of high-value thinking — readings, signals, applications, and calibration logs."
+>
+
+  <!-- Page header -->
+  <div class="container page-header" id="page-header">
+    <p class="t-label" style="opacity:0.4">01 — Archive</p>
+    <h1 class="t-h1"><em>Curated thinking</em></h1>
+    <p class="t-large" style="opacity:0.55; max-width:55ch; margin-top:0.75rem">
+      Readings, signals, applications, and calibration notes. Non-linear, searchable,
+      accumulated over time.
+    </p>
+  </div>
+
+  <hr />
+
+  <!-- Filter bar + count -->
+  <div class="container" style="padding-block:1.25rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap">
+    <div class="filter-bar" id="filter-bar" role="tablist">
+      {types.map((t) => (
+        <button
+          class={`filter-bar__item ${t === 'all' ? 'active' : ''}`}
+          data-type={t}
+          role="tab"
+          aria-selected={t === 'all'}
+        >
+          {typeLabels[t]}
+          <span style="opacity:0.4; margin-left:4px">({counts[t]})</span>
+        </button>
+      ))}
+    </div>
+    <span class="t-mono" style="opacity:0.4" id="entry-count">{sorted.length} entries</span>
+  </div>
+
+  <hr />
+
+  <!-- Entry grid -->
+  <div class="container" style="padding-block:var(--space-section)">
+    <div class="archive-grid" id="archive-grid">
+      {sorted.map((entry) => (
+        <a
+          href={`/archive/${entry.slug}`}
+          class="entry-card"
+          data-type={entry.data.type}
+        >
+          <div class="entry-card__meta">
+            <span class={`tag ${entry.data.featured ? 'tag--accent' : ''}`}>
+              {typeLabels[entry.data.type]}
+            </span>
+            {entry.data.featured && <span class="tag tag--muted">Featured</span>}
+          </div>
+
+          <p class="entry-card__title">{entry.data.title}</p>
+
+          <p class="entry-card__thesis">{entry.data.thesis}</p>
+
+          <div class="entry-card__footer">
+            <div style="display:flex; gap:0.4rem; flex-wrap:wrap">
+              {entry.data.tags.slice(0, 3).map(tag => (
+                <span class="t-mono" style="opacity:0.35; font-size:10px">{tag}</span>
+              ))}
+            </div>
+            <span class="t-mono" style="opacity:0.35">{formatDate(entry.data.date)}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-top: 3rem;
+    padding-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-gap);
+  }
+
+  @media (max-width: 1024px) {
+    .archive-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .archive-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  import { animate, inView, stagger } from 'motion';
+  const ease = [0.16, 1, 0.3, 1] as const;
+
+  // Page header entrance
+  const header = document.getElementById('page-header');
+  if (header) {
+    header.style.opacity = '0';
+    animate(header, { opacity:[0,1], transform:['translateY(16px)','translateY(0)'] }, { duration:0.5, easing:ease, delay:0.08 });
+  }
+
+  // Grid stagger on load
+  const grid  = document.getElementById('archive-grid');
+  const cards = grid?.querySelectorAll('.entry-card');
+  if (cards) {
+    cards.forEach(c => { (c as HTMLElement).style.opacity = '0'; });
+    inView(grid!, () => {
+      animate(cards as NodeListOf<Element>,
+        { opacity:[0,1], transform:['translateY(20px)','translateY(0)'] },
+        { duration:0.45, easing:ease, delay:stagger(0.06) }
+      );
+    }, { amount: 0.05 });
+  }
+
+  // Filter logic
+  const filterBar   = document.getElementById('filter-bar');
+  const countLabel  = document.getElementById('entry-count');
+  const allCards    = document.querySelectorAll<HTMLElement>('.entry-card');
+
+  filterBar?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('.filter-bar__item') as HTMLButtonElement | null;
+    if (!btn) return;
+
+    filterBar.querySelectorAll('.filter-bar__item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const type = btn.dataset.type!;
+    let visible = 0;
+
+    allCards.forEach(card => {
+      const show = type === 'all' || card.dataset.type === type;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    if (countLabel) countLabel.textContent = `${visible} entr${visible === 1 ? 'y' : 'ies'}`;
+  });
+</script>

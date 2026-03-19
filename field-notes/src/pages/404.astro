@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 — Not Found">
+  <div class="container" style="padding-block:var(--space-section); display:flex; flex-direction:column; gap:2rem; min-height:60vh; justify-content:center">
+    <p class="t-label" style="opacity:0.4">404</p>
+    <h1 class="t-h1" style="font-style:italic">Entry not found.</h1>
+    <p class="t-large" style="opacity:0.55; max-width:45ch">
+      This page doesn't exist, or has been moved. Try the archive or journal.
+    </p>
+    <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.5rem">
+      <a href="/archive" class="btn btn--primary">Browse Archive</a>
+      <a href="/journal" class="btn btn--outline">Go to Journal</a>
+      <a href="/" class="btn btn--ghost">Home →</a>
+    </div>
+  </div>
+</BaseLayout>

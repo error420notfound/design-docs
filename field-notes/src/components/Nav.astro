@@ -1,0 +1,61 @@
+---
+const { currentPath = '' } = Astro.props;
+
+const isActive = (path: string) => currentPath.startsWith(path);
+---
+
+<nav class="nav" id="main-nav">
+  <a href="/" class="nav__wordmark">
+    <span class="t-mono" style="opacity:0.45">HS108 /</span>
+    <span class="t-label" style="letter-spacing:0.08em">Field Notes</span>
+  </a>
+
+  <div class="nav__links">
+    <a
+      href="/archive"
+      class={`nav__link ${isActive('/archive') ? 'active' : ''}`}
+    >
+      <span class="nav__mode-dot" style="background: #2F9E8F;"></span>
+      <span class="label-text">Archive</span>
+    </a>
+    <a
+      href="/journal"
+      class={`nav__link ${isActive('/journal') ? 'active' : ''}`}
+    >
+      <span class="nav__mode-dot" style="background: #7DD4C5;"></span>
+      <span class="label-text">Journal</span>
+    </a>
+    <a
+      href="/zine"
+      class={`nav__link ${isActive('/zine') ? 'active' : ''}`}
+    >
+      <span class="nav__mode-dot" style="background: var(--teal-black-native, #031410);"></span>
+      <span class="label-text">Zine</span>
+    </a>
+  </div>
+
+  <div class="nav__right">
+    <div style="display:flex; align-items:center; gap:8px">
+      <span class="status-dot"></span>
+      <span class="t-mono" style="opacity:0.5; display:none" id="nav-status">Active</span>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Nav entrance animation
+  import { animate } from 'motion';
+  const nav = document.getElementById('main-nav');
+  if (nav) {
+    nav.style.opacity = '0';
+    animate(nav,
+      { opacity: [0, 1], transform: ['translateY(-8px)', 'translateY(0)'] },
+      { duration: 0.4, easing: [0.16, 1, 0.3, 1] }
+    );
+  }
+  // Show status text on wider screens
+  const statusText = document.getElementById('nav-status');
+  if (statusText && window.innerWidth > 900) {
+    statusText.style.display = 'block';
+  }
+</script>

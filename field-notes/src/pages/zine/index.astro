@@ -1,0 +1,284 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allIssues = await getCollection('zine');
+const sorted    = allIssues.sort((a, b) => b.data.issue - a.data.issue);
+
+const published = sorted.filter(z => z.data.status === 'published');
+const upcoming  = sorted.filter(z => z.data.status === 'upcoming');
+
+const latestIssue = published[0];
+---
+
+<BaseLayout
+  title="Zine"
+  description="HS108's periodic design zine — composed, thematic narratives presented as featured artifacts."
+>
+
+  <!-- Page header -->
+  <div class="container page-header" id="page-header">
+    <p class="t-label" style="opacity:0.4">03 — Zine</p>
+    <h1 class="t-h1"><em>Published issues</em></h1>
+    <p class="t-large" style="opacity:0.55; max-width:55ch; margin-top:0.75rem">
+      Periodic synthesis. Each issue is a composed, thematic artifact — not a blog post,
+      not a newsletter. A thing you read, then return to.
+    </p>
+  </div>
+
+  <hr />
+
+  <!-- Latest issue hero -->
+  {latestIssue && (
+    <section class="container" style="padding-block:var(--space-section)">
+      <div class="section-header" id="latest-header">
+        <div>
+          <p class="t-label section-num">Latest Issue</p>
+          <h2 class="t-h3">Issue {String(latestIssue.data.issue).padStart(2,'0')} — {latestIssue.data.season}</h2>
+        </div>
+        <span class="tag tag--accent">Published</span>
+      </div>
+
+      <a href={`/zine/${latestIssue.slug}`} class="zine-hero" id="zine-hero">
+        <div class="zine-hero__cover">
+          <div class="zine-hero__issue-num">
+            {String(latestIssue.data.issue).padStart(2,'0')}
+          </div>
+          <div class="zine-hero__cover-text">
+            <p class="t-label" style="opacity:0.45; margin-bottom:0.5rem">{latestIssue.data.season}</p>
+            <p class="t-label" style="color:var(--teal-400)">Field Notes — Zine</p>
+          </div>
+        </div>
+
+        <div class="zine-hero__body">
+          <div>
+            <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">Theme — <em style="font-family:var(--font-display);font-size:16px;text-transform:none;letter-spacing:0">{latestIssue.data.theme}</em></p>
+            <h2 class="t-hero" style="margin-bottom:1rem">{latestIssue.data.title}</h2>
+            <p class="t-large" style="opacity:0.65; max-width:52ch">{latestIssue.data.thesis}</p>
+          </div>
+          <div style="display:flex; gap:1rem; align-items:center; margin-top:2rem; flex-wrap:wrap">
+            <span class="btn btn--primary">Read Issue →</span>
+            <span class="t-mono" style="opacity:0.35">{latestIssue.data.date.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</span>
+          </div>
+        </div>
+      </a>
+    </section>
+  )}
+
+  <hr />
+
+  <!-- All issues grid -->
+  {published.length > 1 && (
+    <section class="container" style="padding-block:var(--space-section)">
+      <div class="section-header" id="all-header">
+        <div>
+          <p class="t-label section-num">All Issues</p>
+          <h2 class="t-h3">{published.length} published</h2>
+        </div>
+      </div>
+
+      <div class="zine-grid" id="zine-grid">
+        {published.slice(1).map(issue => (
+          <a href={`/zine/${issue.slug}`} class="zine-card">
+            <div class="zine-card__cover">
+              <div class="zine-card__num">{String(issue.data.issue).padStart(2,'0')}</div>
+              <div class="zine-card__cover-inner">
+                <p class="t-label" style="opacity:0.4; margin-bottom:0.4rem">{issue.data.season}</p>
+                <p class="t-label" style="color:var(--teal-400)">Issue {String(issue.data.issue).padStart(2,'0')}</p>
+              </div>
+            </div>
+            <div class="zine-card__body">
+              <p class="t-label" style="opacity:0.4">Theme — {issue.data.theme}</p>
+              <h3 class="t-h3" style="font-style:italic">{issue.data.title}</h3>
+              <p class="t-mono" style="opacity:0.5; line-height:1.5">{issue.data.thesis}</p>
+            </div>
+          </a>
+        ))}
+
+        {upcoming.map(issue => (
+          <div class="zine-card zine-card--upcoming">
+            <div class="zine-card__cover">
+              <div class="zine-card__num">{String(issue.data.issue).padStart(2,'0')}</div>
+              <div class="zine-card__cover-inner">
+                <p class="t-label" style="opacity:0.35; margin-bottom:0.4rem">{issue.data.season}</p>
+                <span class="tag tag--inv" style="border-color:rgba(255,255,255,0.2)">Upcoming</span>
+              </div>
+            </div>
+            <div class="zine-card__body">
+              <p class="t-label" style="opacity:0.4">Theme — {issue.data.theme}</p>
+              <h3 class="t-h3" style="font-style:italic; opacity:0.5">{issue.data.title}</h3>
+              <p class="t-mono" style="opacity:0.35">In preparation · {issue.data.season}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Upcoming section if no other issues yet -->
+  {published.length <= 1 && upcoming.length > 0 && (
+    <section class="container section">
+      <div class="section-header">
+        <div>
+          <p class="t-label section-num">Coming Next</p>
+          <h2 class="t-h3">In preparation</h2>
+        </div>
+      </div>
+      <div class="zine-grid">
+        {upcoming.map(issue => (
+          <div class="zine-card zine-card--upcoming">
+            <div class="zine-card__cover">
+              <div class="zine-card__num">{String(issue.data.issue).padStart(2,'0')}</div>
+              <div class="zine-card__cover-inner">
+                <span class="tag tag--inv" style="border-color:rgba(255,255,255,0.2)">Upcoming</span>
+              </div>
+            </div>
+            <div class="zine-card__body">
+              <p class="t-label" style="opacity:0.4">{issue.data.season}</p>
+              <h3 class="t-h3" style="font-style:italic; opacity:0.5">{issue.data.title}</h3>
+              <p class="t-mono" style="opacity:0.35">{issue.data.thesis}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <hr />
+
+  <!-- About the zine -->
+  <section class="section--inv section">
+    <div class="container">
+      <div class="zine-about-inner">
+        <div>
+          <p class="t-label" style="opacity:0.4; margin-bottom:0.75rem">About the Zine</p>
+          <h2 class="t-h2" style="font-style:italic">Not a newsletter.<br />A publication.</h2>
+        </div>
+        <div>
+          <p class="t-body" style="opacity:0.6; max-width:50ch; margin-bottom:1.5rem">
+            Each issue of Field Notes is a composed artifact around a single theme.
+            Published when it is ready. Read in one sitting or returned to over time.
+            The distinction between archive, journal, and zine is intentional:
+            this is the mode where thinking becomes publication.
+          </p>
+          <a href="/archive" class="btn btn--outline-inv">Explore the Archive →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-top: 3rem;
+    padding-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Hero zine */
+  .zine-hero {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    border: var(--border-width) solid var(--border);
+    transition: background var(--transition);
+    gap: 0;
+  }
+
+  .zine-hero:hover { background: var(--surface-elevated); }
+
+  .zine-hero__cover {
+    background: var(--black-native);
+    color: var(--text-on-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    border-right: var(--border-width) solid var(--border);
+    min-height: 480px;
+  }
+
+  .zine-hero__issue-num {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(80px, 14vw, 180px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1;
+    opacity: 0.08;
+    user-select: none;
+  }
+
+  .zine-hero__cover-text { position: relative; z-index: 1; }
+
+  .zine-hero__body {
+    padding: clamp(2rem, 4vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  /* All issues grid */
+  .zine-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-gap);
+  }
+
+  .zine-card--upcoming { opacity: 0.6; cursor: default; }
+
+  .zine-about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .zine-hero { grid-template-columns: 1fr; }
+    .zine-hero__cover { min-height: 320px; }
+    .zine-grid { grid-template-columns: repeat(2, 1fr); }
+    .zine-about-inner { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  @media (max-width: 640px) {
+    .zine-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  import { animate, inView, stagger } from 'motion';
+  const ease = [0.16, 1, 0.3, 1] as const;
+
+  const header = document.getElementById('page-header');
+  if (header) {
+    header.style.opacity = '0';
+    animate(header, { opacity:[0,1], transform:['translateY(16px)','translateY(0)'] }, { duration:0.5, easing:ease, delay:0.08 });
+  }
+
+  const hero = document.getElementById('zine-hero');
+  if (hero) {
+    hero.style.opacity = '0';
+    inView(hero, () => {
+      animate(hero, { opacity:[0,1], transform:['translateY(20px)','translateY(0)'] }, { duration:0.6, easing:ease });
+    }, { amount: 0.1 });
+  }
+
+  const grid = document.getElementById('zine-grid');
+  if (grid) {
+    const cards = grid.querySelectorAll('.zine-card');
+    cards.forEach(c => { (c as HTMLElement).style.opacity = '0'; });
+    inView(grid, () => {
+      animate(cards as NodeListOf<Element>,
+        { opacity:[0,1], transform:['translateY(20px)','translateY(0)'] },
+        { duration:0.5, easing:ease, delay:stagger(0.08) }
+      );
+    }, { amount: 0.1 });
+  }
+</script>

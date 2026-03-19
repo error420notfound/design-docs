@@ -1,0 +1,194 @@
+/* =============================================================
+   TYPOGRAPHY.CSS — HS108 Design System
+   Font imports · Type scale · Type utility classes
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Genos:ital,wght@0,400;0,700;1,400;1,700&family=Michroma&family=Rajdhani:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+/* ── Type classes ───────────────────────────────────────────── */
+
+.t-hero {
+  font-family: var(--font-display);
+  font-size: var(--size-hero);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+}
+
+.t-hero-upright {
+  font-family: var(--font-display);
+  font-size: var(--size-hero);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+}
+
+.t-h1 {
+  font-family: var(--font-display);
+  font-size: var(--size-h1);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+}
+
+.t-h2 {
+  font-family: var(--font-display);
+  font-size: var(--size-h2);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+}
+
+.t-h3 {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.t-body {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.t-large {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.t-label {
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.t-mono {
+  font-family: var(--font-mono);
+  font-size: var(--size-small);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* ── Prose content (for markdown bodies) ───────────────────── */
+.prose {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: 1.75;
+  max-width: 68ch;
+}
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-size: var(--size-h2);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.1;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3 {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  font-weight: 400;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p { margin-bottom: 1.4rem; opacity: 0.85; }
+
+.prose p:last-child { margin-bottom: 0; }
+
+.prose strong { font-weight: 600; opacity: 1; }
+
+.prose em { font-style: italic; }
+
+.prose a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition), background var(--transition);
+}
+
+.prose a:hover {
+  background: var(--accent);
+  color: var(--black-native);
+  text-decoration: none;
+  padding: 0 2px;
+}
+
+.prose blockquote {
+  border-left: var(--border-width) solid var(--accent-strong);
+  padding-left: 1.5rem;
+  margin-block: 2rem;
+  opacity: 0.75;
+  font-style: italic;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.8vw, 22px);
+}
+
+.prose ul, .prose ol {
+  padding-left: 0;
+  margin-bottom: 1.4rem;
+}
+
+.prose ul li, .prose ol li {
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.5rem;
+  list-style: none;
+}
+
+.prose ul li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  opacity: 0.4;
+  top: 5px;
+}
+
+.prose ol { counter-reset: item; }
+.prose ol li::before {
+  content: counter(item, decimal-leading-zero);
+  counter-increment: item;
+  position: absolute;
+  left: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  opacity: 0.4;
+  top: 5px;
+}
+
+.prose hr {
+  border: none;
+  border-top: var(--border-width) solid var(--border);
+  margin-block: 3rem;
+  opacity: 0.25;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--surface-elevated);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 2px 6px;
+}
+
+.prose pre {
+  background: var(--black-native);
+  color: var(--text-on-dark);
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin-block: 2rem;
+  border-radius: 0;
+}
+
+.prose pre code { background: none; border: none; padding: 0; color: inherit; }

@@ -1,0 +1,77 @@
+---
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__top">
+      <div>
+        <p class="t-label" style="opacity:0.35; margin-bottom:0.5rem">HS108 / Field Notes</p>
+        <p class="t-body" style="opacity:0.5; max-width:40ch; font-size:13px">
+          The studio's living intellectual system — part archive, part journal, part publication.
+        </p>
+      </div>
+
+      <div class="site-footer__nav">
+        <div>
+          <p class="t-label" style="opacity:0.35; margin-bottom:0.75rem">Modes</p>
+          <div style="display:flex; flex-direction:column; gap:0.4rem">
+            <a href="/archive" class="t-mono link-swap">Archive</a>
+            <a href="/journal" class="t-mono link-swap">Journal</a>
+            <a href="/zine" class="t-mono link-swap">Zine</a>
+          </div>
+        </div>
+        <div>
+          <p class="t-label" style="opacity:0.35; margin-bottom:0.75rem">Studio</p>
+          <div style="display:flex; flex-direction:column; gap:0.4rem">
+            <a href="https://hs108.in" class="t-mono link-swap">hs108.in ↗</a>
+            <a href="https://hs108.in/work" class="t-mono link-swap">Work ↗</a>
+            <a href="https://hs108.in/contact" class="t-mono link-swap">Contact ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="site-footer__bottom">
+      <span class="t-mono" style="opacity:0.3">© {new Date().getFullYear()} HS108 Design Studio</span>
+      <span class="t-mono" style="opacity:0.3">field-notes.hs108.in</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: var(--border-width) solid var(--border);
+    margin-top: auto;
+  }
+
+  .site-footer__inner { padding-block: 3rem 2rem; }
+
+  .site-footer__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .site-footer__nav {
+    display: flex;
+    gap: 3rem;
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 640px) {
+    .site-footer__top { flex-direction: column; gap: 2rem; }
+    .site-footer__bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>

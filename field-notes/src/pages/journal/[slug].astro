@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('journal', ({ data }) => !data.draft);
+  return entries.map(entry => ({
+    params: { slug: entry.slug },
+    props:  { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const typeLabels: Record<string, string> = {
+  'project-log': 'Project Log',
+  'reflection': 'Reflection',
+  'decision': 'Decision',
+  'weekly': 'Weekly',
+};
+
+const formatDate = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+// Prev / next
+const allLogs = (await getCollection('journal', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const idx  = allLogs.findIndex(e => e.slug === entry.slug);
+const prev = allLogs[idx + 1];
+const next = allLogs[idx - 1];
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.subtitle ?? entry.data.title}
+>
+
+  <!-- Header -->
+  <div class="container journal-entry-header" id="entry-header">
+    <div class="journal-entry-header__top">
+      <a href="/journal" class="t-mono link-swap" style="opacity:0.5">← Journal</a>
+      <div style="display:flex; align-items:center; gap:0.75rem">
+        <span class="tag">{typeLabels[entry.data.type]}</span>
+        {entry.data.project && (
+          <span class="t-mono" style="opacity:0.4">Project: {entry.data.project}</span>
+        )}
+      </div>
+    </div>
+
+    <div class="journal-entry-header__body">
+      <div>
+        <p class="t-mono" style="opacity:0.35; margin-bottom:0.75rem">{formatDate(entry.data.date)}</p>
+        <h1 class="t-h1" style="font-style:italic">{entry.data.title}</h1>
+        {entry.data.subtitle && (
+          <p class="t-large" style="opacity:0.6; max-width:55ch; margin-top:0.75rem">{entry.data.subtitle}</p>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- Body -->
+  <div class="container journal-entry-body" id="entry-body">
+    <article class="prose">
+      <Content />
+    </article>
+  </div>
+
+  <hr />
+
+  <!-- Prev / Next -->
+  <div class="container journal-nav" id="journal-nav">
+    <div>
+      {prev && (
+        <a href={`/journal/${prev.slug}`} class="journal-nav__item">
+          <span class="t-mono" style="opacity:0.4">← Earlier</span>
+          <p class="journal-nav__title" style="font-style:italic">{prev.data.title}</p>
+          <span class="t-mono" style="opacity:0.35">{formatDate(prev.data.date)}</span>
+        </a>
+      )}
+    </div>
+    <div style="text-align:right">
+      {next && (
+        <a href={`/journal/${next.slug}`} class="journal-nav__item journal-nav__item--right">
+          <span class="t-mono" style="opacity:0.4">More recent →</span>
+          <p class="journal-nav__title" style="font-style:italic">{next.data.title}</p>
+          <span class="t-mono" style="opacity:0.35">{formatDate(next.data.date)}</span>
+        </a>
+      )}
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .journal-entry-header {
+    padding-top: 3rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .journal-entry-header__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .journal-entry-header__body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .journal-entry-body {
+    padding-block: var(--space-section);
+  }
+
+  .journal-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-gap);
+    padding-block: 3rem;
+  }
+
+  .journal-nav__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.5rem;
+    border: var(--border-width) solid var(--border);
+    transition: background var(--transition);
+  }
+
+  .journal-nav__item:hover { background: var(--surface-elevated); }
+
+  .journal-nav__title {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 1.4vw, 20px);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-block: 0.25rem;
+  }
+
+  .journal-nav__item--right { text-align: right; }
+
+  @media (max-width: 640px) {
+    .journal-nav { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  import { animate } from 'motion';
+  const ease = [0.16, 1, 0.3, 1] as const;
+
+  ['entry-header','entry-body','journal-nav'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.opacity = '0';
+      animate(el,
+        { opacity:[0,1], transform:['translateY(14px)','translateY(0)'] },
+        { duration:0.5, easing:ease, delay:0.05 + i * 0.1 }
+      );
+    }
+  });
+</script>

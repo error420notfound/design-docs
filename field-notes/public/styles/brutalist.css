@@ -1,0 +1,378 @@
+/* =============================================================
+   BRUTALIST.CSS — HS108 Design System
+   Buttons · Tags · Cards · Components
+   ============================================================= */
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: var(--border-width) solid var(--border);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  white-space: nowrap;
+  border-radius: 0;
+}
+
+.btn--primary {
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  border-color: var(--action-primary-bg);
+}
+.btn--primary:hover {
+  background: var(--action-strong-bg);
+  color: var(--action-strong-fg);
+  border-color: var(--action-strong-bg);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--black-native);
+  border-color: var(--black-native);
+}
+.btn--outline:hover {
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  border-color: var(--action-primary-bg);
+}
+
+.btn--outline-inv {
+  background: transparent;
+  color: var(--text-on-dark);
+  border-color: rgba(214, 242, 236, 0.3);
+}
+.btn--outline-inv:hover {
+  background: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+  border-color: var(--action-primary-bg);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--black-native);
+  border-color: transparent;
+  padding-inline: 0;
+}
+.btn--ghost:hover { color: var(--accent); }
+
+.btn--sm {
+  padding: 8px 16px;
+  font-size: 10px;
+}
+
+/* ── Tags ───────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: var(--border-width) solid var(--border);
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: 0;
+}
+
+.tag--accent {
+  background: var(--action-primary-bg);
+  border-color: var(--action-primary-bg);
+  color: var(--action-primary-fg);
+}
+
+.tag--inv {
+  border-color: rgba(214, 242, 236, 0.3);
+  color: var(--text-on-dark);
+}
+
+.tag--muted {
+  opacity: 0.5;
+  border-color: currentColor;
+}
+
+/* ── Stat strip ─────────────────────────────────────────────── */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: var(--border-width) solid var(--border);
+  border-left: var(--border-width) solid var(--border);
+}
+
+.stat-strip > * {
+  border-right: var(--border-width) solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
+  padding: var(--space-card);
+}
+
+@media (max-width: 640px) {
+  .stat-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Entry card (archive / journal) ─────────────────────────── */
+.entry-card {
+  border: var(--border-width) solid var(--border);
+  padding: var(--space-card);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: background var(--transition);
+  cursor: pointer;
+}
+
+.entry-card:hover { background: var(--surface-elevated); }
+
+.entry-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.entry-card__title {
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.15;
+  flex: 1;
+}
+
+.entry-card__thesis {
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  opacity: 0.6;
+  line-height: 1.55;
+}
+
+.entry-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: var(--border-width) solid var(--border);
+}
+
+/* ── Zine issue card ─────────────────────────────────────────── */
+.zine-card {
+  border: var(--border-width) solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: background var(--transition);
+}
+
+.zine-card:hover { background: var(--surface-elevated); }
+
+.zine-card__cover {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--black-native);
+  position: relative;
+  border-bottom: var(--border-width) solid var(--border);
+}
+
+.zine-card__cover-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  color: var(--text-on-dark);
+}
+
+.zine-card__body { padding: var(--space-card); display: flex; flex-direction: column; gap: 0.75rem; }
+
+.zine-card__num {
+  font-family: var(--font-mono);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 400;
+  line-height: 1;
+  opacity: 0.12;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+/* ── Journal row ─────────────────────────────────────────────── */
+.journal-row {
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  align-items: start;
+  gap: 2rem;
+  padding-block: 1.75rem;
+  border-bottom: var(--border-width) solid var(--border);
+  transition: background var(--transition);
+}
+
+.journal-row:hover { background: var(--surface-elevated); padding-inline: 1rem; }
+
+.journal-row__date { opacity: 0.4; padding-top: 4px; }
+
+.journal-row__title {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.journal-row__sub {
+  font-size: var(--size-small);
+  opacity: 0.5;
+  margin-top: 0.35rem;
+  font-family: var(--font-body);
+}
+
+@media (max-width: 768px) {
+  .journal-row { grid-template-columns: 1fr; gap: 0.75rem; }
+  .journal-row:hover { padding-inline: 0.5rem; }
+}
+
+/* ── Featured zine (homepage) ───────────────────────────────── */
+.zine-featured {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border: var(--border-width) solid var(--border);
+  gap: 0;
+}
+
+.zine-featured__cover {
+  background: var(--black-native);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  color: var(--text-on-dark);
+  border-right: var(--border-width) solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.zine-featured__body {
+  padding: clamp(1.5rem, 3vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: flex-end;
+}
+
+@media (max-width: 900px) {
+  .zine-featured { grid-template-columns: 1fr; }
+  .zine-featured__cover { min-height: 300px; }
+}
+
+/* ── Navigation ─────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 60px;
+  display: flex;
+  align-items: stretch;
+  border-bottom: var(--border-width) solid var(--border);
+  background: var(--bg);
+}
+
+.nav__wordmark {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--gutter);
+  border-right: var(--border-width) solid var(--border);
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.nav__links {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  padding-inline: var(--gutter);
+  gap: 0;
+}
+
+.nav__link {
+  display: flex;
+  align-items: center;
+  padding-inline: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-right: var(--border-width) solid var(--border);
+  transition: background var(--transition), color var(--transition);
+  gap: 8px;
+}
+
+.nav__link:hover, .nav__link.active {
+  background: var(--accent);
+  color: var(--black-native);
+}
+
+.nav__mode-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--gutter);
+  border-left: var(--border-width) solid var(--border);
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .nav__links { padding-inline: 0; }
+  .nav__link { padding-inline: 0.75rem; }
+  .nav__link span.label-text { display: none; }
+}
+
+/* ── Archive filter bar ─────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border: var(--border-width) solid var(--border);
+  overflow-x: auto;
+}
+
+.filter-bar__item {
+  padding: 10px 18px;
+  font-family: var(--font-mono);
+  font-size: var(--size-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-right: var(--border-width) solid var(--border);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+  background: none;
+  color: var(--fg);
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+}
+
+.filter-bar__item:last-child { border-right: none; }
+
+.filter-bar__item:hover,
+.filter-bar__item.active {
+  background: var(--accent);
+  color: var(--black-native);
+}

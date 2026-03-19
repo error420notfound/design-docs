@@ -1,0 +1,410 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const archiveEntries = await getCollection('archive', ({ data }) => !data.draft);
+const journalEntries = await getCollection('journal', ({ data }) => !data.draft);
+const zineIssues     = await getCollection('zine');
+
+const featuredArchive = archiveEntries
+  .filter(e => e.data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 1)[0];
+
+const recentArchive = archiveEntries
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .filter(e => e.slug !== featuredArchive?.slug)
+  .slice(0, 3);
+
+const recentJournal = journalEntries
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
+
+const latestZine = zineIssues
+  .sort((a, b) => b.data.issue - a.data.issue)
+  .find(z => z.data.status === 'published');
+
+const upcomingZine = zineIssues
+  .sort((a, b) => b.data.issue - a.data.issue)
+  .find(z => z.data.status === 'upcoming');
+
+const typeLabels: Record<string, string> = {
+  reading: 'Reading',
+  signal: 'Signal',
+  application: 'Application',
+  calibration: 'Calibration',
+};
+
+const formatDate = (d: Date) => d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+
+<BaseLayout title="Field Notes" description="HS108's living intellectual system — part archive, part journal, part publication.">
+
+  <!-- ── Hero ─────────────────────────────────────────────────── -->
+  <section class="fn-hero section--alt">
+    <div class="container fn-hero__inner">
+
+      <div class="fn-hero__overline" id="hero-overline">
+        <div style="display:flex; align-items:center; gap:0.75rem">
+          <span class="status-dot"></span>
+          <span class="t-label">HS108 / Field Notes</span>
+        </div>
+        <span class="t-label" style="opacity:0.3">field-notes.hs108.in</span>
+      </div>
+
+      <h1 class="t-hero fn-hero__hed" id="hero-hed">
+        The studio's<br />
+        <span style="font-style:normal; color:var(--accent)">living archive.</span>
+      </h1>
+
+      <div class="fn-hero__bottom" id="hero-bottom">
+        <p class="t-large" style="opacity:0.6; max-width:52ch">
+          Ideas captured, refined, and selectively elevated. Three modes, one system:
+          <em>Archive</em> for timeless thinking, <em>Journal</em> for process and evolution,
+          <em>Zine</em> for composed publication.
+        </p>
+        <div class="fn-hero__modes">
+          <a href="/archive" class="fn-mode-block">
+            <span class="fn-mode-dot" style="background:#2F9E8F"></span>
+            <span class="t-label">Archive</span>
+            <span class="t-mono" style="opacity:0.4">{archiveEntries.length} entries</span>
+          </a>
+          <a href="/journal" class="fn-mode-block">
+            <span class="fn-mode-dot" style="background:#7DD4C5"></span>
+            <span class="t-label">Journal</span>
+            <span class="t-mono" style="opacity:0.4">{journalEntries.length} logs</span>
+          </a>
+          <a href="/zine" class="fn-mode-block">
+            <span class="fn-mode-dot" style="background:var(--teal-black-native)"></span>
+            <span class="t-label">Zine</span>
+            <span class="t-mono" style="opacity:0.4">{zineIssues.length} issues</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- ── Marquee ───────────────────────────────────────────────── -->
+  <div class="marquee-track" aria-hidden="true">
+    <div class="marquee-inner">
+      <span>Readings</span><span>·</span>
+      <span>Signals</span><span>·</span>
+      <span>Applications</span><span>·</span>
+      <span>Calibration</span><span>·</span>
+      <span>Project Logs</span><span>·</span>
+      <span>Reflections</span><span>·</span>
+      <span>Decisions</span><span>·</span>
+      <span>Design Zine</span><span>·</span>
+      <span>Readings</span><span>·</span>
+      <span>Signals</span><span>·</span>
+      <span>Applications</span><span>·</span>
+      <span>Calibration</span><span>·</span>
+      <span>Project Logs</span><span>·</span>
+      <span>Reflections</span><span>·</span>
+      <span>Decisions</span><span>·</span>
+      <span>Design Zine</span><span>·</span>
+    </div>
+  </div>
+
+  <!-- ── Featured Archive entry ───────────────────────────────── -->
+  {featuredArchive && (
+    <section class="section container" id="archive-section">
+      <div class="section-header" id="archive-header">
+        <div>
+          <p class="t-label section-num">01 — Archive</p>
+          <h2 class="t-h2"><em>Curated thinking</em></h2>
+        </div>
+        <a href="/archive" class="btn btn--outline">Browse All →</a>
+      </div>
+
+      <div class="fn-archive-split">
+        <!-- Featured -->
+        <a href={`/archive/${featuredArchive.slug}`} class="fn-featured-entry b-box">
+          <div class="fn-featured-entry__meta">
+            <span class="tag tag--accent">{typeLabels[featuredArchive.data.type]}</span>
+            <span class="tag">Featured</span>
+          </div>
+          <h3 class="fn-featured-entry__title t-h2">
+            <em>{featuredArchive.data.title}</em>
+          </h3>
+          <p class="t-body fn-featured-entry__thesis" style="opacity:0.6">
+            {featuredArchive.data.thesis}
+          </p>
+          <div class="fn-featured-entry__footer">
+            {featuredArchive.data.tags.map(tag => (
+              <span class="tag tag--muted">{tag}</span>
+            ))}
+            <span class="t-mono" style="opacity:0.4; margin-left:auto">{formatDate(featuredArchive.data.date)}</span>
+          </div>
+        </a>
+
+        <!-- Recent list -->
+        <div class="fn-archive-list">
+          {recentArchive.map((entry) => (
+            <a href={`/archive/${entry.slug}`} class="fn-archive-row">
+              <span class="tag tag--muted">{typeLabels[entry.data.type]}</span>
+              <div>
+                <p class="fn-archive-row__title">{entry.data.title}</p>
+                <p class="t-mono fn-archive-row__thesis" style="opacity:0.45">{entry.data.thesis}</p>
+              </div>
+              <span class="t-mono fn-archive-row__date" style="opacity:0.35">{formatDate(entry.data.date)}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <hr />
+
+  <!-- ── Latest Zine ───────────────────────────────────────────── -->
+  {latestZine && (
+    <section class="section container" id="zine-section">
+      <div class="section-header" id="zine-header">
+        <div>
+          <p class="t-label section-num">02 — Zine</p>
+          <h2 class="t-h2"><em>Published issues</em></h2>
+        </div>
+        <a href="/zine" class="btn btn--outline">All Issues →</a>
+      </div>
+
+      <a href={`/zine/${latestZine.slug}`} class="zine-featured">
+        <div class="zine-featured__cover">
+          <div class="zine-featured__num t-mono" style="position:absolute;top:1.5rem;left:1.5rem;opacity:0.15;font-size:clamp(64px,12vw,140px);line-height:1;font-family:var(--font-display)">
+            {String(latestZine.data.issue).padStart(2, '0')}
+          </div>
+          <div style="position:relative;z-index:1">
+            <p class="t-label tag--inv" style="opacity:0.5;margin-bottom:0.5rem">{latestZine.data.season}</p>
+            <p class="t-label" style="color:var(--teal-400)">Issue {String(latestZine.data.issue).padStart(2, '0')}</p>
+          </div>
+        </div>
+
+        <div class="zine-featured__body">
+          <div>
+            <p class="t-label" style="opacity:0.4;margin-bottom:0.5rem">Theme — {latestZine.data.theme}</p>
+            <h3 class="t-h1" style="font-style:italic">{latestZine.data.title}</h3>
+          </div>
+          <p class="t-large" style="opacity:0.65;max-width:50ch">{latestZine.data.thesis}</p>
+          <div style="display:flex;align-items:center;gap:1rem;margin-top:0.5rem">
+            <span class="btn btn--primary">Read Issue →</span>
+            {upcomingZine && (
+              <span class="t-mono" style="opacity:0.4">Next: Issue {String(upcomingZine.data.issue).padStart(2,'0')} — {upcomingZine.data.season}</span>
+            )}
+          </div>
+        </div>
+      </a>
+    </section>
+  )}
+
+  <hr />
+
+  <!-- ── Journal stream ────────────────────────────────────────── -->
+  <section class="section container" id="journal-section">
+    <div class="section-header" id="journal-header">
+      <div>
+        <p class="t-label section-num">03 — Journal</p>
+        <h2 class="t-h2"><em>Process, live</em></h2>
+      </div>
+      <a href="/journal" class="btn btn--outline">Full Journal →</a>
+    </div>
+
+    <div id="journal-list">
+      {recentJournal.map((entry) => (
+        <a href={`/journal/${entry.slug}`} class="journal-row">
+          <span class="t-mono journal-row__date">{formatDate(entry.data.date)}</span>
+          <div>
+            <p class="journal-row__title">{entry.data.title}</p>
+            {entry.data.subtitle && (
+              <p class="journal-row__sub">{entry.data.subtitle}</p>
+            )}
+          </div>
+          <span class="tag tag--muted">{entry.data.type}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .fn-hero { background: var(--surface-elevated); }
+
+  .fn-hero__inner {
+    padding-block: clamp(4rem, 8vw, 8rem);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .fn-hero__overline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 12px;
+    border-top: var(--border-width) solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
+  }
+
+  .fn-hero__hed { margin-block: 1rem; }
+
+  .fn-hero__bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 3rem;
+  }
+
+  .fn-hero__modes {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: var(--border-width) solid var(--border);
+  }
+
+  .fn-mode-block {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 12px 18px;
+    border-bottom: var(--border-width) solid var(--border);
+    transition: background var(--transition);
+  }
+
+  .fn-mode-block:last-child { border-bottom: none; }
+  .fn-mode-block:hover { background: var(--accent); color: var(--black-native); }
+  .fn-mode-block:hover .t-mono { opacity: 0.7; }
+
+  .fn-mode-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Archive split */
+  .fn-archive-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-gap);
+  }
+
+  .fn-featured-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: var(--space-card);
+    transition: background var(--transition);
+  }
+  .fn-featured-entry:hover { background: var(--surface-elevated); }
+
+  .fn-featured-entry__meta { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .fn-featured-entry__title {
+    line-height: 1.1;
+    flex: 1;
+  }
+
+  .fn-featured-entry__thesis { line-height: 1.6; }
+
+  .fn-featured-entry__footer {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: var(--border-width) solid var(--border);
+    margin-top: auto;
+  }
+
+  /* Archive list */
+  .fn-archive-list {
+    display: flex;
+    flex-direction: column;
+    border: var(--border-width) solid var(--border);
+  }
+
+  .fn-archive-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+    gap: 1rem;
+    padding: 1.25rem var(--space-card);
+    border-bottom: var(--border-width) solid var(--border);
+    transition: background var(--transition);
+  }
+
+  .fn-archive-row:last-child { border-bottom: none; }
+  .fn-archive-row:hover { background: var(--surface-elevated); }
+
+  .fn-archive-row__title {
+    font-family: var(--font-display);
+    font-size: clamp(16px, 1.4vw, 19px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.25;
+  }
+
+  .fn-archive-row__thesis {
+    font-size: 12px;
+    margin-top: 0.25rem;
+    line-height: 1.45;
+  }
+
+  .fn-archive-row__date { padding-top: 2px; white-space: nowrap; }
+
+  @media (max-width: 900px) {
+    .fn-hero__bottom { grid-template-columns: 1fr; }
+    .fn-archive-split { grid-template-columns: 1fr; }
+    .fn-archive-row { grid-template-columns: 1fr; gap: 0.5rem; }
+    .fn-archive-row__date { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .fn-hero__overline { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<script>
+  import { animate, inView, stagger } from 'motion';
+  const ease = [0.16, 1, 0.3, 1] as const;
+
+  // Hero entrance
+  const overline = document.getElementById('hero-overline');
+  const hed      = document.getElementById('hero-hed');
+  const bottom   = document.getElementById('hero-bottom');
+
+  [overline, hed, bottom].forEach(el => { if (el) el.style.opacity = '0'; });
+
+  if (overline) animate(overline, { opacity: [0,1], transform: ['translateY(14px)','translateY(0)'] }, { duration: 0.5, easing: ease, delay: 0.05 });
+  if (hed)      animate(hed,      { opacity: [0,1], transform: ['translateY(28px)','translateY(0)'] }, { duration: 0.7, easing: ease, delay: 0.18 });
+  if (bottom)   animate(bottom,   { opacity: [0,1], transform: ['translateY(18px)','translateY(0)'] }, { duration: 0.55, easing: ease, delay: 0.42 });
+
+  // Section headers scroll reveal
+  ['archive-header','zine-header','journal-header'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.opacity = '0';
+      inView(el, () => {
+        animate(el, { opacity:[0,1], transform:['translateY(16px)','translateY(0)'] }, { duration:0.55, easing:ease });
+      }, { amount: 0.2 });
+    }
+  });
+
+  // Journal list stagger
+  const journalList = document.getElementById('journal-list');
+  if (journalList) {
+    const rows = journalList.querySelectorAll('.journal-row');
+    rows.forEach(r => { (r as HTMLElement).style.opacity = '0'; });
+    inView(journalList, () => {
+      animate(rows as NodeListOf<Element>,
+        { opacity:[0,1], transform:['translateY(20px)','translateY(0)'] },
+        { duration:0.5, easing:ease, delay:stagger(0.09) }
+      );
+    }, { amount: 0.1 });
+  }
+</script>

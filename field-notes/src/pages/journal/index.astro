@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allLogs = await getCollection('journal', ({ data }) => !data.draft);
+const sorted  = allLogs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const typeLabels: Record<string, string> = {
+  'project-log': 'Project Log',
+  'reflection': 'Reflection',
+  'decision': 'Decision',
+  'weekly': 'Weekly',
+};
+
+const formatDate = (d: Date) => d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+// Group by year/month for timeline feel
+type GroupedEntries = Record<string, typeof sorted>;
+const grouped: GroupedEntries = {};
+for (const entry of sorted) {
+  const key = entry.data.date.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+  if (!grouped[key]) grouped[key] = [];
+  grouped[key].push(entry);
+}
+---
+
+<BaseLayout
+  title="Journal"
+  description="A time-based record of how the studio thinks through work — project logs, reflections, and decisions."
+>
+
+  <!-- Page header -->
+  <div class="container page-header" id="page-header">
+    <p class="t-label" style="opacity:0.4">02 — Journal</p>
+    <h1 class="t-h1"><em>Process, live</em></h1>
+    <p class="t-large" style="opacity:0.55; max-width:55ch; margin-top:0.75rem">
+      A time-aware record of studio thinking. Project logs, reflections, and
+      decision rationale — lighter and more provisional than the archive.
+    </p>
+  </div>
+
+  <hr />
+
+  <!-- Type legend -->
+  <div class="container" style="padding-block:1.25rem; display:flex; gap:1rem; flex-wrap:wrap; align-items:center; justify-content:space-between">
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap">
+      {Object.entries(typeLabels).map(([k, v]) => (
+        <span class="tag tag--muted">{v}</span>
+      ))}
+    </div>
+    <span class="t-mono" style="opacity:0.4">{sorted.length} entries</span>
+  </div>
+
+  <hr />
+
+  <!-- Timeline grouped by month -->
+  <div class="container journal-timeline" id="journal-timeline">
+    {Object.entries(grouped).map(([month, entries], groupIndex) => (
+      <div class="journal-group" data-group={groupIndex}>
+        <div class="journal-group__month">
+          <p class="t-label" style="opacity:0.35">{month}</p>
+        </div>
+        <div class="journal-group__entries">
+          {entries.map((entry) => (
+            <a href={`/journal/${entry.slug}`} class="journal-row">
+              <div class="journal-row__date">
+                <span class="t-mono">{formatDate(entry.data.date)}</span>
+                <span class="tag tag--muted" style="margin-top:0.3rem">{typeLabels[entry.data.type]}</span>
+              </div>
+              <div class="journal-row__content">
+                <p class="journal-row__title">{entry.data.title}</p>
+                {entry.data.subtitle && (
+                  <p class="journal-row__sub">{entry.data.subtitle}</p>
+                )}
+                {entry.data.project && (
+                  <p class="t-mono" style="opacity:0.35; margin-top:0.35rem; font-size:10px">
+                    Project: {entry.data.project}
+                  </p>
+                )}
+              </div>
+              <span class="btn btn--ghost" style="opacity:0.4; flex-shrink:0">Read →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-top: 3rem;
+    padding-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .journal-timeline {
+    padding-block: var(--space-section);
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .journal-group {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .journal-group__month {
+    position: sticky;
+    top: 80px;
+    padding-top: 1.5rem;
+    border-top: var(--border-width) solid var(--border);
+  }
+
+  .journal-group__entries {
+    border-top: var(--border-width) solid var(--border);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Override journal-row for this page — date column needs stacking */
+  .journal-timeline .journal-row {
+    grid-template-columns: 160px 1fr auto;
+    align-items: start;
+    gap: 1.5rem;
+  }
+
+  .journal-row__date {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding-top: 2px;
+  }
+
+  .journal-row__content { display: flex; flex-direction: column; }
+
+  @media (max-width: 900px) {
+    .journal-group { grid-template-columns: 1fr; gap: 1rem; }
+    .journal-group__month { position: static; }
+    .journal-timeline .journal-row { grid-template-columns: 1fr; gap: 0.75rem; }
+  }
+</style>
+
+<script>
+  import { animate, inView, stagger } from 'motion';
+  const ease = [0.16, 1, 0.3, 1] as const;
+
+  const header = document.getElementById('page-header');
+  if (header) {
+    header.style.opacity = '0';
+    animate(header, { opacity:[0,1], transform:['translateY(16px)','translateY(0)'] }, { duration:0.5, easing:ease, delay:0.08 });
+  }
+
+  document.querySelectorAll('.journal-group').forEach(group => {
+    const rows = group.querySelectorAll('.journal-row');
+    rows.forEach(r => { (r as HTMLElement).style.opacity = '0'; });
+    inView(group as HTMLElement, () => {
+      animate(rows as NodeListOf<Element>,
+        { opacity:[0,1], transform:['translateY(20px)','translateY(0)'] },
+        { duration:0.45, easing:ease, delay:stagger(0.08) }
+      );
+    }, { amount: 0.1 });
+  });
+</script>
