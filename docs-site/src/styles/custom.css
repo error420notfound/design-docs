@@ -108,6 +108,7 @@
   --sl-font:           'Geist', 'Arial', sans-serif;
   --sl-font-mono:      'Geist Mono', 'Courier New', monospace;
   --sl-text-code-size: 0.85em;
+  --sl-content-width:  65rem;
 }
 
 /* ── Global — selection + scrollbar ─────────────────────── */
