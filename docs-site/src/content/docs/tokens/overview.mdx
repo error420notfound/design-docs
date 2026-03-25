@@ -1,0 +1,96 @@
+---
+title: Tokens — Overview
+description: What design tokens are, how the hs108 system is structured, and how to use tokens in code.
+sidebar:
+  order: 1
+---
+
+import TokenTable from '../../../components/TokenTable.astro';
+
+## What are design tokens?
+
+Design tokens are the atomic decisions of the visual system — stored as **CSS custom properties** so they can be referenced consistently across every surface.
+
+Instead of hardcoding `color: #2186EB` everywhere, you reference `color: var(--sl-color-accent)`. When the brand updates, one change propagates everywhere.
+
+---
+
+## Token layers
+
+The hs108 system uses two layers:
+
+### 1. Hue scales (raw values)
+
+Every color family has 11 stops (50 → 950) plus two native blacks and whites:
+
+```css
+--blue-500: #2186EB;
+--blue-black-native: #020D1F;
+--blue-white-native: #CFE6FE;
+```
+
+These are **never used directly** in components — only referenced by semantic tokens.
+
+### 2. Semantic tokens (intent-based)
+
+Semantic tokens give meaning to raw values. They describe *what* a color does, not *what* it is:
+
+```css
+--sl-color-accent:      var(--blue-500);  /* primary accent */
+--hs-highlight:         var(--vermilion-500);  /* action / emphasis */
+```
+
+When themes change, only the semantic layer updates — hue scales stay fixed.
+
+---
+
+## The two accent colors
+
+| Token | Hue | Use |
+|-------|-----|-----|
+| `--sl-color-accent` | Blue 500 — `#2186EB` | Navigation, links, focus rings, primary data |
+| `--hs-highlight` | Vermilion 500 — `#F03A17` | Copy buttons, active sidebar, warning callouts, CTAs |
+
+---
+
+## Available token groups
+
+<TokenTable
+  caption="Typography tokens"
+  tokens={[
+    { token: '--font-display', value: "Instrument Serif", usage: 'Large display headings, italic titles' },
+    { token: '--font-body', value: "Geist", usage: 'All body copy and UI text' },
+    { token: '--font-mono', value: "Geist Mono", usage: 'Code blocks, token names, nav labels' },
+    { token: '--font-alt-a-display', value: "Genos", usage: 'Alternate display — geometric, condensed' },
+    { token: '--font-alt-a-body', value: "Rajdhani", usage: 'Alternate body — technical, structured' },
+    { token: '--font-alt-b-display', value: "Michroma", usage: 'Alternate display — futuristic, mono-spaced feel' },
+    { token: '--font-alt-b-body', value: "IBM Plex Serif", usage: 'Alternate body — editorial, formal' },
+  ]}
+/>
+
+<TokenTable
+  caption="Transition token"
+  tokens={[
+    { token: '--transition', value: '150ms ease', usage: 'Default duration and easing for hover/focus transitions' },
+    { token: '--hs-border-width', value: '2px', usage: 'Consistent border weight across all components' },
+  ]}
+/>
+
+---
+
+## Usage in code
+
+Reference tokens via `var()` in any CSS context:
+
+```css
+.my-element {
+  color: var(--sl-color-accent);
+  border: var(--hs-border-width) solid var(--sl-color-gray-5);
+  font-family: var(--font-mono);
+  padding: var(--space-gap);
+}
+```
+
+:::note
+Token names prefixed with `--sl-` are Starlight system tokens. Names prefixed with `--hs-` are hs108-specific. Raw hue names like `--blue-500` are available but should only be used when defining semantic tokens.
+:::

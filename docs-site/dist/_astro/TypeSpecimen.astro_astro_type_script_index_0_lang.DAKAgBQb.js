@@ -1,0 +1,1 @@
+import{i as o,a as s}from"./animate.es.CkhHxHEr.js";document.querySelectorAll(".type-scale").forEach(t=>{const e=t.querySelectorAll(".specimen-row");e.forEach(a=>{a.style.opacity="0",a.style.transform="translateY(8px)"}),o(t,()=>{e.forEach((a,r)=>{s(a,{opacity:[0,1],transform:["translateY(8px)","translateY(0px)"]},{delay:r*.07,easing:[.16,1,.3,1],duration:.5})})})});

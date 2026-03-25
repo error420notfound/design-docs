@@ -1,0 +1,114 @@
+---
+title: Tags
+description: Tag variants for categorisation, status, and labelling in the hs108 system.
+sidebar:
+  order: 3
+---
+
+import ComponentPreview from '../../../components/ComponentPreview.astro';
+
+## Base class
+
+Tags are small, bordered labels — always uppercase, always monospace. They carry category, type, or status information without competing with body content.
+
+```css
+.tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 2px solid currentColor;
+  border-radius: 0;
+  padding: 4px 10px;
+}
+```
+
+---
+
+## Variants
+
+### Default
+
+Bordered with no fill. Uses the current text color for border.
+
+<ComponentPreview
+  label="tag (default)"
+  html={`<span class="tag">Reading</span>
+<span class="tag">Signal</span>
+<span class="tag">Application</span>`}
+/>
+
+### Accent
+
+Filled blue. For primary category labels and active filter states.
+
+<ComponentPreview
+  label="tag--accent"
+  html={`<span class="tag tag--accent">Archive</span>
+<span class="tag tag--accent">Featured</span>`}
+/>
+
+### Action
+
+Filled vermilion. For status indicators, warnings, and new/live markers.
+
+<ComponentPreview
+  label="tag--action"
+  html={`<span class="tag tag--action">New</span>
+<span class="tag tag--action">Live</span>`}
+/>
+
+### Muted
+
+50% opacity. For secondary labels, optional metadata, and disabled states.
+
+<ComponentPreview
+  label="tag--muted"
+  html={`<span class="tag tag--muted">Draft</span>
+<span class="tag tag--muted">Archived</span>`}
+/>
+
+### Inverse
+
+For use on dark backgrounds. Border and text use a lightened blue-white tint.
+
+<ComponentPreview
+  label="tag--inv (on dark)"
+  dark={true}
+  html={`<span class="tag tag--inv">Upcoming</span>
+<span class="tag tag--inv">Issue 02</span>`}
+/>
+
+---
+
+## All variants together
+
+<ComponentPreview
+  label="All tag variants"
+  html={`<span class="tag">Default</span>
+<span class="tag tag--accent">Accent</span>
+<span class="tag tag--action">Action</span>
+<span class="tag tag--muted">Muted</span>`}
+/>
+
+---
+
+## Common tag content patterns
+
+Tags in the hs108 content system carry four types of information:
+
+| Pattern | Content | Example |
+|---------|---------|---------|
+| Archive type | The type of archive entry | `Reading`, `Signal`, `Application`, `Calibration` |
+| Journal type | The type of journal entry | `Reflection`, `Decision`, `Weekly`, `Project Log` |
+| Status | Publication or draft state | `Published`, `Draft`, `Upcoming` |
+| Category | Thematic grouping | `Brand`, `Type`, `Systems` |
+
+---
+
+## Usage rules
+
+- **One accent tag per element.** Multiple `.tag--accent` in a cluster looks cluttered.
+- **Action tags signal urgency.** Don't use vermilion for neutral categorisation.
+- **Muted = not primary.** If a tag is muted, the reader should be able to ignore it without losing meaning.
+- **Keep labels to one word.** Two words maximum. If it needs three words, it's a description, not a tag.

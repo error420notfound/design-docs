@@ -1,0 +1,181 @@
+---
+/**
+ * ColorSwatch.astro
+ * Renders a responsive grid of color swatches with token name,
+ * hex value on hover, and optional role label.
+ * Motion stagger animation triggers on scroll entry.
+ *
+ * Props:
+ *   swatches  — array of { name, value, role?, isAction? }
+ *   family    — optional label for the color family (e.g. "Blue")
+ *   columns   — grid column count hint (default: 6)
+ */
+
+interface Swatch {
+  name: string;
+  value: string;
+  role?: string;
+  isAction?: boolean;
+}
+
+interface Props {
+  swatches: Swatch[];
+  family?: string;
+  columns?: number;
+}
+
+const { swatches, family, columns = 6 } = Astro.props;
+const uid = `sg-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class="swatch-section" id={uid}>
+  {family && <p class="swatch-family">{family}</p>}
+  <div class="swatch-grid" style={`--cols: ${columns}`}>
+    {swatches.map((s) => (
+      <div
+        class={`swatch${s.isAction ? ' swatch--action' : ''}`}
+        style={`--sw: ${s.value}`}
+      >
+        <div class="swatch__square">
+          <span class="swatch__hex">{s.value}</span>
+          {s.isAction && <span class="swatch__badge">action</span>}
+        </div>
+        <div class="swatch__info">
+          <code class="swatch__name">{s.name}</code>
+          {s.role && <span class="swatch__role">{s.role}</span>}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  import { animate, inView, stagger } from 'motion';
+
+  document.querySelectorAll<HTMLElement>('.swatch-section').forEach((section) => {
+    const swatches = section.querySelectorAll<HTMLElement>('.swatch');
+    if (!swatches.length) return;
+    // Set initial state
+    swatches.forEach((sw) => {
+      sw.style.opacity = '0';
+      sw.style.transform = 'translateY(10px)';
+    });
+    inView(section, () => {
+      animate(
+        Array.from(swatches),
+        { opacity: [0, 1], transform: ['translateY(10px)', 'translateY(0px)'] },
+        { delay: stagger(0.035), easing: [0.16, 1, 0.3, 1], duration: 0.45 }
+      );
+    });
+  });
+</script>
+
+<style>
+  .swatch-section { margin-block: 1.5rem; }
+
+  .swatch-family {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.75rem;
+  }
+
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 6), 1fr);
+    gap: 2px;
+  }
+
+  @media (max-width: 900px) {
+    .swatch-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .swatch-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    cursor: default;
+  }
+
+  .swatch__square {
+    aspect-ratio: 1;
+    background: var(--sw);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 6px;
+    transition: filter 150ms ease;
+  }
+
+  .swatch:hover .swatch__square { filter: brightness(0.88); }
+
+  .swatch__hex {
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: white;
+    mix-blend-mode: difference;
+    opacity: 0;
+    transition: opacity 150ms ease;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  }
+
+  .swatch:hover .swatch__hex { opacity: 1; }
+
+  .swatch__badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0,0,0,0.55);
+    color: white;
+    font-family: 'Geist Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 5px;
+    line-height: 1;
+  }
+
+  .swatch__info {
+    padding: 6px 4px 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border: 1px solid var(--sl-color-gray-5, #D8E0EB);
+    border-top: none;
+    background: var(--sl-color-bg, #F9F9F9);
+  }
+
+  .swatch__name {
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--sl-color-text, #020D1F);
+    word-break: break-all;
+    background: none;
+    border: none;
+    padding: 0;
+    line-height: 1.3;
+  }
+
+  .swatch__role {
+    font-size: 9px;
+    opacity: 0.5;
+    font-variant: small-caps;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+  }
+
+  /* Action swatch gets a vermilion bottom border */
+  .swatch--action .swatch__info {
+    border-bottom: 2px solid #F03A17;
+  }
+</style>

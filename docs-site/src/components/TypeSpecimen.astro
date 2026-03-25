@@ -1,0 +1,181 @@
+---
+/**
+ * TypeSpecimen.astro
+ * Renders a live type scale specimen — each step at its actual CSS size.
+ * Shows font family tag, token name, and value alongside the specimen text.
+ * Motion fade-in per row on scroll entry.
+ *
+ * Props:
+ *   scale — array of { name, var, value, family, sample }
+ *
+ * family values: 'display' | 'body' | 'mono'
+ */
+
+interface ScaleStep {
+  name: string;
+  var: string;
+  value: string;
+  family: 'display' | 'body' | 'mono';
+  sample?: string;
+}
+
+interface Props {
+  scale: ScaleStep[];
+}
+
+const { scale } = Astro.props;
+
+const familyMap: Record<string, string> = {
+  display: "'Instrument Serif', Georgia, serif",
+  body:    "'Geist', 'Arial', sans-serif",
+  mono:    "'Geist Mono', 'Courier New', monospace",
+};
+
+const familyLabels: Record<string, string> = {
+  display: 'Display',
+  body:    'Body',
+  mono:    'Mono',
+};
+---
+
+<div class="type-scale">
+  {scale.map((step) => (
+    <div class="specimen-row">
+      <div class="specimen-meta">
+        <span class="specimen-name">{step.name}</span>
+        <span class={`specimen-family specimen-family--${step.family}`}>
+          {familyLabels[step.family]}
+        </span>
+        <span class="specimen-sep" aria-hidden="true">·</span>
+        <code class="specimen-var">{step.var}</code>
+        <span class="specimen-value">{step.value}</span>
+      </div>
+      <div
+        class="specimen-text"
+        style={`font-size: var(${step.var}); font-family: ${familyMap[step.family]};${step.family === 'display' ? ' font-style: italic;' : ''}`}
+      >
+        {step.sample || 'The quick brown fox.'}
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  import { animate, inView } from 'motion';
+
+  document.querySelectorAll<HTMLElement>('.type-scale').forEach((scale) => {
+    const rows = scale.querySelectorAll<HTMLElement>('.specimen-row');
+    rows.forEach((row) => {
+      row.style.opacity = '0';
+      row.style.transform = 'translateY(8px)';
+    });
+    inView(scale, () => {
+      rows.forEach((row, i) => {
+        animate(
+          row,
+          { opacity: [0, 1], transform: ['translateY(8px)', 'translateY(0px)'] },
+          { delay: i * 0.07, easing: [0.16, 1, 0.3, 1], duration: 0.5 }
+        );
+      });
+    });
+  });
+</script>
+
+<style>
+  .type-scale {
+    margin-block: 1.5rem;
+    border-top: 2px solid var(--sl-color-gray-5, #D8E0EB);
+  }
+
+  .specimen-row {
+    border-bottom: 1px solid var(--sl-color-gray-6, #EEF2F6);
+    padding-block: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .specimen-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .specimen-name {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--sl-color-accent, #2186EB);
+  }
+
+  .specimen-family {
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border: 1px solid;
+    line-height: 1;
+    border-radius: 0;
+  }
+
+  .specimen-family--display {
+    border-color: var(--sl-color-accent, #2186EB);
+    color: var(--sl-color-accent, #2186EB);
+  }
+
+  .specimen-family--body {
+    border-color: currentColor;
+    opacity: 0.5;
+  }
+
+  .specimen-family--mono {
+    border-color: #F03A17;
+    color: #F03A17;
+  }
+
+  .specimen-sep {
+    opacity: 0.3;
+    font-size: 11px;
+  }
+
+  .specimen-var {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    opacity: 0.55;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .specimen-value {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    opacity: 0.35;
+  }
+
+  /* Vermilion separator dot before value */
+  .specimen-value::before {
+    content: '·';
+    margin-right: 0.4em;
+    color: #F03A17;
+    opacity: 1;
+  }
+
+  .specimen-text {
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--sl-color-text, #020D1F);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .specimen-text { white-space: normal; }
+  }
+</style>

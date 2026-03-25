@@ -1,0 +1,127 @@
+---
+title: Cards
+description: Entry cards, journal rows, and zine cards — the content display components of the hs108 system.
+sidebar:
+  order: 4
+---
+
+import ComponentPreview from '../../../components/ComponentPreview.astro';
+
+## Entry card
+
+The primary content card. Used in archive grids and featured sections. Has a meta row (type + date), title, thesis, and an optional footer.
+
+<ComponentPreview
+  label="entry-card"
+  html={`<div class="entry-card" style="max-width: 420px">
+  <div class="entry-card__meta">
+    <span class="tag tag--accent">Application</span>
+    <span class="tag tag--muted">Jan 2025</span>
+  </div>
+  <div class="entry-card__title">Type Systems as Personality Infrastructure</div>
+  <div class="entry-card__thesis">Typography decisions encode disposition, not just aesthetics. How typeface choices signal a brand's cognitive mode.</div>
+  <div class="entry-card__footer">
+    <span class="tag tag--muted">4 min read</span>
+    <button class="btn btn--ghost btn--sm">Read →</button>
+  </div>
+</div>`}
+/>
+
+### Elements
+
+| Element | Purpose |
+|---------|---------|
+| `.entry-card__meta` | Type tag + date, displayed as a flex row |
+| `.entry-card__title` | Instrument Serif italic, `--size-h3` |
+| `.entry-card__thesis` | One-line pull quote or description |
+| `.entry-card__footer` | Secondary metadata + action, pinned to bottom |
+
+---
+
+## Journal row
+
+A compact timeline item. Used in journal listing pages where entries are grouped by month.
+
+<ComponentPreview
+  label="journal-row"
+  html={`<div class="journal-row">
+  <div class="journal-row__date">Mar 01</div>
+  <div>
+    <div class="journal-row__title">Finishing Lumina.raw, starting CMF_Nexus discovery</div>
+    <div class="journal-row__sub">Project log · Lumina.raw</div>
+  </div>
+  <span class="tag tag--muted">Weekly</span>
+</div>
+<div class="journal-row">
+  <div class="journal-row__date">Feb 22</div>
+  <div>
+    <div class="journal-row__title">Decision: the pricing model shift</div>
+    <div class="journal-row__sub">Decision · Studio</div>
+  </div>
+  <span class="tag tag--muted">Decision</span>
+</div>`}
+/>
+
+### Grid layout
+
+The row is a 3-column grid:
+
+```css
+.journal-row {
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  gap: 1.5rem;
+  border-bottom: 2px solid var(--sl-color-gray-5);
+}
+```
+
+Collapses to a single column below **768px**.
+
+---
+
+## Zine card
+
+A portrait card for zine issues. Has a dark cover panel (3:4 ratio) above a light body section.
+
+<ComponentPreview
+  label="zine-card"
+  html={`<div class="entry-card" style="max-width: 280px">
+  <div style="background:#020D1F; aspect-ratio:3/4; padding:1.5rem; position:relative; display:flex; flex-direction:column; justify-content:flex-end; border-bottom:2px solid #D8E0EB;">
+    <span style="position:absolute;top:1rem;right:1rem;font-family:'Geist Mono',monospace;font-size:48px;font-weight:400;line-height:1;opacity:0.12;color:white;">01</span>
+    <span class="tag tag--inv" style="align-self:flex-start;">Winter 2025</span>
+  </div>
+  <div class="entry-card__meta" style="padding-top:1rem;">
+    <span class="tag tag--muted">Issue 01</span>
+  </div>
+  <div class="entry-card__title">The Invisible Work</div>
+  <div class="entry-card__thesis">On the design work that can't be shown in portfolios — and why that matters most.</div>
+</div>`}
+/>
+
+---
+
+## Featured zine (2-column)
+
+A wide hero layout used on the zine index page:
+
+```html
+<div class="zine-featured">
+  <div class="zine-featured__cover">
+    <!-- dark cover panel -->
+  </div>
+  <div class="zine-featured__body">
+    <!-- content -->
+  </div>
+</div>
+```
+
+`grid-template-columns: 1fr 2fr` — collapses to single column below **900px**.
+
+---
+
+## Usage rules
+
+- **Entry cards are links.** Wrap them in `<a>` elements. The hover state (`background: --surface-elevated`) is designed for clickable cards.
+- **Card titles are italic Instrument Serif.** This is hard-coded in `.entry-card__title` — don't override the font family.
+- **Footer always last.** Use `margin-top: auto` on `.entry-card__footer` to pin it to the card bottom regardless of content height.
+- **Journal rows don't have a footer.** The type tag goes in the third column, not below the title.

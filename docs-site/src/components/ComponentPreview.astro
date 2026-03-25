@@ -1,0 +1,173 @@
+---
+/**
+ * ComponentPreview.astro
+ * Renders a live HTML preview above a copy-able code block.
+ * Copy button hover → vermilion. Optional dark background.
+ *
+ * Props:
+ *   html    — raw HTML string to render and display as code
+ *   label   — displayed as a .tag above the preview box
+ *   dark    — if true, preview area has dark background
+ *   center  — if true, preview content is centred (default: true)
+ */
+
+interface Props {
+  html: string;
+  label?: string;
+  dark?: boolean;
+  center?: boolean;
+}
+
+const { html, label, dark = false, center = true } = Astro.props;
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+const escaped = escapeHtml(html);
+---
+
+<div class="cp">
+  {label && <span class="cp__label">{label}</span>}
+  <div class={`cp__preview${dark ? ' cp__preview--dark' : ''}${center ? ' cp__preview--center' : ''}`}>
+    <div set:html={html} />
+  </div>
+  <div class="cp__code">
+    <button class="cp__copy" title="Copy code" aria-label="Copy code">
+      <span class="cp__copy-icon" aria-hidden="true">⎘</span>
+      <span class="cp__copy-text">Copy</span>
+    </button>
+    <pre class="cp__pre"><code set:html={escaped} /></pre>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.cp').forEach((cp) => {
+    const btn = cp.querySelector<HTMLButtonElement>('.cp__copy');
+    const pre = cp.querySelector<HTMLPreElement>('.cp__pre');
+    if (!btn || !pre) return;
+
+    btn.addEventListener('click', async () => {
+      // Decode HTML entities to get the original HTML string
+      const tmp = document.createElement('textarea');
+      tmp.innerHTML = pre.textContent ?? '';
+      const original = tmp.value;
+
+      try {
+        await navigator.clipboard.writeText(original);
+        btn.classList.add('cp__copy--done');
+        const text = btn.querySelector<HTMLElement>('.cp__copy-text');
+        if (text) text.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.classList.remove('cp__copy--done');
+          if (text) text.textContent = 'Copy';
+        }, 1500);
+      } catch {}
+    });
+  });
+</script>
+
+<style>
+  .cp {
+    margin-block: 1.5rem;
+    border: 2px solid var(--sl-color-gray-5, #D8E0EB);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cp__label {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-bottom: 2px solid var(--sl-color-gray-5, #D8E0EB);
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--sl-color-gray-7, #F6F8FB);
+    align-self: flex-start;
+    width: 100%;
+  }
+
+  .cp__preview {
+    padding: 2rem 1.5rem;
+    background: var(--sl-color-bg, white);
+    border-bottom: 2px solid var(--sl-color-gray-5, #D8E0EB);
+    min-height: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .cp__preview--center {
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .cp__preview--dark {
+    background: #020D1F;
+  }
+
+  /* Code area */
+  .cp__code {
+    position: relative;
+    background: #131619;
+  }
+
+  .cp__copy {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.6);
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+    z-index: 1;
+  }
+
+  .cp__copy:hover,
+  .cp__copy--done {
+    background: #F03A17;
+    border-color: #F03A17;
+    color: white;
+  }
+
+  .cp__copy-icon {
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .cp__pre {
+    margin: 0 !important;
+    padding: 1.25rem 1.5rem !important;
+    padding-right: 5rem !important;
+    background: transparent !important;
+    overflow-x: auto;
+    border-radius: 0 !important;
+  }
+
+  .cp__pre code {
+    font-family: 'Geist Mono', 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.65;
+    color: #A3CFFD;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+</style>

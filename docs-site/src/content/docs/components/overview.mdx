@@ -1,0 +1,75 @@
+---
+title: Components — Overview
+description: The philosophy, conventions, and class structure behind hs108 UI components.
+sidebar:
+  order: 1
+---
+
+## Component philosophy
+
+hs108 components follow three rules:
+
+**1. No border radius.** Every component has square corners. This is non-negotiable — it is the visual signature of the system.
+
+**2. 2px borders.** Borders are structural, not decorative. They carry the same weight everywhere.
+
+**3. Monospace labels.** All interactive labels (buttons, tags, navigation) use Geist Mono, uppercase, with `letter-spacing: 0.12em`.
+
+---
+
+## Class structure
+
+All components use BEM-like class names:
+
+```
+.btn              ← block
+.btn--primary     ← modifier
+.btn--sm          ← size modifier
+```
+
+```
+.tag              ← block
+.tag--accent      ← filled variant
+.tag--muted       ← subdued variant
+```
+
+```
+.entry-card           ← block
+.entry-card__meta     ← element
+.entry-card__title    ← element
+.entry-card__footer   ← element
+```
+
+---
+
+## Color conventions in components
+
+| Role | Color |
+|------|-------|
+| Primary action (buttons, filled elements) | Blue — `--blue-500` |
+| Secondary/outline | Inherit from `--sl-color-text` |
+| Action highlight (copy, CTA, danger) | Vermilion — `--vermilion-500` |
+| Hover on outline | Blue fill |
+| Hover on ghost | Blue text |
+
+---
+
+## Available components
+
+| Component | Page | What it covers |
+|-----------|------|----------------|
+| Buttons | [Buttons](/components/buttons) | Primary, outline, ghost, action, small |
+| Tags | [Tags](/components/tags) | Accent, muted, action, inverse |
+| Cards | [Cards](/components/cards) | Entry card, zine card, journal row |
+
+---
+
+## Usage in HTML
+
+All component classes are available globally via `custom.css`. No JavaScript required for basic rendering — Motion animations are additive and degrade gracefully.
+
+```html
+<!-- Minimal example -->
+<button class="btn btn--primary">Explore Archive</button>
+<span class="tag tag--accent">Signal</span>
+```

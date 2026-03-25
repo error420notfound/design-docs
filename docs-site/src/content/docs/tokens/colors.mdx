@@ -1,0 +1,203 @@
+---
+title: Colors
+description: Full color scales for all hs108 hue families, with CSS variable names and semantic usage.
+sidebar:
+  order: 2
+---
+
+import ColorSwatch from '../../../components/ColorSwatch.astro';
+import TokenTable from '../../../components/TokenTable.astro';
+
+## Primary palette
+
+The two primary accent colors used throughout the system.
+
+<ColorSwatch
+  family="Blue — Primary accent"
+  columns={6}
+  swatches={[
+    { name: '--blue-50',  value: '#EEF6FF', role: 'Surface tint' },
+    { name: '--blue-100', value: '#CFE6FE', role: 'Soft bg / white-native' },
+    { name: '--blue-200', value: '#A3CFFD', role: 'Muted accent' },
+    { name: '--blue-300', value: '#6FB4FB', role: 'Light interactive' },
+    { name: '--blue-400', value: '#3E98FA', role: 'Dark mode accent' },
+    { name: '--blue-500', value: '#2186EB', role: 'Primary accent', isAction: false },
+    { name: '--blue-600', value: '#1970D2', role: 'Hover state' },
+    { name: '--blue-700', value: '#1259AF', role: 'Strong/pressed' },
+    { name: '--blue-800', value: '#0C438A', role: 'Deep text on light' },
+    { name: '--blue-900', value: '#082D60', role: 'Dark mode low accent' },
+    { name: '--blue-950', value: '#041735', role: 'Near-black tint' },
+  ]}
+/>
+
+<ColorSwatch
+  family="Vermilion — Action / highlight"
+  columns={6}
+  swatches={[
+    { name: '--vermilion-50',  value: '#FFF2EE', role: 'Surface tint' },
+    { name: '--vermilion-100', value: '#FFE6DF', role: 'Soft bg' },
+    { name: '--vermilion-200', value: '#FFC9BC', role: 'Muted highlight' },
+    { name: '--vermilion-300', value: '#FFA494', role: 'Light interactive' },
+    { name: '--vermilion-400', value: '#FF7461', role: 'Dark mode action', isAction: true },
+    { name: '--vermilion-500', value: '#F03A17', role: 'Primary action', isAction: true },
+    { name: '--vermilion-600', value: '#CC3010', role: 'Hover' },
+    { name: '--vermilion-700', value: '#A6260B', role: 'Pressed' },
+    { name: '--vermilion-800', value: '#821D07', role: 'Deep text' },
+    { name: '--vermilion-900', value: '#5A1304', role: 'Near-black' },
+    { name: '--vermilion-950', value: '#300A02', role: 'Deepest' },
+  ]}
+/>
+
+---
+
+## Extended palette
+
+The extended palette is available for data visualisation, thematic variation, and future brand expressions. Use sparingly in UI — prefer blue and vermilion.
+
+<ColorSwatch
+  family="Teal — Field Notes theme"
+  columns={6}
+  swatches={[
+    { name: '--teal-50',  value: '#F0FAF7' },
+    { name: '--teal-100', value: '#D6F2EC' },
+    { name: '--teal-200', value: '#ACE4D9' },
+    { name: '--teal-300', value: '#7DD4C5' },
+    { name: '--teal-400', value: '#52C0AF' },
+    { name: '--teal-500', value: '#2F9E8F', role: 'Field Notes accent' },
+    { name: '--teal-600', value: '#27857A' },
+    { name: '--teal-700', value: '#1E6C62' },
+    { name: '--teal-800', value: '#165249' },
+    { name: '--teal-900', value: '#0D3831' },
+    { name: '--teal-950', value: '#061E1A' },
+  ]}
+/>
+
+<ColorSwatch
+  family="Orange"
+  columns={6}
+  swatches={[
+    { name: '--orange-50',  value: '#FFF4F0' },
+    { name: '--orange-100', value: '#FFE1D8' },
+    { name: '--orange-200', value: '#FFC3B0' },
+    { name: '--orange-300', value: '#FFA287' },
+    { name: '--orange-400', value: '#FF825E' },
+    { name: '--orange-500', value: '#ED582A', role: 'Warm accent' },
+    { name: '--orange-600', value: '#D04C23' },
+    { name: '--orange-700', value: '#B13F1C' },
+    { name: '--orange-800', value: '#933215' },
+    { name: '--orange-900', value: '#6C240E' },
+    { name: '--orange-950', value: '#3A1307' },
+  ]}
+/>
+
+<ColorSwatch
+  family="Green"
+  columns={6}
+  swatches={[
+    { name: '--green-50',  value: '#EDFCF3' },
+    { name: '--green-100', value: '#D3FCE1' },
+    { name: '--green-200', value: '#A5F7C2' },
+    { name: '--green-300', value: '#70EFA0' },
+    { name: '--green-400', value: '#44E27E' },
+    { name: '--green-500', value: '#36D35E', role: 'Success / positive' },
+    { name: '--green-600', value: '#28B24D' },
+    { name: '--green-700', value: '#1D8F3C' },
+    { name: '--green-800', value: '#136C2C' },
+    { name: '--green-900', value: '#0A481D' },
+    { name: '--green-950', value: '#042410' },
+  ]}
+/>
+
+<ColorSwatch
+  family="Purple"
+  columns={6}
+  swatches={[
+    { name: '--purple-50',  value: '#F8F4FD' },
+    { name: '--purple-100', value: '#F1EAF9' },
+    { name: '--purple-200', value: '#E0D3F4' },
+    { name: '--purple-300', value: '#C9B4EC' },
+    { name: '--purple-400', value: '#AF8FE2' },
+    { name: '--purple-500', value: '#7F56C2', role: 'Creative / lateral' },
+    { name: '--purple-600', value: '#6C47A8' },
+    { name: '--purple-700', value: '#57388E' },
+    { name: '--purple-800', value: '#412A72' },
+    { name: '--purple-900', value: '#2C1B52' },
+    { name: '--purple-950', value: '#160D2C' },
+  ]}
+/>
+
+<ColorSwatch
+  family="Rose"
+  columns={6}
+  swatches={[
+    { name: '--rose-50',  value: '#FFF1F1' },
+    { name: '--rose-100', value: '#FFE0E0' },
+    { name: '--rose-200', value: '#FFC0C0' },
+    { name: '--rose-300', value: '#FF9898' },
+    { name: '--rose-400', value: '#FF6B6B' },
+    { name: '--rose-500', value: '#E63946', role: 'Error / critical' },
+    { name: '--rose-600', value: '#C92D3A' },
+    { name: '--rose-700', value: '#A8222E' },
+    { name: '--rose-800', value: '#861722' },
+    { name: '--rose-900', value: '#5F1018' },
+    { name: '--rose-950', value: '#33080D' },
+  ]}
+/>
+
+---
+
+## Neutrals
+
+<ColorSwatch
+  family="Cool gray — default neutral"
+  columns={6}
+  swatches={[
+    { name: '--cool-50',  value: '#F6F8FB', role: 'Page bg' },
+    { name: '--cool-100', value: '#EEF2F6', role: 'Surface' },
+    { name: '--cool-200', value: '#D8E0EB', role: 'Border' },
+    { name: '--cool-300', value: '#BAC8D8' },
+    { name: '--cool-400', value: '#99AABF' },
+    { name: '--cool-500', value: '#88919A', role: 'Muted text' },
+    { name: '--cool-600', value: '#6E7880' },
+    { name: '--cool-700', value: '#565E65' },
+    { name: '--cool-800', value: '#3E444A' },
+    { name: '--cool-900', value: '#282D30' },
+    { name: '--cool-950', value: '#131619', role: 'Dark bg' },
+  ]}
+/>
+
+<ColorSwatch
+  family="Neutral gray — pure"
+  columns={6}
+  swatches={[
+    { name: '--neutral-50',  value: '#F9F9F9' },
+    { name: '--neutral-100', value: '#F3F3F3' },
+    { name: '--neutral-200', value: '#E4E4E4' },
+    { name: '--neutral-300', value: '#CACACA' },
+    { name: '--neutral-400', value: '#ABABAB' },
+    { name: '--neutral-500', value: '#888888', role: 'Mid gray' },
+    { name: '--neutral-600', value: '#6C6C6C' },
+    { name: '--neutral-700', value: '#525252' },
+    { name: '--neutral-800', value: '#3B3B3B' },
+    { name: '--neutral-900', value: '#252525' },
+    { name: '--neutral-950', value: '#111111' },
+  ]}
+/>
+
+---
+
+## Semantic color mapping
+
+<TokenTable
+  caption="Starlight theme tokens → hs108 values"
+  tokens={[
+    { token: '--sl-color-accent-low', value: '#CFE6FE / #082D60', usage: 'Subtle accent background (light/dark)' },
+    { token: '--sl-color-accent', value: '#2186EB / #3E98FA', usage: 'Primary interactive accent (light/dark)' },
+    { token: '--sl-color-accent-high', value: '#1259AF / #A3CFFD', usage: 'Strong accent, pressed states (light/dark)' },
+    { token: '--sl-color-gray-5', value: '#D8E0EB', usage: 'Border default — cool-200' },
+    { token: '--sl-color-gray-6', value: '#EEF2F6', usage: 'Surface elevated — cool-100' },
+    { token: '--sl-color-gray-7', value: '#F6F8FB', usage: 'Page background — cool-50' },
+    { token: '--hs-highlight', value: '#F03A17 / #FF7461', usage: 'Action color — vermilion (light/dark)' },
+    { token: '--hs-highlight-soft', value: '#FFE6DF / #300A02', usage: 'Soft action bg (light/dark)' },
+  ]}
+/>

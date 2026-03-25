@@ -1,0 +1,125 @@
+---
+title: Spacing & Layout
+description: Spacing scale, layout tokens, grid system, and border conventions for the hs108 design system.
+sidebar:
+  order: 3
+---
+
+import TokenTable from '../../../components/TokenTable.astro';
+
+## Spacing tokens
+
+All spacing values use `clamp()` for fluid, viewport-responsive sizing. The scale covers three levels of intent: **section** (macro rhythm), **gap** (component spacing), and **card** (content padding).
+
+<TokenTable
+  caption="Fluid spacing scale"
+  tokens={[
+    { token: '--space-section', value: 'clamp(64px, 9vw, 128px)', usage: 'Vertical padding between major page sections' },
+    { token: '--space-gap', value: 'clamp(14px, 2vw, 28px)', usage: 'Gap between grid items, stacked cards, and adjacent elements' },
+    { token: '--space-card', value: 'clamp(18px, 2.2vw, 36px)', usage: 'Internal padding inside cards and containers' },
+  ]}
+/>
+
+---
+
+## Layout tokens
+
+<TokenTable
+  caption="Layout constraints"
+  tokens={[
+    { token: '--max-width', value: '1440px', usage: 'Maximum content width for .container elements' },
+    { token: '--gutter', value: 'clamp(16px, 4vw, 64px)', usage: 'Horizontal page margin — scales from mobile to wide desktop' },
+  ]}
+/>
+
+### Container
+
+The `.container` class applies `max-width` and responsive gutters:
+
+```css
+.container {
+  width: 100%;
+  max-width: var(--max-width);   /* 1440px */
+  margin-inline: auto;
+  padding-inline: var(--gutter); /* 16px → 64px fluid */
+}
+```
+
+---
+
+## Grid system
+
+Three grid classes cover the main layout patterns:
+
+| Class | Columns | Use case |
+|-------|---------|----------|
+| `.grid-12` | 12 | Fine-grained layout, editorial |
+| `.grid-3` | 3 | Card grids, feature sets |
+| `.grid-2` | 2 | Two-up layouts, split content |
+
+All grids collapse to a single column below **768px**.
+
+```css
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-gap);
+}
+```
+
+---
+
+## Border tokens
+
+<TokenTable
+  caption="Border conventions"
+  tokens={[
+    { token: '--hs-border-width', value: '2px', usage: 'Standard border weight. All borders in the system use this value.' },
+    { token: '--sl-color-gray-5', value: '#D8E0EB', usage: 'Default border color (light theme). Use for dividers, card borders.' },
+    { token: '--sl-color-gray-4', value: '#888888', usage: 'Subdued border for secondary separators' },
+  ]}
+/>
+
+**Convention:** all borders are `2px solid`. No 1px hairlines, no dashed borders except `hr.inv` on dark backgrounds.
+
+Border utilities:
+
+```css
+.b-box    { border: 2px solid var(--border); }
+.b-top    { border-top: 2px solid var(--border); }
+.b-bottom { border-bottom: 2px solid var(--border); }
+.b-left   { border-left: 2px solid var(--border); }
+.b-right  { border-right: 2px solid var(--border); }
+```
+
+---
+
+## Transition
+
+<TokenTable
+  caption="Motion token"
+  tokens={[
+    { token: '--transition', value: '150ms ease', usage: 'Default CSS transition for hover and focus effects on all interactive elements' },
+  ]}
+/>
+
+For entrance animations and scroll-triggered reveals, the system uses the **Motion library** with a custom easing: `[0.16, 1, 0.3, 1]` (fast in, soft out).
+
+```js
+animate(el, { opacity: [0, 1], y: [14, 0] }, {
+  easing: [0.16, 1, 0.3, 1],
+  duration: 0.5
+});
+```
+
+---
+
+## Responsive breakpoints
+
+| Breakpoint | Value | Intent |
+|------------|-------|--------|
+| Wide | ≥ 1440px | Max container clamps |
+| Desktop | ≥ 1024px | Full 3-col grids active |
+| Tablet | ≥ 900px | Sidebar layouts active |
+| Mobile | < 768px | All grids → 1 column |
+| Small | < 640px | Nav condensed, footer stacked |

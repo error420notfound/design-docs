@@ -1,0 +1,194 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-has-toc data-has-sidebar data-theme="dark" class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Type Scale | hs108 / Docs</title><link rel="canonical" href="https://docs.hs108.in/typography/scale/"/><link rel="sitemap" href="/sitemap-index.xml"/><link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v4.16.19"/><meta name="generator" content="Starlight v0.28.6"/><meta property="og:title" content="Type Scale"/><meta property="og:type" content="article"/><meta property="og:url" content="https://docs.hs108.in/typography/scale/"/><meta property="og:locale" content="en"/><meta property="og:description" content="The hs108 fluid type scale — all seven steps rendered at their actual sizes, with token names and clamp values."/><meta property="og:site_name" content="hs108 / Docs"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="The hs108 fluid type scale — all seven steps rendered at their actual sizes, with token names and clamp values."/><meta property="og:image" content="https://docs.hs108.in/og.png"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg> <svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg> <svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> </template><link rel="stylesheet" href="/_astro/index.yKAcXW9X.css"><script type="module" src="/_astro/hoisted.nJTXZMsd.js"></script>
+<script type="module" src="/_astro/page.7qqag-5g.js"></script><style>.token-table-wrap:where(.astro-uqpyplfk){overflow-x:auto;margin-block:1.5rem;border:2px solid var(--sl-color-gray-5, #D8E0EB)}.token-table:where(.astro-uqpyplfk){width:100%;border-collapse:collapse;font-size:13px;margin:0!important;border:none!important}.token-table__caption:where(.astro-uqpyplfk){font-family:Geist Mono,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:10px 14px 6px;opacity:.5;caption-side:top}.token-table:where(.astro-uqpyplfk) thead:where(.astro-uqpyplfk) tr:where(.astro-uqpyplfk){border-bottom:2px solid var(--sl-color-gray-5, #D8E0EB)}.token-table:where(.astro-uqpyplfk) th:where(.astro-uqpyplfk){font-family:Geist Mono,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;text-align:left;background:var(--sl-color-gray-7, #F6F8FB);font-weight:500;border-bottom:none!important}.token-table:where(.astro-uqpyplfk) td:where(.astro-uqpyplfk){padding:9px 14px;vertical-align:middle;border-bottom:1px solid var(--sl-color-gray-6, #EEF2F6)!important}.token-table:where(.astro-uqpyplfk) tr:where(.astro-uqpyplfk):last-child td:where(.astro-uqpyplfk){border-bottom:none!important}.token-table__row--alt:where(.astro-uqpyplfk) td:where(.astro-uqpyplfk){background:var(--sl-color-gray-7, #F6F8FB)}.token-copy:where(.astro-uqpyplfk){display:inline-flex;align-items:center;gap:6px;background:none;border:none;padding:0;cursor:pointer;color:inherit;font-family:inherit;border-radius:0;transition:color .15s ease}.token-copy:where(.astro-uqpyplfk):hover{color:var(--sl-color-accent, #2186EB)}.token-copy:where(.astro-uqpyplfk) code:where(.astro-uqpyplfk){font-family:Geist Mono,monospace;font-size:12px;background:none;border:none;padding:0;color:inherit}.token-copy__indicator:where(.astro-uqpyplfk){font-size:11px;opacity:.35;transition:opacity .15s ease,color .15s ease;font-style:normal;line-height:1;font-family:monospace}.token-copy:where(.astro-uqpyplfk):hover .token-copy__indicator:where(.astro-uqpyplfk){opacity:1}.token-value:where(.astro-uqpyplfk){font-family:Geist Mono,monospace;font-size:11px;background:var(--sl-color-gray-6, #EEF2F6);border:1px solid var(--sl-color-gray-5, #D8E0EB);padding:2px 6px;white-space:nowrap;border-radius:0!important;color:inherit}.token-usage:where(.astro-uqpyplfk){opacity:.7;font-size:12px;line-height:1.5}
+</style><style>.type-scale:where(.astro-zjrxj4s3){margin-block:1.5rem;border-top:2px solid var(--sl-color-gray-5, #D8E0EB)}.specimen-row:where(.astro-zjrxj4s3){border-bottom:1px solid var(--sl-color-gray-6, #EEF2F6);padding-block:1.5rem;display:flex;flex-direction:column;gap:.75rem}.specimen-meta:where(.astro-zjrxj4s3){display:flex;align-items:center;flex-wrap:wrap;gap:.5rem}.specimen-name:where(.astro-zjrxj4s3){font-family:Geist Mono,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--sl-color-accent, #2186EB)}.specimen-family:where(.astro-zjrxj4s3){font-family:Geist Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border:1px solid;line-height:1;border-radius:0}.specimen-family--display:where(.astro-zjrxj4s3){border-color:var(--sl-color-accent, #2186EB);color:var(--sl-color-accent, #2186EB)}.specimen-family--body:where(.astro-zjrxj4s3){border-color:currentColor;opacity:.5}.specimen-family--mono:where(.astro-zjrxj4s3){border-color:#f03a17;color:#f03a17}.specimen-sep:where(.astro-zjrxj4s3){opacity:.3;font-size:11px}.specimen-var:where(.astro-zjrxj4s3){font-family:Geist Mono,monospace;font-size:11px;opacity:.55;background:none;border:none;padding:0}.specimen-value:where(.astro-zjrxj4s3){font-family:Geist Mono,monospace;font-size:11px;opacity:.35}.specimen-value:where(.astro-zjrxj4s3):before{content:"·";margin-right:.4em;color:#f03a17;opacity:1}.specimen-text:where(.astro-zjrxj4s3){font-weight:400;line-height:1.1;letter-spacing:-.01em;color:var(--sl-color-text, #020D1F);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media (max-width: 640px){.specimen-text:where(.astro-zjrxj4s3){white-space:normal}}
+</style><script src="/_astro/TokenTable.astro_astro_type_script_index_0_lang.DuNy4bTu.js" type="module"></script><script src="/_astro/TypeSpecimen.astro_astro_type_script_index_0_lang.DAKAgBQb.js" type="module"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">Skip to content</a>  <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header sl-flex astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3"> hs108 / Docs </span> </a>  </div> <div class="sl-flex astro-kmkmnagf"> <site-search data-translations="{&#34;placeholder&#34;:&#34;Search&#34;}" class="astro-v37mnknz"> <button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-v37mnknz"> <svg aria-hidden="true" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg>  <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">Search</span> <kbd class="sl-hidden md:sl-flex astro-v37mnknz" style="display: none;"> <kbd class="astro-v37mnknz">Ctrl</kbd><kbd class="astro-v37mnknz">K</kbd> </kbd> </button> <dialog style="padding:0" aria-label="Search" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> Cancel </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>  <script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script>    </div> <div class="sl-hidden md:sl-flex right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">Select theme</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg>  <select value="auto" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">Dark</option><option value="light" class="astro-4yphtoen">Light</option><option value="auto" selected class="astro-4yphtoen">Auto</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </label>  </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div> </div> </header> <nav class="sidebar astro-vrdttmbt" aria-label="Main"> <starlight-menu-button class="astro-jif73yzw"> <button aria-expanded="false" aria-label="Menu" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg>  </button> </starlight-menu-button>    <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <sl-sidebar-state-persist data-hash="1h6gpit" class="astro-kku4brbg"> <script>
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script>  <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Introduction</span>  </a> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <sl-sidebar-restore data-index="0"></sl-sidebar-restore> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Design Tokens</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/tokens/overview" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/tokens/colors" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Colors</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/tokens/spacing" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Spacing &amp; Layout</span>  </a> </li> </ul>  </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <sl-sidebar-restore data-index="1"></sl-sidebar-restore> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Typography</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/typography/overview" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/typography/scale" aria-current="page" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Type Scale</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/typography/usage" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Usage</span>  </a> </li> </ul>  </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <sl-sidebar-restore data-index="2"></sl-sidebar-restore> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Components</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/components/overview" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/components/buttons" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Buttons</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/components/tags" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Tags</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/components/cards" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Cards</span>  </a> </li> </ul>  </details> </li> </ul>   <script>
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script> </sl-sidebar-state-persist>  <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="sl-flex social-icons astro-wu23bvmt">  </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">Select theme</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg>  <select value="auto" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">Dark</option><option value="light" class="astro-4yphtoen">Light</option><option value="auto" selected class="astro-4yphtoen">Auto</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </label>  </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div>  </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">   <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><div class="toggle sl-flex astro-doynk5tl">On this page<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </div><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-g2bywc46" style="--depth: 0;"> <li class="astro-g2bywc46" style="--depth: 0;"> <a href="#_top" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#the-scale" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">The scale</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#token-reference" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Token reference</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#type-utility-classes" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Type utility classes</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#line-height-conventions" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Line height conventions</span> </a>  </li> </ul> </div></details></nav></mobile-starlight-toc></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-g2bywc46" style="--depth: 0;"> <li class="astro-g2bywc46" style="--depth: 0;"> <a href="#_top" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#the-scale" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">The scale</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#token-reference" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Token reference</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#type-utility-classes" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Type utility classes</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#line-height-conventions" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Line height conventions</span> </a>  </li> </ul> </nav></starlight-toc></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body lang="en" dir="ltr" class="astro-bguv2lll">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">Type Scale</h1>  </div> </div>  <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <h2 id="the-scale">The scale</h2>
+<p>Seven steps, all fluid. Each uses <code dir="auto">clamp(min, fluid, max)</code> so they scale smoothly with viewport width. Resize the browser to see the scale in action.</p>
+<div class="type-scale astro-zjrxj4s3"> <div class="specimen-row astro-zjrxj4s3"> <div class="specimen-meta astro-zjrxj4s3"> <span class="specimen-name astro-zjrxj4s3">Hero</span> <span class="specimen-family specimen-family--display astro-zjrxj4s3"> Display </span> <span class="specimen-sep astro-zjrxj4s3" aria-hidden="true">·</span> <code class="specimen-var astro-zjrxj4s3">--size-hero</code> <span class="specimen-value astro-zjrxj4s3">clamp(56px, 10vw, 140px)</span> </div> <div class="specimen-text astro-zjrxj4s3" style="font-size: var(--size-hero); font-family: 'Instrument Serif', Georgia, serif; font-style: italic;"> Design is a verb. </div> </div><div class="specimen-row astro-zjrxj4s3"> <div class="specimen-meta astro-zjrxj4s3"> <span class="specimen-name astro-zjrxj4s3">H1</span> <span class="specimen-family specimen-family--display astro-zjrxj4s3"> Display </span> <span class="specimen-sep astro-zjrxj4s3" aria-hidden="true">·</span> <code class="specimen-var astro-zjrxj4s3">--size-h1</code> <span class="specimen-value astro-zjrxj4s3">clamp(36px, 5.5vw, 80px)</span> </div> <div class="specimen-text astro-zjrxj4s3" style="font-size: var(--size-h1); font-family: 'Instrument Serif', Georgia, serif; font-style: italic;"> The invisible work. </div> </div><div class="specimen-row astro-zjrxj4s3"> <div class="specimen-meta astro-zjrxj4s3"> <span class="specimen-name astro-zjrxj4s3">H2</span> <span class="specimen-family specimen-family--display astro-zjrxj4s3"> Display </span> <span class="specimen-sep astro-zjrxj4s3" aria-hidden="true">·</span> <code class="specimen-var astro-zjrxj4s3">--size-h2</code> <span class="specimen-value astro-zjrxj4s3">clamp(26px, 3.5vw, 48px)</span> </div> <div class="specimen-text astro-zjrxj4s3" style="font-size: var(--size-h2); font-family: 'Instrument Serif', Georgia, serif; font-style: italic;"> Confidence as infrastructure. </div> </div><div class="specimen-row astro-zjrxj4s3"> <div class="specimen-meta astro-zjrxj4s3"> <span class="specimen-name astro-zjrxj4s3">H3</span> <span class="specimen-family specimen-family--display astro-zjrxj4s3"> Display </span> <span class="specimen-sep astro-zjrxj4s3" aria-hidden="true">·</span> <code class="specimen-var astro-zjrxj4s3">--size-h3</code> <span class="specimen-value astro-zjrxj4s3">clamp(19px, 2vw, 28px)</span> </div> <div class="specimen-text astro-zjrxj4s3" style="font-size: var(--size-h3); font-family: 'Instrument Serif', Georgia, serif; font-style: italic;"> Type systems as personality. </div> </div><div class="specimen-row astro-zjrxj4s3"> <div class="specimen-meta astro-zjrxj4s3"> <span class="specimen-name astro-zjrxj4s3">Body</span> <span class="specimen-family specimen-family--body astro-zjrxj4s3"> Body </span> <span class="specimen-sep astro-zjrxj4s3" aria-hidden="true">·</span> <code class="specimen-var astro-zjrxj4s3">--size-body</code> <span class="specimen-value astro-zjrxj4s3">clamp(15px, 1.1vw, 18px)</span> </div> <div class="specimen-text astro-zjrxj4s3" style="font-size: var(--size-body); font-family: 'Geist', 'Arial', sans-serif;"> A design system is not a constraint — it is a shared grammar. </div> </div><div class="specimen-row astro-zjrxj4s3"> <div class="specimen-meta astro-zjrxj4s3"> <span class="specimen-name astro-zjrxj4s3">Small</span> <span class="specimen-family specimen-family--body astro-zjrxj4s3"> Body </span> <span class="specimen-sep astro-zjrxj4s3" aria-hidden="true">·</span> <code class="specimen-var astro-zjrxj4s3">--size-small</code> <span class="specimen-value astro-zjrxj4s3">13px</span> </div> <div class="specimen-text astro-zjrxj4s3" style="font-size: var(--size-small); font-family: 'Geist', 'Arial', sans-serif;"> Metadata, captions, secondary copy. </div> </div><div class="specimen-row astro-zjrxj4s3"> <div class="specimen-meta astro-zjrxj4s3"> <span class="specimen-name astro-zjrxj4s3">Label</span> <span class="specimen-family specimen-family--mono astro-zjrxj4s3"> Mono </span> <span class="specimen-sep astro-zjrxj4s3" aria-hidden="true">·</span> <code class="specimen-var astro-zjrxj4s3">--size-label</code> <span class="specimen-value astro-zjrxj4s3">11px</span> </div> <div class="specimen-text astro-zjrxj4s3" style="font-size: var(--size-label); font-family: 'Geist Mono', 'Courier New', monospace;"> TOKEN NAME · CATEGORY · STATUS </div> </div> </div>  
+<hr>
+<h2 id="token-reference">Token reference</h2>
+<div class="token-table-wrap astro-uqpyplfk"> <table class="token-table astro-uqpyplfk"> <caption class="token-table__caption astro-uqpyplfk">Type scale tokens</caption> <thead class="astro-uqpyplfk"> <tr class="astro-uqpyplfk"> <th class="astro-uqpyplfk">Token</th> <th class="astro-uqpyplfk">Value</th> <th class="astro-uqpyplfk">Usage</th> </tr> </thead> <tbody class="astro-uqpyplfk"> <tr class=" astro-uqpyplfk"> <td class="astro-uqpyplfk"> <button class="token-copy astro-uqpyplfk" data-token="--size-hero" title="Copy --size-hero"> <code class="astro-uqpyplfk">--size-hero</code> <span class="token-copy__indicator astro-uqpyplfk" aria-hidden="true">⎘</span> </button> </td> <td class="astro-uqpyplfk"><code class="token-value astro-uqpyplfk">clamp(56px, 10vw, 140px)</code></td> <td class="token-usage astro-uqpyplfk">Hero titles, zine issue numbers, landing page dominants</td> </tr><tr class="token-table__row--alt astro-uqpyplfk"> <td class="astro-uqpyplfk"> <button class="token-copy astro-uqpyplfk" data-token="--size-h1" title="Copy --size-h1"> <code class="astro-uqpyplfk">--size-h1</code> <span class="token-copy__indicator astro-uqpyplfk" aria-hidden="true">⎘</span> </button> </td> <td class="astro-uqpyplfk"><code class="token-value astro-uqpyplfk">clamp(36px, 5.5vw, 80px)</code></td> <td class="token-usage astro-uqpyplfk">Page titles, section headers, editorial h1</td> </tr><tr class=" astro-uqpyplfk"> <td class="astro-uqpyplfk"> <button class="token-copy astro-uqpyplfk" data-token="--size-h2" title="Copy --size-h2"> <code class="astro-uqpyplfk">--size-h2</code> <span class="token-copy__indicator astro-uqpyplfk" aria-hidden="true">⎘</span> </button> </td> <td class="astro-uqpyplfk"><code class="token-value astro-uqpyplfk">clamp(26px, 3.5vw, 48px)</code></td> <td class="token-usage astro-uqpyplfk">Section headings within a page</td> </tr><tr class="token-table__row--alt astro-uqpyplfk"> <td class="astro-uqpyplfk"> <button class="token-copy astro-uqpyplfk" data-token="--size-h3" title="Copy --size-h3"> <code class="astro-uqpyplfk">--size-h3</code> <span class="token-copy__indicator astro-uqpyplfk" aria-hidden="true">⎘</span> </button> </td> <td class="astro-uqpyplfk"><code class="token-value astro-uqpyplfk">clamp(19px, 2vw, 28px)</code></td> <td class="token-usage astro-uqpyplfk">Sub-section headings, card titles</td> </tr><tr class=" astro-uqpyplfk"> <td class="astro-uqpyplfk"> <button class="token-copy astro-uqpyplfk" data-token="--size-body" title="Copy --size-body"> <code class="astro-uqpyplfk">--size-body</code> <span class="token-copy__indicator astro-uqpyplfk" aria-hidden="true">⎘</span> </button> </td> <td class="astro-uqpyplfk"><code class="token-value astro-uqpyplfk">clamp(15px, 1.1vw, 18px)</code></td> <td class="token-usage astro-uqpyplfk">All body copy. System default.</td> </tr><tr class="token-table__row--alt astro-uqpyplfk"> <td class="astro-uqpyplfk"> <button class="token-copy astro-uqpyplfk" data-token="--size-small" title="Copy --size-small"> <code class="astro-uqpyplfk">--size-small</code> <span class="token-copy__indicator astro-uqpyplfk" aria-hidden="true">⎘</span> </button> </td> <td class="astro-uqpyplfk"><code class="token-value astro-uqpyplfk">13px</code></td> <td class="token-usage astro-uqpyplfk">Captions, metadata, secondary copy</td> </tr><tr class=" astro-uqpyplfk"> <td class="astro-uqpyplfk"> <button class="token-copy astro-uqpyplfk" data-token="--size-label" title="Copy --size-label"> <code class="astro-uqpyplfk">--size-label</code> <span class="token-copy__indicator astro-uqpyplfk" aria-hidden="true">⎘</span> </button> </td> <td class="astro-uqpyplfk"><code class="token-value astro-uqpyplfk">11px</code></td> <td class="token-usage astro-uqpyplfk">Labels, tags, nav items, button text — always uppercase, monospace</td> </tr> </tbody> </table> </div>  
+<hr>
+<h2 id="type-utility-classes">Type utility classes</h2>
+<p>Pre-composed classes combining size, family, weight, and line-height:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Class</th><th>Font</th><th>Size</th><th>Style</th></tr></thead><tbody><tr><td><code dir="auto">.t-hero</code></td><td>Instrument Serif</td><td><code dir="auto">--size-hero</code></td><td>Italic, lh 0.92</td></tr><tr><td><code dir="auto">.t-hero-upright</code></td><td>Instrument Serif</td><td><code dir="auto">--size-hero</code></td><td>Upright, lh 0.92</td></tr><tr><td><code dir="auto">.t-h1</code></td><td>Instrument Serif</td><td><code dir="auto">--size-h1</code></td><td>Upright, lh 1.0</td></tr><tr><td><code dir="auto">.t-h2</code></td><td>Instrument Serif</td><td><code dir="auto">--size-h2</code></td><td>Upright, lh 1.05</td></tr><tr><td><code dir="auto">.t-h3</code></td><td>Instrument Serif</td><td><code dir="auto">--size-h3</code></td><td>Upright, lh 1.2</td></tr><tr><td><code dir="auto">.t-large</code></td><td>Geist</td><td><code dir="auto">clamp(17px, 1.8vw, 22px)</code></td><td>Regular, lh 1.5</td></tr><tr><td><code dir="auto">.t-body</code></td><td>Geist</td><td><code dir="auto">--size-body</code></td><td>Regular, lh 1.65</td></tr><tr><td><code dir="auto">.t-label</code></td><td>Geist Mono</td><td><code dir="auto">--size-label</code></td><td>500wt, uppercase, ls 0.14em</td></tr><tr><td><code dir="auto">.t-mono</code></td><td>Geist Mono</td><td><code dir="auto">--size-small</code></td><td>Regular, lh 1.5</td></tr></tbody></table>
+<div class="expressive-code"><link rel="stylesheet" href="/_astro/ec.j8ofn.css"><script type="module" src="/_astro/ec.8zarh.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="html"><code><div class="ec-line"><div class="code"><span style="--1:#8D46B4"><span style="--0:#7FDBCA">&#x3C;</span><span style="--0:#CAECE6">h1</span><span style="--0:#7FDBCA"> </span></span><span style="--0:#C5E478;--1:#3C63B3">class</span><span style="--0:#7FDBCA;--1:#8D46B4">=</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">t-h1</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#7FDBCA;--1:#8D46B4">></span><span style="--0:#D6DEEB;--1:#403F53">The invisible work</span><span style="--1:#8D46B4"><span style="--0:#7FDBCA">&#x3C;/</span><span style="--0:#CAECE6">h1</span><span style="--0:#7FDBCA">></span></span></div></div><div class="ec-line"><div class="code"><span style="--1:#8D46B4"><span style="--0:#7FDBCA">&#x3C;</span><span style="--0:#CAECE6">p</span><span style="--0:#7FDBCA"> </span></span><span style="--0:#C5E478;--1:#3C63B3">class</span><span style="--0:#7FDBCA;--1:#8D46B4">=</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">t-body</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#7FDBCA;--1:#8D46B4">></span><span style="--0:#D6DEEB;--1:#403F53">A design system is not a constraint.</span><span style="--1:#8D46B4"><span style="--0:#7FDBCA">&#x3C;/</span><span style="--0:#CAECE6">p</span><span style="--0:#7FDBCA">></span></span></div></div><div class="ec-line"><div class="code"><span style="--1:#8D46B4"><span style="--0:#7FDBCA">&#x3C;</span><span style="--0:#CAECE6">span</span><span style="--0:#7FDBCA"> </span></span><span style="--0:#C5E478;--1:#3C63B3">class</span><span style="--0:#7FDBCA;--1:#8D46B4">=</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">t-label</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#7FDBCA;--1:#8D46B4">></span><span style="--0:#D6DEEB;--1:#403F53">Archive · Signal</span><span style="--1:#8D46B4"><span style="--0:#7FDBCA">&#x3C;/</span><span style="--0:#CAECE6">span</span><span style="--0:#7FDBCA">></span></span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="<h1 class=&#x22;t-h1&#x22;>The invisible work</h1><p class=&#x22;t-body&#x22;>A design system is not a constraint.</p><span class=&#x22;t-label&#x22;>Archive · Signal</span>"><div></div></button></div></figure></div>
+<hr>
+<h2 id="line-height-conventions">Line height conventions</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Role</th><th>Line height</th><th>Why</th></tr></thead><tbody><tr><td>Hero / display</td><td>0.92</td><td>Tight leading for large type to feel composed</td></tr><tr><td>H1</td><td>1.0</td><td>Single-line density</td></tr><tr><td>H2</td><td>1.05</td><td>Slight room for two-line headings</td></tr><tr><td>H3</td><td>1.2</td><td>Comfortable for three-word titles</td></tr><tr><td>Body</td><td>1.65</td><td>Reading-optimised for 65–80ch measures</td></tr><tr><td>Label/mono</td><td>1.0</td><td>Capitals with tight rhythm</td></tr></tbody></table> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links astro-u2l5gyhi" dir="ltr"> <a href="/typography/overview" rel="prev" class="astro-u2l5gyhi"> <svg aria-hidden="true" class="astro-u2l5gyhi astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg>  <span class="astro-u2l5gyhi"> Previous <br class="astro-u2l5gyhi"> <span class="link-title astro-u2l5gyhi">Overview</span> </span> </a> <a href="/typography/usage" rel="next" class="astro-u2l5gyhi"> <svg aria-hidden="true" class="astro-u2l5gyhi astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg>  <span class="astro-u2l5gyhi"> Next <br class="astro-u2l5gyhi"> <span class="link-title astro-u2l5gyhi">Usage</span> </span> </a> </div>   </footer>  </div> </div>   </main> </div> </div>  </div> </div>  </body></html>

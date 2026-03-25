@@ -1,0 +1,106 @@
+---
+title: Typography — Overview
+description: Font families in the hs108 system, their loading strategy, and intended use cases.
+sidebar:
+  order: 1
+---
+
+import TokenTable from '../../../components/TokenTable.astro';
+
+## Font families
+
+The system defines three core families and two alternate pairings (A and B) for thematic variation.
+
+---
+
+### Core families
+
+**Instrument Serif** — `--font-display`
+
+A refined, literary serif with strong italic. Used for large display headings, hero text, zine titles, and any editorial moment that requires warmth and human texture. Always set in italic at large sizes.
+
+> *The quick brown fox jumps over the lazy dog.*
+> — set in Instrument Serif, italic
+
+---
+
+**Geist** — `--font-body`
+
+A clean grotesque from Vercel. Neutral and highly legible at all sizes. Used for body copy, UI labels, metadata, and any text that needs to function quietly. The system's default.
+
+The quick brown fox jumps over the lazy dog. — set in Geist, regular
+
+---
+
+**Geist Mono** — `--font-mono`
+
+Monospace companion to Geist. Used for code blocks, token names, navigation labels, button text, tags, and any context that benefits from strict character width.
+
+`The quick brown fox jumps over the lazy dog.` — set in Geist Mono
+
+---
+
+### Alternate pairing A — Technical / structured
+
+**Genos** — `--font-alt-a-display` · **Rajdhani** — `--font-alt-a-body`
+
+A geometric condensed display with a technical body. For contexts that need a more industrial or scientific register — reports, data-heavy layouts, or alternate brand expressions.
+
+---
+
+### Alternate pairing B — Editorial / formal
+
+**Michroma** — `--font-alt-b-display` · **IBM Plex Serif** — `--font-alt-b-body`
+
+A futuristic display with a considered editorial serif body. For long-form writing, printed outputs, or formal document contexts.
+
+---
+
+## Token reference
+
+<TokenTable
+  caption="Font family tokens"
+  tokens={[
+    { token: '--font-display', value: "'Instrument Serif', Georgia, serif", usage: 'Display headings, hero text, editorial titles. Italic at large sizes.' },
+    { token: '--font-body', value: "'Geist', 'Arial', sans-serif", usage: 'Body copy, UI text, metadata. The system default.' },
+    { token: '--font-mono', value: "'Geist Mono', 'Courier New', monospace", usage: 'Code, token names, button/nav labels. All caps with letter-spacing.' },
+    { token: '--font-alt-a-display', value: "'Genos', sans-serif", usage: 'Technical alternate display. Condensed, geometric.' },
+    { token: '--font-alt-a-body', value: "'Rajdhani', sans-serif", usage: 'Technical alternate body. Structured, clean.' },
+    { token: '--font-alt-b-display', value: "'Michroma', sans-serif", usage: 'Formal alternate display. Futuristic, precision.' },
+    { token: '--font-alt-b-body', value: "'IBM Plex Serif', Georgia, serif", usage: 'Formal alternate body. Editorial, long-form reading.' },
+  ]}
+/>
+
+---
+
+## Loading strategy
+
+All fonts load from Google Fonts with `display=swap` to prevent FOIT:
+
+```html
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1
+  &family=Geist:wght@300;400;500;600;700
+  &family=Geist+Mono:wght@400;500
+  &family=Genos:ital,wght@0,400;0,700;1,400;1,700
+  &family=Michroma
+  &family=Rajdhani:wght@300;400;500;600;700
+  &family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500
+  &display=swap');
+```
+
+:::note
+In a future session, this will be replaced with self-hosted font files for performance and reliability. The token names will remain the same.
+:::
+
+---
+
+## Rendering settings
+
+All text renders with antialiasing applied at the `html` level:
+
+```css
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+```

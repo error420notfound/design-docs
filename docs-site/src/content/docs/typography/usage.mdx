@@ -1,0 +1,110 @@
+---
+title: Typography Usage
+description: When to use each typeface, size, and style — decision rules for hs108 typography.
+sidebar:
+  order: 3
+---
+
+## Decision framework
+
+Every typographic decision answers three questions:
+
+1. **What is the register?** Display (bold, emotive, large) — or functional (small, quiet, legible)?
+2. **What is the mood?** Warm/editorial → Instrument Serif. Neutral/technical → Geist. Code/data → Geist Mono.
+3. **What size?** Start from the content hierarchy, not from aesthetics.
+
+---
+
+## Instrument Serif — when to use
+
+Use for **emotional, editorial, and brand-facing** moments:
+
+- Page titles and hero headlines
+- Pull quotes and thesis statements
+- Zine and archive titles
+- Any text where warmth or humanity matters
+
+**Always italic at `--size-hero` and `--size-h1`.** Upright is available but use it sparingly — the italic form is the primary expression.
+
+**Don't use** for body copy, UI labels, metadata, or code.
+
+---
+
+## Geist — when to use
+
+Use for **everything that needs to work quietly**:
+
+- Body paragraphs
+- Captions and metadata
+- UI labels at sizes above 13px
+- Navigation text (when not monospaced)
+- Prose in journal and archive entries
+
+**Weight guidance:**
+| Weight | Token | Use |
+|--------|-------|-----|
+| 300 | `font-weight: 300` | Light captions, subdued metadata |
+| 400 | `font-weight: 400` | Default body copy |
+| 500 | `font-weight: 500` | Slightly emphasised labels |
+| 600 | `font-weight: 600` | Inline bold, `<strong>` |
+| 700 | `font-weight: 700` | Rare — only for critical callouts |
+
+---
+
+## Geist Mono — when to use
+
+Use for **structured, data-like, or identity-critical text**:
+
+- All button text and navigation links (`.nav__link`)
+- Tag labels (`.tag`)
+- Token names and code values
+- Date strings and metadata beside technical content
+- The hs108 wordmark `HS108 / Field Notes`
+
+**Always set uppercase with `letter-spacing: 0.12em–0.16em`.** This is not optional — monospaced labels without tracking look broken.
+
+---
+
+## Alternate pairings — when to use
+
+Use alternates when a project deliberately departs from the studio's default register:
+
+| Pairing | Use when… |
+|---------|-----------|
+| **A — Genos + Rajdhani** | Technical client, data-heavy deliverable, engineering context |
+| **B — Michroma + IBM Plex Serif** | Formal proposal, printed document, academic register |
+
+Alternate pairings are **whole-page or whole-project decisions** — don't mix core and alternate families on the same surface.
+
+---
+
+## Prose styles
+
+Long-form content (journal entries, archive pieces) uses the `.prose` class:
+
+```css
+.prose {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: 1.75;
+  max-width: 68ch;   /* optimal reading measure */
+}
+```
+
+Key prose rules:
+- **Max-width 68ch** — never let text run wider than this.
+- **Line height 1.75** — not 1.5. Long-form reading needs more air.
+- **Italic blockquotes** in Instrument Serif — `border-left: 2px solid var(--accent-strong)`
+- **Code inline** uses Geist Mono with a subtle surface background.
+
+---
+
+## What to avoid
+
+| Avoid | Why |
+|-------|-----|
+| Instrument Serif at `--size-body` | It's optimised for display — hard to read at text sizes |
+| Geist at `--size-hero` without italic | Feels like a placeholder, not a typographic decision |
+| Geist Mono without uppercase + tracking | Loses its identity, reads like generic code font |
+| Mixing two display fonts in one context | Competes for attention, undermines hierarchy |
+| `font-weight: 700` on Instrument Serif | The typeface doesn't have bold — it will synthesise and look wrong |

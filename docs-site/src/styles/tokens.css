@@ -1,0 +1,113 @@
+/* =============================================================
+   TOKENS.CSS — HS108 Design System
+   CSS custom properties only (no reset, no layout)
+   Used by docs-site to make hs108 tokens available globally.
+   ============================================================= */
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Genos:ital,wght@0,400;0,700;1,400;1,700&family=Michroma&family=Rajdhani:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+/* ── Hue scales ──────────────────────────────────────────── */
+:root {
+  --orange-50: #FFF4F0; --orange-100: #FFE1D8; --orange-200: #FFC3B0;
+  --orange-300: #FFA287; --orange-400: #FF825E; --orange-500: #ED582A;
+  --orange-600: #D04C23; --orange-700: #B13F1C; --orange-800: #933215;
+  --orange-900: #6C240E; --orange-950: #3A1307;
+  --orange-black-native: #120600; --orange-white-native: #FFE1D8;
+
+  --teal-50: #F0FAF7; --teal-100: #D6F2EC; --teal-200: #ACE4D9;
+  --teal-300: #7DD4C5; --teal-400: #52C0AF; --teal-500: #2F9E8F;
+  --teal-600: #27857A; --teal-700: #1E6C62; --teal-800: #165249;
+  --teal-900: #0D3831; --teal-950: #061E1A;
+  --teal-black-native: #031410; --teal-white-native: #E5F4F0;
+
+  --blue-50: #EEF6FF; --blue-100: #CFE6FE; --blue-200: #A3CFFD;
+  --blue-300: #6FB4FB; --blue-400: #3E98FA; --blue-500: #2186EB;
+  --blue-600: #1970D2; --blue-700: #1259AF; --blue-800: #0C438A;
+  --blue-900: #082D60; --blue-950: #041735;
+  --blue-black-native: #020D1F; --blue-white-native: #CFE6FE;
+
+  --green-50: #EDFCF3; --green-100: #D3FCE1; --green-200: #A5F7C2;
+  --green-300: #70EFA0; --green-400: #44E27E; --green-500: #36D35E;
+  --green-600: #28B24D; --green-700: #1D8F3C; --green-800: #136C2C;
+  --green-900: #0A481D; --green-950: #042410;
+  --green-black-native: #011508; --green-white-native: #D3FCE1;
+
+  --purple-50: #F8F4FD; --purple-100: #F1EAF9; --purple-200: #E0D3F4;
+  --purple-300: #C9B4EC; --purple-400: #AF8FE2; --purple-500: #7F56C2;
+  --purple-600: #6C47A8; --purple-700: #57388E; --purple-800: #412A72;
+  --purple-900: #2C1B52; --purple-950: #160D2C;
+  --purple-black-native: #0A061A; --purple-white-native: #F1EAF9;
+
+  --rose-50: #FFF1F1; --rose-100: #FFE0E0; --rose-200: #FFC0C0;
+  --rose-300: #FF9898; --rose-400: #FF6B6B; --rose-500: #E63946;
+  --rose-600: #C92D3A; --rose-700: #A8222E; --rose-800: #861722;
+  --rose-900: #5F1018; --rose-950: #33080D;
+  --rose-black-native: #200508; --rose-white-native: #FFE0E0;
+
+  --vermilion-50: #FFF2EE; --vermilion-100: #FFE6DF; --vermilion-200: #FFC9BC;
+  --vermilion-300: #FFA494; --vermilion-400: #FF7461; --vermilion-500: #F03A17;
+  --vermilion-600: #CC3010; --vermilion-700: #A6260B; --vermilion-800: #821D07;
+  --vermilion-900: #5A1304; --vermilion-950: #300A02;
+  --vermilion-black-native: #1A0501; --vermilion-white-native: #FFE6DF;
+
+  --cool-50: #F6F8FB; --cool-100: #EEF2F6; --cool-200: #D8E0EB;
+  --cool-300: #BAC8D8; --cool-400: #99AABF; --cool-500: #88919A;
+  --cool-600: #6E7880; --cool-700: #565E65; --cool-800: #3E444A;
+  --cool-900: #282D30; --cool-950: #131619;
+  --cool-black-native: #080A0B; --cool-white-native: #EEF2F6;
+
+  --neutral-50: #F9F9F9; --neutral-100: #F3F3F3; --neutral-200: #E4E4E4;
+  --neutral-300: #CACACA; --neutral-400: #ABABAB; --neutral-500: #888888;
+  --neutral-600: #6C6C6C; --neutral-700: #525252; --neutral-800: #3B3B3B;
+  --neutral-900: #252525; --neutral-950: #111111;
+  --neutral-black-native: #050505; --neutral-white-native: #F3F3F3;
+}
+
+/* ── Semantic tokens (Blue — Docs theme) ─────────────────── */
+:root {
+  --hs-bg:                var(--blue-50);
+  --hs-fg:                var(--blue-black-native);
+  --hs-surface-base:      var(--blue-100);
+  --hs-surface-elevated:  var(--blue-50);
+  --hs-text-on-dark:      var(--blue-100);
+  --hs-accent:            var(--blue-500);
+  --hs-accent-strong:     var(--blue-700);
+  --hs-accent-soft:       var(--blue-100);
+  --hs-action:            var(--vermilion-500);
+  --hs-action-soft:       var(--vermilion-100);
+  --hs-border:            var(--blue-black-native);
+  --hs-border-width:      2px;
+  --hs-transition:        150ms ease;
+}
+
+/* ── Typography tokens ───────────────────────────────────── */
+:root {
+  --font-display:       'Instrument Serif', Georgia, serif;
+  --font-body:          'Geist', 'Arial', sans-serif;
+  --font-mono:          'Geist Mono', 'Courier New', monospace;
+  --font-alt-a-display: 'Genos', sans-serif;
+  --font-alt-a-body:    'Rajdhani', sans-serif;
+  --font-alt-b-display: 'Michroma', sans-serif;
+  --font-alt-b-body:    'IBM Plex Serif', Georgia, serif;
+}
+
+/* ── Type scale ──────────────────────────────────────────── */
+:root {
+  --size-hero:  clamp(56px, 10vw, 140px);
+  --size-h1:    clamp(36px, 5.5vw, 80px);
+  --size-h2:    clamp(26px, 3.5vw, 48px);
+  --size-h3:    clamp(19px, 2vw, 28px);
+  --size-body:  clamp(15px, 1.1vw, 18px);
+  --size-small: 13px;
+  --size-label: 11px;
+}
+
+/* ── Spacing tokens ──────────────────────────────────────── */
+:root {
+  --space-section: clamp(64px, 9vw, 128px);
+  --space-gap:     clamp(14px, 2vw, 28px);
+  --space-card:    clamp(18px, 2.2vw, 36px);
+  --max-width:     1440px;
+  --gutter:        clamp(16px, 4vw, 64px);
+}

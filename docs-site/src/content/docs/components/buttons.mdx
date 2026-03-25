@@ -1,0 +1,109 @@
+---
+title: Buttons
+description: All button variants in the hs108 system — primary, outline, ghost, action, and small.
+sidebar:
+  order: 2
+---
+
+import ComponentPreview from '../../../components/ComponentPreview.astro';
+
+## Base class
+
+All buttons share `.btn` as a base class. Add a modifier to set the visual style.
+
+```css
+.btn {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 2px solid currentColor;
+  border-radius: 0;
+  padding: 13px 26px;
+}
+```
+
+---
+
+## Variants
+
+### Primary
+
+The main call-to-action. Blue fill, darkens on hover.
+
+<ComponentPreview
+  label="btn--primary"
+  html={`<button class="btn btn--primary">Explore Archive</button>`}
+/>
+
+### Outline
+
+Bordered, transparent background. Fills blue on hover.
+
+<ComponentPreview
+  label="btn--outline"
+  html={`<button class="btn btn--outline">View Journal</button>`}
+/>
+
+### Ghost
+
+No border, no fill. Text only — colour shifts to blue on hover. For low-priority actions.
+
+<ComponentPreview
+  label="btn--ghost"
+  html={`<button class="btn btn--ghost">Read more →</button>`}
+/>
+
+### Action
+
+Vermilion fill. For primary CTAs, confirmations, and download triggers.
+
+<ComponentPreview
+  label="btn--action"
+  html={`<button class="btn btn--action">Download PDF</button>`}
+/>
+
+### Small
+
+A `.btn--sm` modifier reduces padding and font size. Combine with any style variant.
+
+<ComponentPreview
+  label="btn--sm (combined with --outline)"
+  html={`<button class="btn btn--outline btn--sm">Filter</button>
+<button class="btn btn--primary btn--sm">Apply</button>`}
+/>
+
+---
+
+## All variants together
+
+<ComponentPreview
+  label="All button variants"
+  html={`<button class="btn btn--primary">Primary</button>
+<button class="btn btn--outline">Outline</button>
+<button class="btn btn--ghost">Ghost</button>
+<button class="btn btn--action">Action</button>
+<button class="btn btn--outline btn--sm">Small</button>`}
+/>
+
+---
+
+## As anchor tags
+
+Buttons can be `<a>` elements — the class applies identically:
+
+<ComponentPreview
+  label="btn on anchor"
+  html={`<a href="#" class="btn btn--primary">Go to docs</a>
+<a href="#" class="btn btn--outline">View source</a>`}
+/>
+
+---
+
+## Usage rules
+
+- **One primary button per view.** Don't stack multiple `.btn--primary` elements.
+- **Action (vermilion) is intentional.** Reserve for irreversible or significant actions.
+- **Ghost buttons need context.** Use only when the surrounding layout makes the action obvious.
+- **Uppercase is mandatory.** Never override `text-transform: uppercase` on `.btn`.
+- **No icon-only buttons.** If using an icon, always include a visible label.

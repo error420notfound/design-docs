@@ -1,0 +1,121 @@
+---
+title: Type Scale
+description: The hs108 fluid type scale — all seven steps rendered at their actual sizes, with token names and clamp values.
+sidebar:
+  order: 2
+---
+
+import TypeSpecimen from '../../../components/TypeSpecimen.astro';
+import TokenTable from '../../../components/TokenTable.astro';
+
+## The scale
+
+Seven steps, all fluid. Each uses `clamp(min, fluid, max)` so they scale smoothly with viewport width. Resize the browser to see the scale in action.
+
+<TypeSpecimen
+  scale={[
+    {
+      name: 'Hero',
+      var: '--size-hero',
+      value: 'clamp(56px, 10vw, 140px)',
+      family: 'display',
+      sample: 'Design is a verb.',
+    },
+    {
+      name: 'H1',
+      var: '--size-h1',
+      value: 'clamp(36px, 5.5vw, 80px)',
+      family: 'display',
+      sample: 'The invisible work.',
+    },
+    {
+      name: 'H2',
+      var: '--size-h2',
+      value: 'clamp(26px, 3.5vw, 48px)',
+      family: 'display',
+      sample: 'Confidence as infrastructure.',
+    },
+    {
+      name: 'H3',
+      var: '--size-h3',
+      value: 'clamp(19px, 2vw, 28px)',
+      family: 'display',
+      sample: 'Type systems as personality.',
+    },
+    {
+      name: 'Body',
+      var: '--size-body',
+      value: 'clamp(15px, 1.1vw, 18px)',
+      family: 'body',
+      sample: 'A design system is not a constraint — it is a shared grammar.',
+    },
+    {
+      name: 'Small',
+      var: '--size-small',
+      value: '13px',
+      family: 'body',
+      sample: 'Metadata, captions, secondary copy.',
+    },
+    {
+      name: 'Label',
+      var: '--size-label',
+      value: '11px',
+      family: 'mono',
+      sample: 'TOKEN NAME · CATEGORY · STATUS',
+    },
+  ]}
+/>
+
+---
+
+## Token reference
+
+<TokenTable
+  caption="Type scale tokens"
+  tokens={[
+    { token: '--size-hero',  value: 'clamp(56px, 10vw, 140px)',  usage: 'Hero titles, zine issue numbers, landing page dominants' },
+    { token: '--size-h1',    value: 'clamp(36px, 5.5vw, 80px)',  usage: 'Page titles, section headers, editorial h1' },
+    { token: '--size-h2',    value: 'clamp(26px, 3.5vw, 48px)',  usage: 'Section headings within a page' },
+    { token: '--size-h3',    value: 'clamp(19px, 2vw, 28px)',    usage: 'Sub-section headings, card titles' },
+    { token: '--size-body',  value: 'clamp(15px, 1.1vw, 18px)',  usage: 'All body copy. System default.' },
+    { token: '--size-small', value: '13px',                       usage: 'Captions, metadata, secondary copy' },
+    { token: '--size-label', value: '11px',                       usage: 'Labels, tags, nav items, button text — always uppercase, monospace' },
+  ]}
+/>
+
+---
+
+## Type utility classes
+
+Pre-composed classes combining size, family, weight, and line-height:
+
+| Class | Font | Size | Style |
+|-------|------|------|-------|
+| `.t-hero` | Instrument Serif | `--size-hero` | Italic, lh 0.92 |
+| `.t-hero-upright` | Instrument Serif | `--size-hero` | Upright, lh 0.92 |
+| `.t-h1` | Instrument Serif | `--size-h1` | Upright, lh 1.0 |
+| `.t-h2` | Instrument Serif | `--size-h2` | Upright, lh 1.05 |
+| `.t-h3` | Instrument Serif | `--size-h3` | Upright, lh 1.2 |
+| `.t-large` | Geist | `clamp(17px, 1.8vw, 22px)` | Regular, lh 1.5 |
+| `.t-body` | Geist | `--size-body` | Regular, lh 1.65 |
+| `.t-label` | Geist Mono | `--size-label` | 500wt, uppercase, ls 0.14em |
+| `.t-mono` | Geist Mono | `--size-small` | Regular, lh 1.5 |
+
+```html
+<h1 class="t-h1">The invisible work</h1>
+<p class="t-body">A design system is not a constraint.</p>
+<span class="t-label">Archive · Signal</span>
+```
+
+---
+
+## Line height conventions
+
+| Role | Line height | Why |
+|------|-------------|-----|
+| Hero / display | 0.92 | Tight leading for large type to feel composed |
+| H1 | 1.0 | Single-line density |
+| H2 | 1.05 | Slight room for two-line headings |
+| H3 | 1.2 | Comfortable for three-word titles |
+| Body | 1.65 | Reading-optimised for 65–80ch measures |
+| Label/mono | 1.0 | Capitals with tight rhythm |

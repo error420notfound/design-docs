@@ -1,0 +1,72 @@
+---
+title: Introduction
+description: hs108 Design Studio — brand documentation, design tokens, typography, and component reference.
+hero:
+  title: hs108 Design System
+  tagline: A living reference for brand assets, tokens, type, and components. Designed to stay sharp, stay honest.
+  actions:
+    - text: Design Tokens
+      link: /tokens/overview
+      icon: right-arrow
+      variant: primary
+    - text: Components
+      link: /components/overview
+      icon: right-arrow
+      variant: minimal
+---
+
+import TokenTable from '../../components/TokenTable.astro';
+
+## What this is
+
+This site documents the visual and technical language of **hs108 Design Studio** — the rules, defaults, and exceptions that make our work coherent across projects.
+
+It covers three areas:
+
+| Area | What it documents |
+|------|-------------------|
+| **Design Tokens** | Color scales, semantic mappings, spacing, and layout values |
+| **Typography** | Font families, type scale, and when to use each |
+| **Components** | Button, tag, card, and navigation patterns with live code |
+
+---
+
+## System principles
+
+**Brutalist by default.** Hard edges, 2px borders, zero border-radius. Decoration earns its place.
+
+**Token-first.** Every color, size, and space is a CSS custom property. Nothing is hardcoded.
+
+**Two accent colors.** Blue (`--blue-500`) for primary navigation and data. Vermilion (`--vermilion-500`) for highlight, action, and emphasis.
+
+**Fluid type.** All type scale steps use `clamp()` — they scale continuously with viewport width.
+
+---
+
+## Quick reference
+
+<TokenTable
+  caption="Core semantic tokens"
+  tokens={[
+    { token: '--sl-color-accent', value: '#2186EB', usage: 'Primary brand accent — links, focus rings, active states' },
+    { token: '--hs-highlight', value: '#F03A17', usage: 'Action / highlight — copy buttons, sidebar active, callouts' },
+    { token: '--font-display', value: 'Instrument Serif', usage: 'Large headings, zine titles, hero text' },
+    { token: '--font-body', value: 'Geist', usage: 'Body copy, labels, UI text' },
+    { token: '--font-mono', value: 'Geist Mono', usage: 'Code, token names, navigation labels' },
+    { token: '--size-body', value: 'clamp(15px, 1.1vw, 18px)', usage: 'Default paragraph text size' },
+    { token: '--space-gap', value: 'clamp(14px, 2vw, 28px)', usage: 'Gap between grid items and stacked elements' },
+    { token: '--border-width', value: '2px', usage: 'Standard border weight throughout the system' },
+  ]}
+/>
+
+---
+
+## How to use this
+
+- **Copy token names** by clicking the ⎘ icon in any token table.
+- **Live previews** on component pages show rendered output alongside copyable HTML.
+- Typography **specimens** render at their actual fluid sizes — resize the browser to see the scale in action.
+
+:::tip[Placeholder data]
+This site currently uses placeholder content. Global CSS, real typography files, and final design tokens will be provided in a later session.
+:::

@@ -1,0 +1,1 @@
+document.querySelectorAll(".token-copy").forEach(e=>{e.addEventListener("click",async()=>{const o=e.dataset.token;if(o)try{await navigator.clipboard.writeText(o);const t=e.querySelector(".token-copy__indicator");t&&(t.textContent="✓",t.style.color="#2186EB",setTimeout(()=>{t.textContent="⎘",t.style.color=""},1200))}catch{}})});

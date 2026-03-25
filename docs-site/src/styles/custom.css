@@ -1,0 +1,328 @@
+/* =============================================================
+   CUSTOM.CSS — Starlight overrides for hs108 Docs
+   Remaps Starlight CSS vars to hs108 blue + vermilion palette.
+   Applies brutalist typography and border conventions.
+   ============================================================= */
+
+/* ── Light theme ─────────────────────────────────────────── */
+:root[data-theme='light'],
+:root {
+  --sl-color-accent-low:  #CFE6FE;   /* blue-100 */
+  --sl-color-accent:      #2186EB;   /* blue-500 */
+  --sl-color-accent-high: #1259AF;   /* blue-700 */
+
+  --sl-color-white: #F9F9F9;
+  --sl-color-black: #020D1F;         /* blue-black-native */
+
+  --sl-color-gray-1: #020D1F;
+  --sl-color-gray-2: #252525;
+  --sl-color-gray-3: #525252;
+  --sl-color-gray-4: #888888;
+  --sl-color-gray-5: #D8E0EB;        /* cool-200 */
+  --sl-color-gray-6: #EEF2F6;        /* cool-100 */
+  --sl-color-gray-7: #F6F8FB;        /* cool-50 */
+
+  /* Vermilion — highlight / action */
+  --hs-highlight: #F03A17;
+  --hs-highlight-soft: #FFE6DF;
+}
+
+/* ── Dark theme ──────────────────────────────────────────── */
+:root[data-theme='dark'] {
+  --sl-color-accent-low:  #082D60;   /* blue-900 */
+  --sl-color-accent:      #3E98FA;   /* blue-400 */
+  --sl-color-accent-high: #A3CFFD;   /* blue-200 */
+
+  --sl-color-white: #F9F9F9;
+  --sl-color-black: #020D1F;
+
+  --sl-color-gray-1: #EEF2F6;
+  --sl-color-gray-2: #D8E0EB;
+  --sl-color-gray-3: #88919A;
+  --sl-color-gray-4: #565E65;
+  --sl-color-gray-5: #3E444A;
+  --sl-color-gray-6: #282D30;
+  --sl-color-gray-7: #131619;
+
+  --hs-highlight: #FF7461;           /* vermilion-400 (brighter on dark) */
+  --hs-highlight-soft: #300A02;
+}
+
+/* ── Typography overrides ────────────────────────────────── */
+:root {
+  --sl-font:           'Geist', 'Arial', sans-serif;
+  --sl-font-mono:      'Geist Mono', 'Courier New', monospace;
+  --sl-text-code-size: 0.85em;
+}
+
+/* Site title wordmark */
+.site-title {
+  font-family: 'Geist Mono', monospace !important;
+  font-size: 11px !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+}
+
+/* Doc headings use Instrument Serif */
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.sl-markdown-content h4 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.sl-markdown-content h2 { font-style: italic; }
+
+/* ── Brutalist border radius reset ───────────────────────── */
+.sl-markdown-content *,
+.sidebar-content a,
+.pagination-links a,
+.pagination-links .link-title,
+starlight-toc a,
+button,
+input,
+select,
+details,
+summary,
+.expressive-code,
+.expressive-code pre,
+.expressive-code .frame,
+.expressive-code .copy,
+.expressive-code .copy button {
+  border-radius: 0 !important;
+}
+
+/* ── Sidebar active indicator → vermilion ────────────────── */
+a[aria-current='page'],
+.sidebar-content a[aria-current='page'] {
+  border-left: 2px solid var(--hs-highlight) !important;
+  color: var(--hs-highlight) !important;
+  padding-left: calc(1rem - 2px) !important;
+}
+
+/* ── Sidebar nav group labels ────────────────────────────── */
+.group-label span {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ── Sidebar links ───────────────────────────────────────── */
+.sidebar-content a {
+  font-size: 13px;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.sidebar-content a:hover:not([aria-current='page']) {
+  color: var(--sl-color-accent);
+}
+
+/* ── Copy button hover → vermilion ──────────────────────── */
+.expressive-code .copy button:hover {
+  background-color: var(--hs-highlight) !important;
+  border-color: var(--hs-highlight) !important;
+  color: white !important;
+}
+
+/* ── Callout / aside accent ──────────────────────────────── */
+.starlight-aside--note {
+  border-inline-start-color: var(--sl-color-accent) !important;
+}
+.starlight-aside--caution,
+.starlight-aside--danger,
+.starlight-aside--tip {
+  border-inline-start-color: var(--hs-highlight) !important;
+}
+.starlight-aside--tip .starlight-aside__title {
+  color: var(--hs-highlight);
+}
+
+/* ── Table styling ───────────────────────────────────────── */
+.sl-markdown-content table {
+  border: 2px solid var(--sl-color-gray-5);
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+}
+.sl-markdown-content th {
+  border-bottom: 2px solid var(--sl-color-gray-5);
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+}
+.sl-markdown-content td {
+  border-bottom: 1px solid var(--sl-color-gray-6);
+  padding: 10px 14px;
+  vertical-align: top;
+}
+.sl-markdown-content tr:last-child td { border-bottom: none; }
+
+/* ── Inline code ─────────────────────────────────────────── */
+.sl-markdown-content :not(pre) > code {
+  background: var(--sl-color-gray-6);
+  border: 1px solid var(--sl-color-gray-5);
+  padding: 2px 6px;
+  font-size: 0.82em;
+}
+
+/* ── Hero / intro page overrides ─────────────────────────── */
+.hero {
+  border-bottom: 2px solid var(--sl-color-gray-5);
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+.hero .tagline {
+  font-family: 'Geist', Arial, sans-serif;
+  opacity: 0.7;
+}
+
+/* ── HS108 Component classes (for ComponentPreview live render) */
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 2px solid currentColor;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+  white-space: nowrap;
+  border-radius: 0;
+  text-decoration: none;
+}
+.btn--primary {
+  background: var(--blue-500, #2186EB);
+  color: var(--blue-black-native, #020D1F);
+  border-color: var(--blue-500, #2186EB);
+}
+.btn--primary:hover {
+  background: var(--blue-700, #1259AF);
+  color: var(--blue-white-native, #CFE6FE);
+  border-color: var(--blue-700, #1259AF);
+}
+.btn--outline {
+  background: transparent;
+  color: var(--sl-color-text, #020D1F);
+  border-color: var(--sl-color-text, #020D1F);
+}
+.btn--outline:hover {
+  background: var(--blue-500, #2186EB);
+  color: var(--blue-black-native, #020D1F);
+  border-color: var(--blue-500, #2186EB);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--sl-color-text, #020D1F);
+  border-color: transparent;
+  padding-inline: 0;
+}
+.btn--ghost:hover { color: var(--blue-500, #2186EB); }
+.btn--action {
+  background: var(--vermilion-500, #F03A17);
+  color: white;
+  border-color: var(--vermilion-500, #F03A17);
+}
+.btn--action:hover {
+  background: var(--vermilion-700, #A6260B);
+  border-color: var(--vermilion-700, #A6260B);
+}
+.btn--sm { padding: 8px 16px; font-size: 10px; }
+
+/* Tags */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 2px solid currentColor;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: 0;
+}
+.tag--accent {
+  background: var(--blue-500, #2186EB);
+  border-color: var(--blue-500, #2186EB);
+  color: var(--blue-black-native, #020D1F);
+}
+.tag--action {
+  background: var(--vermilion-500, #F03A17);
+  border-color: var(--vermilion-500, #F03A17);
+  color: white;
+}
+.tag--muted {
+  opacity: 0.5;
+  border-color: currentColor;
+}
+.tag--inv {
+  border-color: rgba(207, 230, 254, 0.35);
+  color: #CFE6FE;
+}
+
+/* Entry card */
+.entry-card {
+  border: 2px solid var(--sl-color-gray-5, #D8E0EB);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: background 150ms ease;
+  cursor: pointer;
+}
+.entry-card:hover { background: var(--sl-color-gray-7, #F6F8FB); }
+.entry-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.entry-card__title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.15;
+}
+.entry-card__thesis {
+  font-size: 13px;
+  opacity: 0.6;
+  line-height: 1.55;
+}
+.entry-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 2px solid var(--sl-color-gray-5, #D8E0EB);
+}
+
+/* Journal row */
+.journal-row {
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  align-items: start;
+  gap: 1.5rem;
+  padding-block: 1.5rem;
+  border-bottom: 2px solid var(--sl-color-gray-5, #D8E0EB);
+  transition: background 150ms ease;
+}
+.journal-row:hover { background: var(--sl-color-gray-7, #F6F8FB); }
+.journal-row__date { opacity: 0.4; font-size: 12px; font-family: 'Geist Mono', monospace; padding-top: 4px; }
+.journal-row__title { font-family: 'Instrument Serif', Georgia, serif; font-size: 20px; font-weight: 400; font-style: italic; line-height: 1.2; }
+.journal-row__sub { font-size: 12px; opacity: 0.5; margin-top: 0.3rem; }

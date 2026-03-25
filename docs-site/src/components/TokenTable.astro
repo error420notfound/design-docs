@@ -1,0 +1,188 @@
+---
+/**
+ * TokenTable.astro
+ * Renders a reference table of CSS custom properties.
+ * Token names are copy-on-click. Alternating row tints via CSS.
+ *
+ * Props:
+ *   tokens   — array of { token, value, usage }
+ *   caption  — optional table caption string
+ */
+
+interface Token {
+  token: string;
+  value: string;
+  usage: string;
+}
+
+interface Props {
+  tokens: Token[];
+  caption?: string;
+}
+
+const { tokens, caption } = Astro.props;
+---
+
+<div class="token-table-wrap">
+  <table class="token-table">
+    {caption && <caption class="token-table__caption">{caption}</caption>}
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Value</th>
+        <th>Usage</th>
+      </tr>
+    </thead>
+    <tbody>
+      {tokens.map((t, i) => (
+        <tr class={i % 2 === 1 ? 'token-table__row--alt' : ''}>
+          <td>
+            <button
+              class="token-copy"
+              data-token={t.token}
+              title={`Copy ${t.token}`}
+            >
+              <code>{t.token}</code>
+              <span class="token-copy__indicator" aria-hidden="true">⎘</span>
+            </button>
+          </td>
+          <td><code class="token-value">{t.value}</code></td>
+          <td class="token-usage">{t.usage}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.token-copy').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const token = btn.dataset.token;
+      if (!token) return;
+      try {
+        await navigator.clipboard.writeText(token);
+        const indicator = btn.querySelector<HTMLElement>('.token-copy__indicator');
+        if (indicator) {
+          indicator.textContent = '✓';
+          indicator.style.color = '#2186EB';
+          setTimeout(() => {
+            indicator.textContent = '⎘';
+            indicator.style.color = '';
+          }, 1200);
+        }
+      } catch {}
+    });
+  });
+</script>
+
+<style>
+  .token-table-wrap {
+    overflow-x: auto;
+    margin-block: 1.5rem;
+    border: 2px solid var(--sl-color-gray-5, #D8E0EB);
+  }
+
+  .token-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    /* Removes Starlight's default table margin since we wrap it */
+    margin: 0 !important;
+    border: none !important;
+  }
+
+  .token-table__caption {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 10px 14px 6px;
+    opacity: 0.5;
+    caption-side: top;
+  }
+
+  .token-table thead tr {
+    border-bottom: 2px solid var(--sl-color-gray-5, #D8E0EB);
+  }
+
+  .token-table th {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    background: var(--sl-color-gray-7, #F6F8FB);
+    font-weight: 500;
+    /* Override Starlight table th styles */
+    border-bottom: none !important;
+  }
+
+  .token-table td {
+    padding: 9px 14px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--sl-color-gray-6, #EEF2F6) !important;
+  }
+
+  .token-table tr:last-child td { border-bottom: none !important; }
+
+  .token-table__row--alt td {
+    background: var(--sl-color-gray-7, #F6F8FB);
+  }
+
+  /* Copy button */
+  .token-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+    font-family: inherit;
+    border-radius: 0;
+    transition: color 150ms ease;
+  }
+
+  .token-copy:hover { color: var(--sl-color-accent, #2186EB); }
+
+  .token-copy code {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  .token-copy__indicator {
+    font-size: 11px;
+    opacity: 0.35;
+    transition: opacity 150ms ease, color 150ms ease;
+    font-style: normal;
+    line-height: 1;
+    font-family: monospace;
+  }
+
+  .token-copy:hover .token-copy__indicator { opacity: 1; }
+
+  /* Value code pill */
+  .token-value {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    background: var(--sl-color-gray-6, #EEF2F6);
+    border: 1px solid var(--sl-color-gray-5, #D8E0EB);
+    padding: 2px 6px;
+    white-space: nowrap;
+    border-radius: 0 !important;
+    color: inherit;
+  }
+
+  .token-usage {
+    opacity: 0.7;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+</style>
