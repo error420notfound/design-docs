@@ -1,0 +1,110 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Search from 'virtual:starlight/components/Search';
+import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
+import MobileMenuToggle from 'virtual:starlight/components/MobileMenuToggle';
+---
+
+<div class="hs-nav">
+  <a href="/" class="hs-nav__wordmark">
+    <span>hs108</span>
+    <span class="sep" aria-hidden="true">/</span>
+    <span class="docs-label">docs</span>
+  </a>
+
+  <div class="hs-nav__search">
+    <Search {...Astro.props} />
+  </div>
+
+  <div class="hs-nav__right">
+    <div class="hs-nav__right-item">
+      <ThemeSelect {...Astro.props} />
+    </div>
+    <div class="hs-nav__right-item hs-nav__menu-toggle">
+      <MobileMenuToggle {...Astro.props} />
+    </div>
+  </div>
+</div>
+
+<style>
+  .hs-nav {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* ── Wordmark ──────────────────────────────────── */
+  .hs-nav__wordmark {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding-inline: 1.25rem;
+    border-right: var(--hs-border-width) solid var(--hs-border);
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+    transition: background 150ms ease, color 150ms ease;
+  }
+
+  .hs-nav__wordmark:hover {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-bg);
+  }
+
+  .sep {
+    opacity: 0.35;
+  }
+
+  /* ── Search ────────────────────────────────────── */
+  .hs-nav__search {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding-inline: 0.75rem;
+  }
+
+  /* ── Right group ───────────────────────────────── */
+  .hs-nav__right {
+    display: flex;
+    align-items: stretch;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .hs-nav__right-item {
+    display: flex;
+    align-items: center;
+    padding-inline: 0.875rem;
+    border-left: var(--hs-border-width) solid var(--hs-border);
+  }
+
+  /* Hide mobile toggle on large screens */
+  .hs-nav__menu-toggle {
+    display: none;
+  }
+
+  /* ── Mobile ────────────────────────────────────── */
+  @media (max-width: 50rem) {
+    .hs-nav__menu-toggle {
+      display: flex;
+    }
+
+    .docs-label,
+    .sep {
+      display: none;
+    }
+
+    .hs-nav__wordmark {
+      padding-inline: 1rem;
+    }
+  }
+</style>

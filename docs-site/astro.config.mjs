@@ -17,6 +17,9 @@ export default defineConfig({
         './src/styles/tokens.css',
         './src/styles/custom.css',
       ],
+      components: {
+        Header: './src/components/Header.astro',
+      },
       social: {},
       sidebar: [
         { label: 'Introduction', link: '/' },
@@ -50,6 +53,14 @@ export default defineConfig({
         {
           tag: 'meta',
           attrs: { property: 'og:image', content: 'https://docs.hs108.in/og.png' },
+        },
+        {
+          tag: 'link',
+          attrs: { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        },
+        {
+          tag: 'link',
+          attrs: { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         },
       ],
     }),

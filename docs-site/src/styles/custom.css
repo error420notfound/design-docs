@@ -1,23 +1,23 @@
 /* =============================================================
    CUSTOM.CSS — Starlight overrides for hs108 Docs
-   Blue + blue palette. Brutalist, 0 radius, 2px borders.
-   Aesthetic aligned with hs108.in / field-notes.hs108.in.
+   Blue palette · Brutalist · 0 radius · dark borders
+   Matches hs108.in / field-notes.hs108.in design language.
    ============================================================= */
 
 /* ── Light theme ─────────────────────────────────────────── */
-:root[data-theme='light'],
-:root {
+:root,
+:root[data-theme='light'] {
   --sl-color-accent-low:  #CFE6FE;   /* blue-100 */
   --sl-color-accent:      #2186EB;   /* blue-500 */
   --sl-color-accent-high: #1259AF;   /* blue-700 */
 
-  /* Explicit text + bg */
-  --sl-color-white:  #F9F9F9;
-  --sl-color-black:  #020D1F;
-  --sl-color-text:        #020D1F;
-  --sl-color-text-accent: #1259AF;
+  /* Text */
+  --sl-color-white:        #F9F9F9;
+  --sl-color-black:        #020D1F;
+  --sl-color-text:         #020D1F;
+  --sl-color-text-accent:  #1259AF;
 
-  /* Gray scale — cool grays */
+  /* Gray scale */
   --sl-color-gray-1: #020D1F;
   --sl-color-gray-2: #252525;
   --sl-color-gray-3: #525252;
@@ -26,41 +26,48 @@
   --sl-color-gray-6: #EEF2F6;
   --sl-color-gray-7: #F6F8FB;
 
-  /* Tinted background — blue-50, not stark white */
-  --sl-color-bg:              #EEF6FF;
-  --sl-color-bg-sidebar:      #E4EEFA;
-  --sl-color-bg-nav:          #EEF6FF;
-  --sl-color-bg-inline-code:  #DCE8F8;
+  /* Backgrounds — blue-100 base (matches field-notes teal-100 pattern) */
+  --sl-color-bg:              #CFE6FE;
+  --sl-color-bg-sidebar:      #CFE6FE;
+  --sl-color-bg-nav:          #CFE6FE;
+  --sl-color-bg-inline-code:  #A3CFFD;
 
-  /* Highlight — blue family only */
-  --hs-highlight:      #2186EB;   /* blue-500 */
-  --hs-highlight-mid:  #1259AF;   /* blue-700 */
-  --hs-highlight-soft: #CFE6FE;   /* blue-100 */
+  /* Nav height — matches field-notes 60px bar */
+  --sl-nav-height: 60px;
 
-  /* Pagefind search UI */
+  /* Border system — hue-black-native for all structural borders */
+  --hs-border:       #020D1F;
+  --hs-border-soft:  rgba(2, 13, 31, 0.12);
+  --hs-border-width: 2px;
+
+  /* Highlight shorthands */
+  --hs-highlight:      #2186EB;
+  --hs-highlight-mid:  #1259AF;
+  --hs-highlight-soft: #CFE6FE;
+
+  /* Pagefind */
   --pagefind-ui-scale:         0.9;
   --pagefind-ui-primary:       #2186EB;
   --pagefind-ui-text:          #020D1F;
-  --pagefind-ui-background:    #EEF6FF;
-  --pagefind-ui-border:        #D8E0EB;
+  --pagefind-ui-background:    #CFE6FE;
+  --pagefind-ui-border:        #020D1F;
   --pagefind-ui-border-width:  2px;
   --pagefind-ui-border-radius: 0px;
   --pagefind-ui-font:          'Geist', Arial, sans-serif;
-  --pagefind-ui-tag:           #DCE8F8;
+  --pagefind-ui-tag:           #A3CFFD;
 }
 
 /* ── Dark theme ──────────────────────────────────────────── */
 :root[data-theme='dark'] {
-  --sl-color-accent-low:  #082D60;   /* blue-900 */
-  --sl-color-accent:      #3E98FA;   /* blue-400 */
-  --sl-color-accent-high: #A3CFFD;   /* blue-200 */
+  --sl-color-accent-low:  #082D60;
+  --sl-color-accent:      #3E98FA;
+  --sl-color-accent-high: #A3CFFD;
 
   --sl-color-white: #F9F9F9;
   --sl-color-black: #020D1F;
   --sl-color-text:        #D8E0EB;
   --sl-color-text-accent: #A3CFFD;
 
-  /* Gray scale — inverted */
   --sl-color-gray-1: #EEF2F6;
   --sl-color-gray-2: #D8E0EB;
   --sl-color-gray-3: #88919A;
@@ -69,22 +76,27 @@
   --sl-color-gray-6: #282D30;
   --sl-color-gray-7: #131619;
 
-  /* Deep navy background */
   --sl-color-bg:              #060D18;
   --sl-color-bg-sidebar:      #080F1E;
   --sl-color-bg-nav:          #060D18;
   --sl-color-bg-inline-code:  #0F1F36;
 
-  /* Highlight — bright blue for dark bg */
-  --hs-highlight:      #3E98FA;   /* blue-400 */
-  --hs-highlight-mid:  #A3CFFD;   /* blue-200 */
-  --hs-highlight-soft: #082D60;   /* blue-900 */
+  /* Nav height */
+  --sl-nav-height: 60px;
 
-  /* Pagefind search UI */
+  /* Border system — subtle light borders on dark bg */
+  --hs-border:       rgba(207, 230, 254, 0.12);
+  --hs-border-soft:  rgba(207, 230, 254, 0.06);
+  --hs-border-width: 2px;
+
+  --hs-highlight:      #3E98FA;
+  --hs-highlight-mid:  #A3CFFD;
+  --hs-highlight-soft: #082D60;
+
   --pagefind-ui-primary:       #3E98FA;
   --pagefind-ui-text:          #D8E0EB;
   --pagefind-ui-background:    #060D18;
-  --pagefind-ui-border:        #3E444A;
+  --pagefind-ui-border:        rgba(207, 230, 254, 0.15);
   --pagefind-ui-border-width:  2px;
   --pagefind-ui-border-radius: 0px;
   --pagefind-ui-font:          'Geist', Arial, sans-serif;
@@ -98,7 +110,7 @@
   --sl-text-code-size: 0.85em;
 }
 
-/* ── Global feel — selection + scrollbar ─────────────────── */
+/* ── Global — selection + scrollbar ─────────────────────── */
 ::selection {
   background: var(--sl-color-accent);
   color: #F9F9F9;
@@ -108,41 +120,30 @@
 ::-webkit-scrollbar-track { background: var(--sl-color-bg); }
 ::-webkit-scrollbar-thumb { background: var(--sl-color-accent); }
 
-/* ── Header — prominent 2px border like field-notes nav ─── */
+/* ── Header — edge-to-edge, dark border, 60px ───────────── */
 header.header {
-  border-bottom:    2px solid var(--sl-color-gray-5) !important;
+  padding: 0 !important;
+  border-bottom: var(--hs-border-width) solid var(--hs-border) !important;
   background-color: var(--sl-color-bg-nav) !important;
 }
 
-/* Site title — mono wordmark with right-border separator */
-.site-title {
-  font-family:    'Geist Mono', monospace !important;
-  font-size:      11px !important;
-  letter-spacing: 0.16em !important;
-  text-transform: uppercase !important;
-  font-weight:    500 !important;
-  padding-right:  1.25rem !important;
-  border-right:   2px solid var(--sl-color-gray-5);
-}
-
-/* ── Theme select — mono uppercase ──────────────────────── */
+/* ── ThemeSelect — mono uppercase ───────────────────────── */
 starlight-theme-select select {
   font-family:    'Geist Mono', monospace !important;
   font-size:      10px !important;
   letter-spacing: 0.1em !important;
   text-transform: uppercase !important;
-  border:         1px solid var(--sl-color-gray-5) !important;
+  border:         none !important;
   border-radius:  0 !important;
   background:     transparent !important;
   color:          var(--sl-color-text) !important;
   padding:        4px 6px !important;
   cursor:         pointer;
-  transition:     border-color 150ms ease, background 150ms ease;
+  transition:     background 150ms ease;
 }
 
 starlight-theme-select select:hover {
-  border-color: var(--sl-color-accent) !important;
-  background:   var(--sl-color-accent-low) !important;
+  background: var(--sl-color-accent-low) !important;
 }
 
 /* ── Search button ───────────────────────────────────────── */
@@ -151,9 +152,46 @@ site-search button[data-open-modal] {
   font-family:    'Geist Mono', monospace;
   font-size:      10px;
   letter-spacing: 0.1em;
+  width:          100%;
+  justify-content: flex-start;
+  gap:            0.5rem;
 }
 
-/* ── Doc headings — Instrument Serif ─────────────────────── */
+/* ── Sidebar ─────────────────────────────────────────────── */
+nav.sidebar {
+  border-right: var(--hs-border-width) solid var(--hs-border) !important;
+}
+
+/* Sidebar group labels */
+.group-label span {
+  font-family:    'Geist Mono', monospace;
+  font-size:      10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity:        0.45;
+}
+
+/* Sidebar links */
+.sidebar-content a {
+  font-size:  13px;
+  transition: color 150ms ease, background 150ms ease;
+  color:      var(--sl-color-text);
+}
+
+.sidebar-content a:hover:not([aria-current='page']) {
+  color: var(--sl-color-accent);
+}
+
+/* Sidebar active state */
+a[aria-current='page'],
+.sidebar-content a[aria-current='page'] {
+  border-left:  var(--hs-border-width) solid var(--sl-color-accent) !important;
+  color:        var(--sl-color-accent) !important;
+  padding-left: calc(1rem - 2px) !important;
+  background:   var(--sl-color-accent-low) !important;
+}
+
+/* ── Doc headings — Instrument Serif, hs108 type scale ──── */
 .sl-markdown-content h1,
 .sl-markdown-content h2,
 .sl-markdown-content h3,
@@ -164,9 +202,28 @@ site-search button[data-open-modal] {
   color:          var(--sl-color-text);
 }
 
-.sl-markdown-content h2 { font-style: italic; }
+.sl-markdown-content h1 {
+  font-size:   clamp(36px, 5.5vw, 80px);
+  line-height: 1.0;
+}
 
-/* ── Hero — large italic display like field-notes ─────────── */
+.sl-markdown-content h2 {
+  font-size:   clamp(26px, 3.5vw, 48px);
+  line-height: 1.05;
+  font-style:  italic;
+}
+
+.sl-markdown-content h3 {
+  font-size:   clamp(19px, 2vw, 28px);
+  line-height: 1.2;
+}
+
+/* ── Hero ────────────────────────────────────────────────── */
+.hero {
+  border-bottom: var(--hs-border-width) solid var(--hs-border);
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+
 .hero h1 {
   font-family:    'Instrument Serif', Georgia, serif !important;
   font-style:     italic !important;
@@ -183,12 +240,7 @@ site-search button[data-open-modal] {
   color:       var(--sl-color-text);
 }
 
-.hero {
-  border-bottom: 2px solid var(--sl-color-gray-5);
-  padding-block: clamp(2rem, 5vw, 4rem);
-}
-
-/* ── Content links — field-notes background-swap hover ────── */
+/* ── Content links — background-swap hover ───────────────── */
 .sl-markdown-content a:not([class]):not([aria-current]) {
   text-underline-offset: 3px;
   transition: background 150ms ease, color 150ms ease, padding 150ms ease;
@@ -200,6 +252,43 @@ site-search button[data-open-modal] {
   color:           var(--sl-color-accent-high);
   padding-inline:  2px;
   text-decoration: none;
+}
+
+/* ── Blockquote ──────────────────────────────────────────── */
+.sl-markdown-content blockquote {
+  border-left:  var(--hs-border-width) solid var(--sl-color-accent-high) !important;
+  border-radius: 0 !important;
+  font-family:  'Instrument Serif', Georgia, serif;
+  font-style:   italic;
+  font-size:    clamp(17px, 1.8vw, 22px);
+  padding-left: 1.5rem;
+  margin-block: 2rem;
+  opacity:      0.8;
+  background:   transparent !important;
+}
+
+/* ── Lists — › marker ────────────────────────────────────── */
+.sl-markdown-content ul li {
+  list-style:   none;
+  padding-left: 1.5rem;
+  position:     relative;
+}
+
+.sl-markdown-content ul li::before {
+  content:     '›';
+  position:    absolute;
+  left:        0;
+  font-family: 'Geist Mono', monospace;
+  font-size:   10px;
+  opacity:     0.4;
+  top:         5px;
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+.sl-markdown-content hr {
+  border: none;
+  border-top: var(--hs-border-width) solid var(--hs-border-soft);
+  margin-block: 3rem;
 }
 
 /* ── Brutalist border radius reset ───────────────────────── */
@@ -221,6 +310,22 @@ summary,
   border-radius: 0 !important;
 }
 
+/* ── TOC — dark left border ──────────────────────────────── */
+starlight-toc nav {
+  border-inline-start: var(--hs-border-width) solid var(--hs-border) !important;
+}
+
+starlight-toc a {
+  font-size:  12px;
+  transition: color 150ms ease;
+}
+
+/* ── Pagination ──────────────────────────────────────────── */
+.pagination-links {
+  border-top: var(--hs-border-width) solid var(--hs-border) !important;
+  margin-top: 2rem;
+}
+
 /* ── Pagefind UI — brutalist override ────────────────────── */
 .pagefind-ui__form::before {
   border-radius: 0 !important;
@@ -229,7 +334,7 @@ summary,
 .pagefind-ui__search-input {
   font-family:   'Geist', Arial, sans-serif !important;
   font-size:     14px !important;
-  border:        2px solid var(--sl-color-gray-5) !important;
+  border:        var(--hs-border-width) solid var(--hs-border) !important;
   border-radius: 0 !important;
   background:    var(--sl-color-bg) !important;
   color:         var(--sl-color-text) !important;
@@ -247,7 +352,7 @@ summary,
 }
 
 .pagefind-ui__result {
-  border-top:    2px solid var(--sl-color-gray-5) !important;
+  border-top:    var(--hs-border-width) solid var(--hs-border) !important;
   padding-block: 1rem !important;
 }
 
@@ -269,7 +374,7 @@ summary,
   font-size:      10px !important;
   letter-spacing: 0.1em !important;
   text-transform: uppercase !important;
-  border:         2px solid var(--sl-color-accent) !important;
+  border:         var(--hs-border-width) solid var(--sl-color-accent) !important;
   background:     transparent !important;
   color:          var(--sl-color-accent) !important;
   transition:     background 150ms ease, color 150ms ease !important;
@@ -280,61 +385,33 @@ summary,
   color:      var(--sl-color-white) !important;
 }
 
-/* ── Sidebar active indicator → blue ────────────────────── */
-a[aria-current='page'],
-.sidebar-content a[aria-current='page'] {
-  border-left:  2px solid var(--sl-color-accent) !important;
-  color:        var(--sl-color-accent) !important;
-  padding-left: calc(1rem - 2px) !important;
-  background:   var(--sl-color-accent-low) !important;
-}
-
-/* ── Sidebar nav group labels ────────────────────────────── */
-.group-label span {
-  font-family:    'Geist Mono', monospace;
-  font-size:      10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity:        0.55;
-}
-
-/* ── Sidebar links ───────────────────────────────────────── */
-.sidebar-content a {
-  font-size:  13px;
-  transition: color 150ms ease, background 150ms ease;
-  color:      var(--sl-color-text);
-}
-
-.sidebar-content a:hover:not([aria-current='page']) {
-  color: var(--sl-color-accent);
-}
-
-/* ── Copy button hover → blue ───────────────────────────── */
+/* ── Copy button hover ───────────────────────────────────── */
 .expressive-code .copy button:hover {
   background-color: var(--sl-color-accent) !important;
   border-color:     var(--sl-color-accent) !important;
   color:            white !important;
 }
 
-/* ── Callout / aside — all blue ─────────────────────────── */
+/* ── Callout / aside ─────────────────────────────────────── */
 .starlight-aside {
   border-inline-start-color: var(--sl-color-accent) !important;
+  border-radius: 0 !important;
 }
 
 .starlight-aside__title {
   color: var(--sl-color-accent-high);
 }
 
-/* ── Table styling ───────────────────────────────────────── */
+/* ── Table — dark borders ────────────────────────────────── */
 .sl-markdown-content table {
-  border:          2px solid var(--sl-color-gray-5);
+  border:          var(--hs-border-width) solid var(--hs-border);
   border-collapse: collapse;
   width:           100%;
   font-size:       13px;
 }
 
 .sl-markdown-content th {
-  border-bottom:  2px solid var(--sl-color-gray-5);
+  border-bottom:  var(--hs-border-width) solid var(--hs-border);
   font-family:    'Geist Mono', monospace;
   font-size:      10px;
   letter-spacing: 0.12em;
@@ -345,7 +422,7 @@ a[aria-current='page'],
 }
 
 .sl-markdown-content td {
-  border-bottom:  1px solid var(--sl-color-gray-6);
+  border-bottom:  1px solid var(--hs-border-soft);
   padding:        10px 14px;
   vertical-align: top;
   color:          var(--sl-color-text);
@@ -356,15 +433,18 @@ a[aria-current='page'],
 /* ── Inline code ─────────────────────────────────────────── */
 .sl-markdown-content :not(pre) > code {
   background:    var(--sl-color-bg-inline-code);
-  border:        1px solid var(--sl-color-gray-5);
+  border:        1px solid var(--hs-border-soft);
   padding:       2px 6px;
   font-size:     0.82em;
   color:         var(--sl-color-text);
 }
 
-/* ── HS108 Component classes (for ComponentPreview live render) ── */
+/* =============================================================
+   HS108 COMPONENT CLASSES
+   (for ComponentPreview live render inside MDX pages)
+   ============================================================= */
 
-/* Base button — field-notes style: dark border, not currentColor */
+/* ── Buttons ─────────────────────────────────────────────── */
 .btn {
   display:         inline-flex;
   align-items:     center;
@@ -375,17 +455,16 @@ a[aria-current='page'],
   font-weight:     500;
   letter-spacing:  0.12em;
   text-transform:  uppercase;
-  border:          2px solid var(--sl-color-gray-1, #020D1F);
+  border:          var(--hs-border-width) solid var(--hs-border);
   cursor:          pointer;
   transition:      background 150ms ease, color 150ms ease, border-color 150ms ease;
   white-space:     nowrap;
   border-radius:   0;
   text-decoration: none;
   background:      transparent;
-  color:           var(--sl-color-text, #020D1F);
+  color:           var(--sl-color-text);
 }
 
-/* Primary — filled blue */
 .btn--primary {
   background:   var(--blue-500, #2186EB);
   color:        var(--blue-black-native, #020D1F);
@@ -397,11 +476,10 @@ a[aria-current='page'],
   border-color: var(--blue-700, #1259AF);
 }
 
-/* Outline — transparent, dark border */
 .btn--outline {
   background:   transparent;
-  color:        var(--sl-color-text, #020D1F);
-  border-color: var(--sl-color-gray-1, #020D1F);
+  color:        var(--sl-color-text);
+  border-color: var(--hs-border);
 }
 .btn--outline:hover {
   background:   var(--blue-500, #2186EB);
@@ -409,7 +487,6 @@ a[aria-current='page'],
   border-color: var(--blue-500, #2186EB);
 }
 
-/* Outline inverse — for dark backgrounds */
 .btn--outline-inv {
   background:   transparent;
   color:        var(--blue-100, #CFE6FE);
@@ -421,16 +498,14 @@ a[aria-current='page'],
   border-color: var(--blue-500, #2186EB);
 }
 
-/* Ghost — no border */
 .btn--ghost {
   background:     transparent;
-  color:          var(--sl-color-text, #020D1F);
+  color:          var(--sl-color-text);
   border-color:   transparent;
   padding-inline: 0;
 }
 .btn--ghost:hover { color: var(--blue-500, #2186EB); }
 
-/* Strong — deep blue */
 .btn--strong {
   background:   var(--blue-700, #1259AF);
   color:        var(--blue-white-native, #CFE6FE);
@@ -441,7 +516,6 @@ a[aria-current='page'],
   border-color: var(--blue-900, #082D60);
 }
 
-/* Action — alias for strong blue (replaces former vermilion variant) */
 .btn--action {
   background:   var(--blue-700, #1259AF);
   color:        var(--blue-100, #CFE6FE);
@@ -455,12 +529,12 @@ a[aria-current='page'],
 
 .btn--sm { padding: 8px 16px; font-size: 10px; }
 
-/* Tags */
+/* ── Tags ────────────────────────────────────────────────── */
 .tag {
   display:        inline-flex;
   align-items:    center;
   padding:        4px 10px;
-  border:         2px solid var(--sl-color-gray-1, #020D1F);
+  border:         var(--hs-border-width) solid var(--hs-border);
   font-family:    'Geist Mono', monospace;
   font-size:      11px;
   letter-spacing: 0.12em;
@@ -468,7 +542,7 @@ a[aria-current='page'],
   line-height:    1;
   white-space:    nowrap;
   border-radius:  0;
-  color:          var(--sl-color-text, #020D1F);
+  color:          var(--sl-color-text);
 }
 .tag--accent {
   background:   var(--blue-500, #2186EB);
@@ -485,13 +559,11 @@ a[aria-current='page'],
   border-color: var(--blue-200, #A3CFFD);
   color:        var(--blue-800, #0C438A);
 }
-/* Action tag — alias for strong blue (replaces former vermilion variant) */
 .tag--action {
   background:   var(--blue-700, #1259AF);
   border-color: var(--blue-700, #1259AF);
   color:        var(--blue-100, #CFE6FE);
 }
-
 .tag--muted {
   opacity:      0.5;
   border-color: currentColor;
@@ -501,9 +573,9 @@ a[aria-current='page'],
   color:        #CFE6FE;
 }
 
-/* Entry card */
+/* ── Entry card ──────────────────────────────────────────── */
 .entry-card {
-  border:         2px solid var(--sl-color-gray-5, #D8E0EB);
+  border:         var(--hs-border-width) solid var(--hs-border);
   padding:        1.5rem;
   display:        flex;
   flex-direction: column;
@@ -539,29 +611,29 @@ a[aria-current='page'],
   gap:             1rem;
   margin-top:      auto;
   padding-top:     1rem;
-  border-top:      2px solid var(--sl-color-gray-5, #D8E0EB);
+  border-top:      var(--hs-border-width) solid var(--hs-border);
 }
 
-/* Journal row */
+/* ── Journal row ─────────────────────────────────────────── */
 .journal-row {
   display:               grid;
   grid-template-columns: 140px 1fr auto;
   align-items:           start;
   gap:                   1.5rem;
   padding-block:         1.5rem;
-  border-bottom:         2px solid var(--sl-color-gray-5, #D8E0EB);
+  border-bottom:         var(--hs-border-width) solid var(--hs-border);
   transition:            background 150ms ease, padding 150ms ease;
 }
 .journal-row:hover {
-  background:    var(--sl-color-accent-low);
+  background:     var(--sl-color-accent-low);
   padding-inline: 0.5rem;
 }
-.journal-row__date  {
-  opacity: 0.4;
-  font-size: 12px;
+.journal-row__date {
+  opacity:     0.4;
+  font-size:   12px;
   font-family: 'Geist Mono', monospace;
   padding-top: 4px;
-  color: var(--sl-color-text);
+  color:       var(--sl-color-text);
 }
 .journal-row__title {
   font-family: 'Instrument Serif', Georgia, serif;
