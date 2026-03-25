@@ -1,7 +1,6 @@
 /* =============================================================
    CUSTOM.CSS — Starlight overrides for hs108 Docs
-   Remaps Starlight CSS vars to hs108 blue + vermilion palette.
-   Applies brutalist typography and border conventions.
+   Blue + blue palette. Brutalist, 0 radius, 2px borders.
    Aesthetic aligned with hs108.in / field-notes.hs108.in.
    ============================================================= */
 
@@ -12,26 +11,31 @@
   --sl-color-accent:      #2186EB;   /* blue-500 */
   --sl-color-accent-high: #1259AF;   /* blue-700 */
 
-  --sl-color-white: #F9F9F9;
-  --sl-color-black: #020D1F;         /* blue-black-native */
+  /* Explicit text + bg */
+  --sl-color-white:  #F9F9F9;
+  --sl-color-black:  #020D1F;
+  --sl-color-text:        #020D1F;
+  --sl-color-text-accent: #1259AF;
 
+  /* Gray scale — cool grays */
   --sl-color-gray-1: #020D1F;
   --sl-color-gray-2: #252525;
   --sl-color-gray-3: #525252;
   --sl-color-gray-4: #888888;
-  --sl-color-gray-5: #D8E0EB;        /* cool-200 */
-  --sl-color-gray-6: #EEF2F6;        /* cool-100 */
-  --sl-color-gray-7: #F6F8FB;        /* cool-50 */
+  --sl-color-gray-5: #D8E0EB;
+  --sl-color-gray-6: #EEF2F6;
+  --sl-color-gray-7: #F6F8FB;
 
-  /* Tinted background — blue-50, not stark white (like field-notes teal-100) */
+  /* Tinted background — blue-50, not stark white */
   --sl-color-bg:              #EEF6FF;
   --sl-color-bg-sidebar:      #E4EEFA;
   --sl-color-bg-nav:          #EEF6FF;
   --sl-color-bg-inline-code:  #DCE8F8;
 
-  /* Vermilion — highlight / action */
-  --hs-highlight:      #F03A17;
-  --hs-highlight-soft: #FFE6DF;
+  /* Highlight — blue family only */
+  --hs-highlight:      #2186EB;   /* blue-500 */
+  --hs-highlight-mid:  #1259AF;   /* blue-700 */
+  --hs-highlight-soft: #CFE6FE;   /* blue-100 */
 
   /* Pagefind search UI */
   --pagefind-ui-scale:         0.9;
@@ -42,6 +46,7 @@
   --pagefind-ui-border-width:  2px;
   --pagefind-ui-border-radius: 0px;
   --pagefind-ui-font:          'Geist', Arial, sans-serif;
+  --pagefind-ui-tag:           #DCE8F8;
 }
 
 /* ── Dark theme ──────────────────────────────────────────── */
@@ -52,7 +57,10 @@
 
   --sl-color-white: #F9F9F9;
   --sl-color-black: #020D1F;
+  --sl-color-text:        #D8E0EB;
+  --sl-color-text-accent: #A3CFFD;
 
+  /* Gray scale — inverted */
   --sl-color-gray-1: #EEF2F6;
   --sl-color-gray-2: #D8E0EB;
   --sl-color-gray-3: #88919A;
@@ -61,22 +69,26 @@
   --sl-color-gray-6: #282D30;
   --sl-color-gray-7: #131619;
 
-  /* Deep navy background — richer than default */
-  --sl-color-bg:         #060D18;
-  --sl-color-bg-sidebar: #080F1E;
-  --sl-color-bg-nav:     #060D18;
+  /* Deep navy background */
+  --sl-color-bg:              #060D18;
+  --sl-color-bg-sidebar:      #080F1E;
+  --sl-color-bg-nav:          #060D18;
+  --sl-color-bg-inline-code:  #0F1F36;
 
-  --hs-highlight:      #FF7461;      /* vermilion-400 (brighter on dark) */
-  --hs-highlight-soft: #300A02;
+  /* Highlight — bright blue for dark bg */
+  --hs-highlight:      #3E98FA;   /* blue-400 */
+  --hs-highlight-mid:  #A3CFFD;   /* blue-200 */
+  --hs-highlight-soft: #082D60;   /* blue-900 */
 
-  /* Pagefind search UI — dark */
+  /* Pagefind search UI */
   --pagefind-ui-primary:       #3E98FA;
-  --pagefind-ui-text:          #EEF2F6;
+  --pagefind-ui-text:          #D8E0EB;
   --pagefind-ui-background:    #060D18;
   --pagefind-ui-border:        #3E444A;
   --pagefind-ui-border-width:  2px;
   --pagefind-ui-border-radius: 0px;
   --pagefind-ui-font:          'Geist', Arial, sans-serif;
+  --pagefind-ui-tag:           #0F1F36;
 }
 
 /* ── Typography overrides ────────────────────────────────── */
@@ -89,7 +101,7 @@
 /* ── Global feel — selection + scrollbar ─────────────────── */
 ::selection {
   background: var(--sl-color-accent);
-  color: var(--sl-color-white);
+  color: #F9F9F9;
 }
 
 ::-webkit-scrollbar { width: 4px; }
@@ -98,23 +110,22 @@
 
 /* ── Header — prominent 2px border like field-notes nav ─── */
 header.header {
-  border-bottom: 2px solid var(--sl-color-gray-5) !important;
+  border-bottom:    2px solid var(--sl-color-gray-5) !important;
   background-color: var(--sl-color-bg-nav) !important;
 }
 
-/* Site title separator */
+/* Site title — mono wordmark with right-border separator */
 .site-title {
-  font-family:     'Geist Mono', monospace !important;
-  font-size:       11px !important;
-  letter-spacing:  0.16em !important;
-  text-transform:  uppercase !important;
-  font-weight:     500 !important;
-  padding-right:   1.25rem !important;
-  border-right:    2px solid var(--sl-color-gray-5);
-  margin-right:    0 !important;
+  font-family:    'Geist Mono', monospace !important;
+  font-size:      11px !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  font-weight:    500 !important;
+  padding-right:  1.25rem !important;
+  border-right:   2px solid var(--sl-color-gray-5);
 }
 
-/* ── Theme select — mono uppercase like field-notes labels ─ */
+/* ── Theme select — mono uppercase ──────────────────────── */
 starlight-theme-select select {
   font-family:    'Geist Mono', monospace !important;
   font-size:      10px !important;
@@ -123,6 +134,7 @@ starlight-theme-select select {
   border:         1px solid var(--sl-color-gray-5) !important;
   border-radius:  0 !important;
   background:     transparent !important;
+  color:          var(--sl-color-text) !important;
   padding:        4px 6px !important;
   cursor:         pointer;
   transition:     border-color 150ms ease, background 150ms ease;
@@ -133,16 +145,15 @@ starlight-theme-select select:hover {
   background:   var(--sl-color-accent-low) !important;
 }
 
-/* ── Search button — style to match the mono label family ── */
+/* ── Search button ───────────────────────────────────────── */
 site-search button[data-open-modal] {
-  border-radius: 0 !important;
-  font-family:   'Geist Mono', monospace;
-  font-size:     10px;
+  border-radius:  0 !important;
+  font-family:    'Geist Mono', monospace;
+  font-size:      10px;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 
-/* ── Doc headings use Instrument Serif ───────────────────── */
+/* ── Doc headings — Instrument Serif ─────────────────────── */
 .sl-markdown-content h1,
 .sl-markdown-content h2,
 .sl-markdown-content h3,
@@ -150,11 +161,12 @@ site-search button[data-open-modal] {
   font-family:    'Instrument Serif', Georgia, serif;
   font-weight:    400;
   letter-spacing: -0.01em;
+  color:          var(--sl-color-text);
 }
 
 .sl-markdown-content h2 { font-style: italic; }
 
-/* ── Hero — large italic display like field-notes hero ────── */
+/* ── Hero — large italic display like field-notes ─────────── */
 .hero h1 {
   font-family:    'Instrument Serif', Georgia, serif !important;
   font-style:     italic !important;
@@ -162,11 +174,13 @@ site-search button[data-open-modal] {
   font-weight:    400 !important;
   letter-spacing: -0.01em !important;
   line-height:    1.0 !important;
+  color:          var(--sl-color-text) !important;
 }
 
 .hero .tagline {
   font-family: 'Geist', Arial, sans-serif;
-  opacity: 0.7;
+  opacity:     0.7;
+  color:       var(--sl-color-text);
 }
 
 .hero {
@@ -178,6 +192,7 @@ site-search button[data-open-modal] {
 .sl-markdown-content a:not([class]):not([aria-current]) {
   text-underline-offset: 3px;
   transition: background 150ms ease, color 150ms ease, padding 150ms ease;
+  color: var(--sl-color-accent);
 }
 
 .sl-markdown-content a:not([class]):not([aria-current]):hover {
@@ -212,13 +227,13 @@ summary,
 }
 
 .pagefind-ui__search-input {
-  font-family:    'Geist', Arial, sans-serif !important;
-  font-size:      14px !important;
-  border:         2px solid var(--sl-color-gray-5) !important;
-  border-radius:  0 !important;
-  background:     var(--sl-color-bg) !important;
-  color:          var(--sl-color-gray-1) !important;
-  transition:     border-color 150ms ease !important;
+  font-family:   'Geist', Arial, sans-serif !important;
+  font-size:     14px !important;
+  border:        2px solid var(--sl-color-gray-5) !important;
+  border-radius: 0 !important;
+  background:    var(--sl-color-bg) !important;
+  color:         var(--sl-color-text) !important;
+  transition:    border-color 150ms ease !important;
 }
 
 .pagefind-ui__search-input:focus {
@@ -226,20 +241,21 @@ summary,
   outline:      none !important;
 }
 
-.pagefind-ui__search-clear {
+.pagefind-ui__search-clear,
+.pagefind-ui__result {
   border-radius: 0 !important;
 }
 
 .pagefind-ui__result {
-  border-top:     2px solid var(--sl-color-gray-5) !important;
-  border-radius:  0 !important;
-  padding-block:  1rem !important;
+  border-top:    2px solid var(--sl-color-gray-5) !important;
+  padding-block: 1rem !important;
 }
 
 .pagefind-ui__result-link {
   font-family: 'Instrument Serif', Georgia, serif !important;
   font-style:  italic !important;
   font-size:   18px !important;
+  color:       var(--sl-color-accent) !important;
 }
 
 .pagefind-ui__result-excerpt mark {
@@ -264,12 +280,13 @@ summary,
   color:      var(--sl-color-white) !important;
 }
 
-/* ── Sidebar active indicator → vermilion ────────────────── */
+/* ── Sidebar active indicator → blue ────────────────────── */
 a[aria-current='page'],
 .sidebar-content a[aria-current='page'] {
-  border-left:  2px solid var(--hs-highlight) !important;
-  color:        var(--hs-highlight) !important;
+  border-left:  2px solid var(--sl-color-accent) !important;
+  color:        var(--sl-color-accent) !important;
   padding-left: calc(1rem - 2px) !important;
+  background:   var(--sl-color-accent-low) !important;
 }
 
 /* ── Sidebar nav group labels ────────────────────────────── */
@@ -285,30 +302,27 @@ a[aria-current='page'],
 .sidebar-content a {
   font-size:  13px;
   transition: color 150ms ease, background 150ms ease;
+  color:      var(--sl-color-text);
 }
 
 .sidebar-content a:hover:not([aria-current='page']) {
   color: var(--sl-color-accent);
 }
 
-/* ── Copy button hover → vermilion ──────────────────────── */
+/* ── Copy button hover → blue ───────────────────────────── */
 .expressive-code .copy button:hover {
-  background-color: var(--hs-highlight) !important;
-  border-color:     var(--hs-highlight) !important;
+  background-color: var(--sl-color-accent) !important;
+  border-color:     var(--sl-color-accent) !important;
   color:            white !important;
 }
 
-/* ── Callout / aside accent ──────────────────────────────── */
-.starlight-aside--note {
+/* ── Callout / aside — all blue ─────────────────────────── */
+.starlight-aside {
   border-inline-start-color: var(--sl-color-accent) !important;
 }
-.starlight-aside--caution,
-.starlight-aside--danger,
-.starlight-aside--tip {
-  border-inline-start-color: var(--hs-highlight) !important;
-}
-.starlight-aside--tip .starlight-aside__title {
-  color: var(--hs-highlight);
+
+.starlight-aside__title {
+  color: var(--sl-color-accent-high);
 }
 
 /* ── Table styling ───────────────────────────────────────── */
@@ -318,6 +332,7 @@ a[aria-current='page'],
   width:           100%;
   font-size:       13px;
 }
+
 .sl-markdown-content th {
   border-bottom:  2px solid var(--sl-color-gray-5);
   font-family:    'Geist Mono', monospace;
@@ -326,12 +341,16 @@ a[aria-current='page'],
   text-transform: uppercase;
   padding:        10px 14px;
   text-align:     left;
+  color:          var(--sl-color-text);
 }
+
 .sl-markdown-content td {
-  border-bottom: 1px solid var(--sl-color-gray-6);
-  padding:       10px 14px;
+  border-bottom:  1px solid var(--sl-color-gray-6);
+  padding:        10px 14px;
   vertical-align: top;
+  color:          var(--sl-color-text);
 }
+
 .sl-markdown-content tr:last-child td { border-bottom: none; }
 
 /* ── Inline code ─────────────────────────────────────────── */
@@ -340,11 +359,12 @@ a[aria-current='page'],
   border:        1px solid var(--sl-color-gray-5);
   padding:       2px 6px;
   font-size:     0.82em;
+  color:         var(--sl-color-text);
 }
 
 /* ── HS108 Component classes (for ComponentPreview live render) ── */
 
-/* Buttons */
+/* Base button — field-notes style: dark border, not currentColor */
 .btn {
   display:         inline-flex;
   align-items:     center;
@@ -355,13 +375,17 @@ a[aria-current='page'],
   font-weight:     500;
   letter-spacing:  0.12em;
   text-transform:  uppercase;
-  border:          2px solid currentColor;
+  border:          2px solid var(--sl-color-gray-1, #020D1F);
   cursor:          pointer;
   transition:      background 150ms ease, color 150ms ease, border-color 150ms ease;
   white-space:     nowrap;
   border-radius:   0;
   text-decoration: none;
+  background:      transparent;
+  color:           var(--sl-color-text, #020D1F);
 }
+
+/* Primary — filled blue */
 .btn--primary {
   background:   var(--blue-500, #2186EB);
   color:        var(--blue-black-native, #020D1F);
@@ -372,32 +396,63 @@ a[aria-current='page'],
   color:        var(--blue-white-native, #CFE6FE);
   border-color: var(--blue-700, #1259AF);
 }
+
+/* Outline — transparent, dark border */
 .btn--outline {
   background:   transparent;
   color:        var(--sl-color-text, #020D1F);
-  border-color: var(--sl-color-text, #020D1F);
+  border-color: var(--sl-color-gray-1, #020D1F);
 }
 .btn--outline:hover {
   background:   var(--blue-500, #2186EB);
   color:        var(--blue-black-native, #020D1F);
   border-color: var(--blue-500, #2186EB);
 }
+
+/* Outline inverse — for dark backgrounds */
+.btn--outline-inv {
+  background:   transparent;
+  color:        var(--blue-100, #CFE6FE);
+  border-color: rgba(207, 230, 254, 0.35);
+}
+.btn--outline-inv:hover {
+  background:   var(--blue-500, #2186EB);
+  color:        var(--blue-black-native, #020D1F);
+  border-color: var(--blue-500, #2186EB);
+}
+
+/* Ghost — no border */
 .btn--ghost {
-  background:    transparent;
-  color:         var(--sl-color-text, #020D1F);
-  border-color:  transparent;
+  background:     transparent;
+  color:          var(--sl-color-text, #020D1F);
+  border-color:   transparent;
   padding-inline: 0;
 }
 .btn--ghost:hover { color: var(--blue-500, #2186EB); }
+
+/* Strong — deep blue */
+.btn--strong {
+  background:   var(--blue-700, #1259AF);
+  color:        var(--blue-white-native, #CFE6FE);
+  border-color: var(--blue-700, #1259AF);
+}
+.btn--strong:hover {
+  background:   var(--blue-900, #082D60);
+  border-color: var(--blue-900, #082D60);
+}
+
+/* Action — alias for strong blue (replaces former vermilion variant) */
 .btn--action {
-  background:   var(--vermilion-500, #F03A17);
-  color:        white;
-  border-color: var(--vermilion-500, #F03A17);
+  background:   var(--blue-700, #1259AF);
+  color:        var(--blue-100, #CFE6FE);
+  border-color: var(--blue-700, #1259AF);
 }
 .btn--action:hover {
-  background:   var(--vermilion-700, #A6260B);
-  border-color: var(--vermilion-700, #A6260B);
+  background:   var(--blue-900, #082D60);
+  border-color: var(--blue-900, #082D60);
+  color:        var(--blue-200, #A3CFFD);
 }
+
 .btn--sm { padding: 8px 16px; font-size: 10px; }
 
 /* Tags */
@@ -405,7 +460,7 @@ a[aria-current='page'],
   display:        inline-flex;
   align-items:    center;
   padding:        4px 10px;
-  border:         2px solid currentColor;
+  border:         2px solid var(--sl-color-gray-1, #020D1F);
   font-family:    'Geist Mono', monospace;
   font-size:      11px;
   letter-spacing: 0.12em;
@@ -413,17 +468,30 @@ a[aria-current='page'],
   line-height:    1;
   white-space:    nowrap;
   border-radius:  0;
+  color:          var(--sl-color-text, #020D1F);
 }
 .tag--accent {
   background:   var(--blue-500, #2186EB);
   border-color: var(--blue-500, #2186EB);
   color:        var(--blue-black-native, #020D1F);
 }
-.tag--action {
-  background:   var(--vermilion-500, #F03A17);
-  border-color: var(--vermilion-500, #F03A17);
-  color:        white;
+.tag--strong {
+  background:   var(--blue-700, #1259AF);
+  border-color: var(--blue-700, #1259AF);
+  color:        var(--blue-100, #CFE6FE);
 }
+.tag--soft {
+  background:   var(--blue-100, #CFE6FE);
+  border-color: var(--blue-200, #A3CFFD);
+  color:        var(--blue-800, #0C438A);
+}
+/* Action tag — alias for strong blue (replaces former vermilion variant) */
+.tag--action {
+  background:   var(--blue-700, #1259AF);
+  border-color: var(--blue-700, #1259AF);
+  color:        var(--blue-100, #CFE6FE);
+}
+
 .tag--muted {
   opacity:      0.5;
   border-color: currentColor;
@@ -443,7 +511,7 @@ a[aria-current='page'],
   transition:     background 150ms ease;
   cursor:         pointer;
 }
-.entry-card:hover { background: var(--sl-color-gray-7, #F6F8FB); }
+.entry-card:hover { background: var(--sl-color-accent-low); }
 .entry-card__meta {
   display:     flex;
   align-items: center;
@@ -456,11 +524,13 @@ a[aria-current='page'],
   font-weight: 400;
   font-style:  italic;
   line-height: 1.15;
+  color:       var(--sl-color-text);
 }
 .entry-card__thesis {
   font-size:   13px;
   opacity:     0.6;
   line-height: 1.55;
+  color:       var(--sl-color-text);
 }
 .entry-card__footer {
   display:         flex;
@@ -480,9 +550,30 @@ a[aria-current='page'],
   gap:                   1.5rem;
   padding-block:         1.5rem;
   border-bottom:         2px solid var(--sl-color-gray-5, #D8E0EB);
-  transition:            background 150ms ease;
+  transition:            background 150ms ease, padding 150ms ease;
 }
-.journal-row:hover { background: var(--sl-color-gray-7, #F6F8FB); }
-.journal-row__date  { opacity: 0.4; font-size: 12px; font-family: 'Geist Mono', monospace; padding-top: 4px; }
-.journal-row__title { font-family: 'Instrument Serif', Georgia, serif; font-size: 20px; font-weight: 400; font-style: italic; line-height: 1.2; }
-.journal-row__sub   { font-size: 12px; opacity: 0.5; margin-top: 0.3rem; }
+.journal-row:hover {
+  background:    var(--sl-color-accent-low);
+  padding-inline: 0.5rem;
+}
+.journal-row__date  {
+  opacity: 0.4;
+  font-size: 12px;
+  font-family: 'Geist Mono', monospace;
+  padding-top: 4px;
+  color: var(--sl-color-text);
+}
+.journal-row__title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size:   20px;
+  font-weight: 400;
+  font-style:  italic;
+  line-height: 1.2;
+  color:       var(--sl-color-text);
+}
+.journal-row__sub {
+  font-size:  12px;
+  opacity:    0.5;
+  margin-top: 0.3rem;
+  color:      var(--sl-color-text);
+}
