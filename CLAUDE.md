@@ -82,17 +82,20 @@ All h1–h4 in markdown content use Instrument Serif weight 400.
 
 ## Starlight component overrides
 
-Starlight's default Header is replaced with a custom component. Registered in `astro.config.mjs`:
+Both Header and Footer are replaced with custom components. Registered in `astro.config.mjs`:
 
 ```js
 components: {
   Header: './src/components/Header.astro',
+  Footer: './src/components/Footer.astro',
 }
 ```
 
-The custom Header (`src/components/Header.astro`) mirrors the field-notes nav:
+### Header (`src/components/Header.astro`)
+
+Mirrors the field-notes nav:
 - 60px bar, dark 2px border-bottom
-- Wordmark `hs108 / docs` — Geist Mono uppercase, dark right border, hover fills with accent
+- Wordmark `hs108 / docs` — Geist Mono uppercase 13px bold, dark right border, hover fills with accent
 - Search stretches to fill middle
 - ThemeSelect + MobileMenuToggle in right group, each with dark left border
 - On mobile: `/docs` label hidden, MobileMenuToggle visible
@@ -105,6 +108,23 @@ import MobileMenuToggle from 'virtual:starlight/components/MobileMenuToggle';
 ```
 
 The `<header class="header">` wrapper is rendered by Starlight's `PageFrame.astro` — the custom Header.astro renders INSIDE it. Override `padding: 0` on `header.header` in custom.css to go edge-to-edge.
+
+### Footer (`src/components/Footer.astro`)
+
+Mirrors the field-notes footer pattern:
+- Re-includes Starlight's `Pagination` component at the top (prev/next doc navigation)
+- Below pagination: site footer with `border-top: var(--hs-border-width) solid var(--hs-border)`
+- Top section: left = branding + description; right = nav columns (Pages, Studio)
+- Pages links: Introduction, Design Tokens, Typography, Components
+- Studio links: hs108.in ↗, Field Notes ↗
+- `<hr>` separator (uses `--hs-border-soft`)
+- Bottom row: © year + domain, Geist Mono uppercase, opacity 0.3
+- Mobile (`max-width: 640px`): stacks vertically
+
+Sub-components:
+```js
+import Pagination from 'virtual:starlight/components/Pagination';
+```
 
 ---
 
@@ -147,7 +167,8 @@ Located in `docs-site/src/components/`:
 
 | Component | Purpose | Key props |
 |---|---|---|
-| `Header.astro` | Custom nav override — field-notes style 60px bar | Starlight Props (spread to sub-components) |
+| `Header.astro` | Custom nav override — field-notes style 60px bar, bolder wordmark (13px/700) | Starlight Props (spread to sub-components) |
+| `Footer.astro` | Custom footer override — Pagination + site footer with nav columns | Starlight Props (spread to Pagination) |
 | `ColorSwatch.astro` | Swatch grid with hex overlay on hover | `swatches[]`, `family?` |
 | `TokenTable.astro` | Copy-on-click token reference table | `tokens[]`, `caption?` |
 | `TypeSpecimen.astro` | Live text at each type scale step | `scale[]` |
@@ -162,7 +183,7 @@ Motion stagger scroll animations used in `ColorSwatch` and `TypeSpecimen`. Easin
 | File | Purpose |
 |---|---|
 | `src/styles/tokens.css` | All CSS custom properties — hue scales, semantic tokens, type scale, spacing. Google Fonts `@import` at top. |
-| `src/styles/custom.css` | Starlight overrides only — maps `--sl-*` vars, adds `--hs-border` system, prose styles, component classes for MDX previews. |
+| `src/styles/custom.css` | Starlight overrides only — maps `--sl-*` vars, adds `--hs-border` system, sets `--sl-content-width: 65rem`, prose styles, component classes for MDX previews. |
 
 ---
 
